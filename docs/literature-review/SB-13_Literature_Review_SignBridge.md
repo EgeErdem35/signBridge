@@ -1,244 +1,269 @@
 ---
-title: "SB-13 — Literature Review on TİD Recognition and Translation Models"
-subtitle: "A comparative review of LSTM, Transformer and GCN architectures for landmark-based Turkish Sign Language (TİD) recognition and translation"
-author: "SignBridge Team — prepared by Ceren Bilgenoğlu"
-date: "15.10.2026 — Version 2.0"
+title: "SB-13 - Literature Review on TİD Recognition and Translation Models"
+subtitle: "Evidence-based comparison of LSTM, Transformer and GCN models for SignBridge-TR"
+author: "Ceren Bilgenoğlu - SignBridge Team"
+date: "15 October 2026 - Version 2.1"
 lang: en
 ---
 
 | Field | Value |
 |---|---|
-| Project | SignBridge |
-| Jira issue | SB-13 (Story, 5 SP) |
-| Epic | SB-1 PROJECT_MANAGEMENT_AND_DOCUMENTATION |
-| Sprint | SB Sprint 1 (05.10.2026 – 18.10.2026) |
+| Project / issue | SignBridge-TR / SB-13 (Story, 5 SP) |
+| Epic / sprint | SB-1 / SB Sprint 1 (5-18 October 2026) |
 | Author | Ceren Bilgenoğlu |
-| Reviewer(s) | KUTAY (review on GitHub PR #2) |
-| Related issues | SB-8 (Proposal), SB-12 (Datasets), SB-14 (Gloss/Lexicon), SB-15 (MediaPipe) |
-| Status | In review (GitHub PR #2, branch story/SB-13) |
+| Document status | Revised submission for peer review; approval not claimed |
+| Related work | SB-8 proposal; SB-12 datasets; SB-14 gloss/lexicon; SB-15 landmarks |
+| Proposal basis | Supplied SignBridge-TR Project Proposal, 9-page version |
+| Revision | v2.1: experiment provenance, current proposal alignment, API versioning and qualified recommendations |
+
+## Abstract
+
+This review compares recurrent, attention-based and graph-based models for landmark-based Turkish Sign Language (TİD) recognition and examines their role in a bounded recognition-to-text pipeline. Published accuracy and timing evidence are separated by dataset and evaluation protocol. The review supports testing an LSTM baseline against a pose Transformer and a graph model, while treating browser compatibility, unseen-signer accuracy and transfer learning as questions requiring project measurements. It preserves the proposal's pause-separated MVP and existing success criteria. Continuous signing and sentence-level translation are reviewed to explain limitations and future extensions, rather than to expand the current implementation scope. No new model training or project benchmark is reported.
 
 # 1. Introduction
 
-SignBridge aims to translate between Turkish Sign Language (Türk İşaret Dili, TİD) and Turkish in a web browser: signed input is captured by a camera, converted into body landmarks, and recognised; in the opposite direction, Turkish speech or text is mapped to signs rendered by a 3D avatar. The machine-learning core of the system is a **landmark-based** sign recogniser, i.e. a model that receives sequences of keypoints (hands, body, face) rather than raw RGB frames.
+SignBridge-TR is a proposed browser-based system connecting TİD signs with Turkish text and speech. Its reverse direction uses Turkish-to-gloss conversion and a verified avatar animation library. SB-13 concerns the recognition and translation literature supporting these components; it does not implement the complete application.
 
-Jira issue SB-13 asks for *"a comprehensive literature review on existing Sign Language Recognition (SLR) models, comparing Transformer vs. LSTM vs. GCN architectures for landmark-based TİD translation."* This document answers that request and is written so that its conclusions can be used directly by SB-8 (Project Proposal), SB-12 (dataset exploration), SB-14 (gloss/lexicon schema) and SB-15 (MediaPipe feasibility).
+The recognition input is a time sequence of landmarks rather than raw video. This choice reduces the recogniser's visual input but makes landmark quality, missing observations and feature selection part of the learning problem. The system must distinguish a sign label from a grammatically correct Turkish sentence and must remain usable by people not represented in training.
 
 ## 1.1 Research questions
 
-- **RQ1.** Which public TİD datasets are available, and how should models trained on them be evaluated?
-- **RQ2.** How do LSTM, Transformer and GCN architectures compare for landmark-based isolated sign recognition, in accuracy, cost and data needs?
-- **RQ3.** Can models pre-trained on large datasets be transferred to a small, project-specific vocabulary?
-- **RQ4.** What does the literature say about sign language *translation* (sentence level) and about segmenting continuous signing?
-- **RQ5.** What constraints does real-time, in-browser execution impose on the model choice?
+- RQ1: Which TİD resources fit the target vocabulary and evaluation setting?
+- RQ2: How do LSTM, Transformer and GCN models compare under comparable landmark inputs?
+- RQ3: How should pre-training and adaptation to a small domain vocabulary be assessed?
+- RQ4: What separates isolated recognition, continuous recognition and translation?
+- RQ5: What evidence is needed before selecting a model for browser deployment?
 
-## 1.2 Scope
+## 1.2 Scope and contribution
 
-In scope: isolated and continuous SLR, sign language translation (SLT), pose/landmark-based methods, TİD resources, and deployment on consumer devices. Out of scope: sensor-glove methods, sign language *production* with avatars (covered by the AVATAR_3D_VISUALIZATION epic), and speech recognition (covered by the proposal).
+The review covers datasets, model families, landmark extraction, transfer learning, segmentation and gloss-mediated translation. Detailed avatar motion generation, speech recognition and accessibility implementation belong to other project work. The contribution is a model-selection rationale and an evaluation protocol, not a claim of a new state-of-the-art algorithm. The proposal already limits the MVP to intentionally pause-separated signs; unrestricted continuous TİD translation remains outside this scope.
 
 # 2. Review Methodology
 
-**Sources searched:** Google Scholar, arXiv, IEEE Xplore, CVF Open Access (CVPR/ICCV/WACV workshops), ACL Anthology, and the Kaggle competition archive.
+## 2.1 Review design and evidence base
 
-**Search strings (combined with AND/OR):** "sign language recognition", "Turkish Sign Language" / "TİD" / "TSL", "AUTSL", "BosphorusSign22k", "skeleton-based" / "pose-based" / "landmark", "graph convolutional network", "transformer", "LSTM", "sign language translation", "sign language segmentation", "MediaPipe".
+This is a targeted narrative review, not a systematic review or an exhaustive survey of work published through 2026. The supplied v2.0 bibliography was the seed set. The present revision audited decision-critical claims against primary publications and official documentation on 15 October 2026. Earlier database search counts and screening logs were not retained, so no historical hit counts, deduplication totals or PRISMA flow are asserted.
 
-**Inclusion criteria:** (i) peer-reviewed papers, theses or official benchmark/competition documentation; (ii) published 1997–2025 (foundational architecture papers are included regardless of age); (iii) reports quantitative results on a public benchmark, or provides a TİD resource or linguistic description; (iv) relevance to at least one research question.
+Focused queries included "OpenHands ACL 2022 AUTSL", "BosphorusSign22k", "E-TSL continuous educational Turkish sign language dataset" and "Linguistically motivated sign language segmentation". Retrieval followed primary links from ACL Anthology, author manuscripts, dataset pages and official documentation. The audit checked retained result tables and the current landmark API (Appendix B). Foundational/application publications span 1997-2024; documentation was checked in 2026. This distribution does not imply that newer research is absent.
 
-**Exclusion criteria:** non-reproducible claims without a public benchmark, sensor/glove-only systems, and secondary blog posts when a primary source exists (blogs are used only for competition rules not published elsewhere).
+## 2.2 Selection and quality criteria
 
-**Quality rule used throughout:** every number in this review is reported together with (a) the dataset, (b) the split (random vs. signer-independent) and (c) the input modality, because results that differ in any of these are not comparable. Where two numbers come from different papers, this is stated explicitly.
+Include a source if it supplies a relevant model, dataset, linguistic observation, evaluation method or official deployment specification. Prefer original papers and official documentation. Exclude unsupported benchmark claims, glove-only methods and product marketing as evidence of model accuracy. A participant account [17] is retained only as supplementary deployment context; it is not a peer-reviewed result or a substitute for competition rules [16].
 
-The final set contains **22 references** (see References). Every reference is cited in the text.
+The bibliography has 23 entries: 17 academic publications, five official technical/competition resources and one supplementary participant write-up. All are cited. A citation does not imply that every experiment or bibliographic field was independently reproduced.
 
-# 3. Background
+## 2.3 Reporting rules
 
-## 3.1 Recognition vs. translation
+Every retained model score is associated with its dataset, evaluation partition and input modality. Unknown signer independence is explicitly marked rather than inferred. Accuracy, translation quality and timing are different outcomes and are not ranked on one numerical scale. Dataset descriptors, API output counts and proposal targets are labelled as such; they are not project results. Findings from the literature are distinguished from engineering hypotheses and proposed future experiments.
 
-*Isolated SLR* classifies a pre-segmented clip into one sign (gloss). *Continuous SLR* outputs a gloss sequence from an unsegmented video. *Sign language translation (SLT)* produces a spoken-language sentence, which requires handling different word order and grammar [10], [11]. SignBridge's sign-to-text direction combines isolated recognition with a segmentation step (Section 9) and a gloss-to-Turkish step (Section 8).
+# 3. Background: Language and Task Definitions
 
-## 3.2 Linguistic properties of TİD relevant to modelling
+## 3.1 Recognition is not translation
 
-TİD is a full natural language with its own grammar. Zeshan's typological description documents, among others, three types of non-manual negation (headshake, backward head tilt, puffed cheeks), a negator that cliticises to the preceding predicate, and a question particle [19]. Kayahan and Güngör's Turkish-to-TİD work notes that TİD glosses carry no suffixes (verbs in infinitive form, nouns in nominative), that meaning carried by Turkish suffixes is often expressed through non-manual markers such as head tilt, eye gaze and mouthing, and that proper nouns are fingerspelled [20].
+Isolated recognition predicts a gloss from a bounded sign clip. Continuous recognition predicts a gloss sequence from an unsegmented stream. Translation produces a spoken-language sentence and must account for grammar and meaning [10], [11]. Recognition accuracy therefore cannot establish translation quality. A gloss sequence is an interface representation, not automatically grammatical Turkish.
 
-**Implication:** a recogniser that uses only hand landmarks cannot see negation, questions or many grammatical markers. Face and head landmarks must be part of the input (Section 5), and the gloss schema in SB-14 must store non-manual markers explicitly.
+For the MVP, the intended chain is a user-delimited sign clip, a recognised gloss, an accumulated gloss sequence and rule/LLM-assisted Turkish generation. Recognition uncertainty must remain visible to the next module instead of being silently replaced by fluent text. Section 9 discusses why this design does not amount to unrestricted continuous translation.
 
-# 4. Datasets (RQ1)
+## 3.2 TİD-specific implications
 
-| Dataset | Language | Classes | Signers | Samples | Modalities | Split used for reported results |
-|---|---|---|---|---|---|---|
-| AUTSL [1] | TİD | 226 | 43 | 38,336 | RGB, depth, skeleton (Kinect v2) | Signer-independent |
-| BosphorusSign22k [2] | TİD | 744 (428 health, 163 finance, 174 general) | 6 | 22,542 | RGB 1920×1080 @ 30 fps, depth, Kinect + OpenPose keypoints | Signer-independent (1 signer held out) |
-| E-TSL [18] | TİD (continuous) | – (sentence level) | 11 | 1,410 videos (~24 h) | RGB | Translation (BLEU) |
-| Google ISLR (Kaggle) [16] | ASL | 250 | – | ~95,000 training examples | MediaPipe Holistic landmarks only | Hidden test set |
+TİD has its own linguistic structure. Zeshan [19] describes the role of non-manual features, while Kayahan and Güngör [20] discuss Turkish-to-TİD conversion. These sources support treating Turkish morphology, gloss ordering and non-manual information explicitly; they do not justify a universal word-by-word conversion rule.
 
-**AUTSL.** The largest isolated TİD dataset. Its authors report that the same CNN+LSTM baseline reaches **95.95 % on a random split but only 62.02 % on the signer-independent split** [1]. This gap is the most important methodological lesson for SignBridge: *results on random splits overestimate real-world accuracy for unseen users.* AUTSL was later used for the ChaLearn LAP 2021 signer-independent challenge [3].
+For SB-14, gloss identity, Turkish equivalents, domain, variant information and non-manual annotations should be distinguishable. An annotation field does not prove that the recogniser can infer its value. Facial feature selection and language rules require validation with reliable TİD references and, where available, competent TİD users. SignBridge's recognition vocabulary and avatar library need separate coverage accounting.
 
-**BosphorusSign22k.** Smaller in signer count but larger in vocabulary, and **428 of its 744 classes are from the health domain** [2]. Because SignBridge targets health/pharmacy scenarios, this dataset is the most relevant source of domain vocabulary, and should be added to the proposal's dataset table (see Section 11). Its baselines are RGB-based (IDT 88.53 %, MC3 3D-ResNet 78.85 % top-1, signer-independent) [2]; no landmark-based baseline is reported in that paper.
+# 4. Datasets and Evaluation Setting (RQ1)
 
-**E-TSL.** A continuous TİD translation dataset built from online school lessons. 64 % of its vocabulary words are singletons and the best reported baseline reaches only **3.28 BLEU-4** [18]. It shows that open-vocabulary TİD translation is far from solved.
-
-**Google ISLR.** Not TİD, but it is the closest public benchmark to SignBridge's technical setting: input is *only* MediaPipe Holistic landmarks and submissions had to run under strict on-device constraints [16], [17] (see Section 10).
-
-**Action for SB-12:** compute the class overlap between AUTSL, BosphorusSign22k and SignBridge's planned 150-sign vocabulary, and record licence/access conditions for each dataset.
-
-# 5. Landmark Extraction (input to all models)
-
-**MediaPipe Holistic** combines pose, face and hand models and outputs **543 landmarks per frame: 33 pose, 468 face and 21 per hand** [13], [17]. It is available for the web through the MediaPipe Tasks API (`@mediapipe/tasks-vision`, *Holistic Landmarker*); the current web guide documents the IMAGE and VIDEO running modes [14].
-
-The literature consistently uses a **reduced subset** rather than all 543 points:
-
-- OpenHands uses MediaPipe Holistic and selects **27 keypoints** (upper body, hands, face) [6].
-- SAM-SLR uses an HRNet whole-body estimator (133 keypoints) reduced to a **27-node graph** (10 per hand, 7 upper body) [4].
-- In the Kaggle ISLR competition, a 2nd-place team used 80 points for a CNN (both hands, lips, arms, brows, nose) and 61 points for a Transformer [17].
-
-**Implications for SB-15:** (i) use Holistic, not Hands-only, because face/head cues carry grammar (Section 3.2); (ii) define a fixed, documented subset (≈ 27–80 points) and normalisation (e.g. shoulder-centred, scale-normalised); (iii) measure in-browser FPS on target hardware, since no published browser FPS figure for Holistic was found in the reviewed sources.
-
-# 6. Architectures (RQ2)
-
-## 6.1 Recurrent networks (LSTM / GRU)
-
-LSTMs [7] model a landmark sequence step by step. They are small and fast: in OpenHands, an LSTM needs ≈ 8 ms per video on a Xeon CPU, an order of magnitude less than SL-GCN [6]. The AUTSL baselines are CNN + (Bi)LSTM models with attention [1]. **Weaknesses:** no explicit modelling of the spatial structure between joints, and the lowest accuracy among pose-based models on AUTSL (Section 7).
-
-## 6.2 Transformers
-
-Transformers [8] use self-attention over the whole sequence and parallelise well.
-
-- **SPOTER** is a pose-based Transformer designed for low computational cost; it reports 63.18 % on WLASL100, 43.78 % on WLASL300 and 100 % on LSA64 [5].
-- In OpenHands, a pose Transformer reaches **81.0 % on AUTSL** (MediaPipe input) [6].
-- In the Kaggle ISLR competition, most top teams used 1D convolutions combined with Transformers, and a reduced-size BERT/DeBERTa Transformer reached 0.78 accuracy for one top team [17].
-- For *translation*, Transformers are the standard: Sign Language Transformers jointly learn recognition and translation (Section 8) [11].
-
-**Weaknesses:** data-hungry, and they do not encode the skeleton graph unless it is added explicitly.
-
-## 6.3 Graph Convolutional Networks (GCN)
-
-GCNs treat the skeleton as a graph (joints = nodes, bones = edges) and convolve over space and time.
-
-- **ST-GCN** introduced spatial-temporal graph convolutions for skeleton-based action recognition [9].
-- **SL-GCN** (part of SAM-SLR) adapts this to sign language. On AUTSL validation, SL-GCN alone reaches **95.02 % (joint stream)** and **95.45 % (four-stream ensemble)** using HRNet keypoints [4].
-- The full SAM-SLR system (skeleton + RGB + depth ensemble) won the ChaLearn LAP 2021 challenge with **98.42 % (RGB track) and 98.53 % (RGB-D track)** on the AUTSL test set [3], [4]. *These are whole-system results, not GCN-only results.*
-- In OpenHands with MediaPipe input, ST-GCN reaches **90.4 %** and SL-GCN **91.9 %** on AUTSL [6].
-
-**Weaknesses:** more complex to implement and export; SL-GCN is the slowest model in OpenHands' CPU measurements (≈ 53 ms per video on a Xeon) [6].
-
-# 7. Comparative Analysis
-
-## 7.1 Same pipeline, same dataset
-
-The fairest comparison found is OpenHands [6], where all four models use **the same MediaPipe Holistic input, the same AUTSL split and the same training data**:
-
-| Model | AUTSL test accuracy | CPU latency per video (Xeon E5-2690 v4) | Notes |
+| Resource | Task and modality | Relevance to SignBridge | Evaluation caution |
 |---|---|---|---|
-| LSTM | 77.4 % | ≈ 8 ms | Fastest, least accurate |
-| Transformer | 81.0 % | ≈ 31 ms | Simple to export |
-| ST-GCN | 90.4 % | ≈ 23 ms | Best accuracy/speed trade-off |
-| SL-GCN | 91.9 % | ≈ 53 ms | Most accurate, slowest |
+| AUTSL [1] | Isolated TİD; RGB, depth and Kinect skeleton recordings | Public pre-training and recognition benchmark; 226 classes, 43 signers, 38,336 samples | Use the intended signer-independent partition; native skeleton and re-extracted MediaPipe are different inputs. |
+| BosphorusSign22k [2] | Isolated TİD; multimodal recordings; 744 glosses, six signers, 22,542 samples | Candidate domain vocabulary and training resource, already mentioned in the proposal | Record the exact held-out-signer protocol and dataset version; few signers limit generalisation evidence. |
+| E-TSL [18] | Continuous educational TİD-to-Turkish; pose-derived translation baselines | Evidence about translation difficulty and domain mismatch | Published train/dev/test split must not be assumed signer-independent. |
+| Google ISLR [16] | Isolated ASL competition with landmark inputs | Deployment and representation context | ASL results do not establish TİD accuracy; competition evaluation differs from the project. |
 
-*Source: [6]. Latency rankings vary by CPU; on an AMD Ryzen 7 3750H, ST-GCN was slower than the Transformer [6].*
+The descriptors above characterise resources, not model achievements. AUTSL's original paper demonstrates sensitivity to evaluation partition [1]. The ChaLearn challenge [3] provides further signer-independent benchmarking context. Neither a random clip split nor high performance on known signers substitutes for testing unseen users.
 
-## 7.2 Qualitative comparison
+**Action for SB-12:** map the planned vocabulary to dataset glosses using stable identifiers; record variants, missing classes, signer coverage, acquisition conditions and permissions. Do not assume that similar Turkish labels denote identical signs. BosphorusSign22k's health vocabulary makes this mapping relevant, but inclusion as an actual training source depends on access and coverage, not merely its appearance in the proposal.
 
-| Criterion | LSTM | Transformer | GCN (ST-GCN / SL-GCN) |
+**Leakage control:** assign all clips and augmented copies from a signer to the same partition. Fit preprocessing statistics on training data only. Check public pre-training data for overlap with evaluation people or recordings where identifiers permit. Report unresolved overlap as a limitation.
+
+# 5. Landmark Extraction and Versioned Inputs
+
+## 5.1 Legacy and current output conventions
+
+Legacy MediaPipe Holistic is commonly described with 543 landmarks: 33 pose, 468 face and 21 per hand [13]. The current Holistic Landmarker documentation describes 553: the face output includes 478 points, alongside the same pose and hand counts [14]. These are API/model conventions, not interchangeable feature vectors. The Web implementation guide describes the Tasks package and IMAGE/VIDEO modes [23].
+
+The project should pin the package and model asset versions, store the selected landmark indices, and document how any legacy training representation maps to the browser representation. A newly available API does not prove that a particular checkpoint or browser configuration works. The selected export and extraction pipeline must be tested before the training format is frozen.
+
+## 5.2 Proposed feature contract for SB-15
+
+Use a documented upper-body, hand and facial subset rather than assuming every available point is necessary. Store timestamps, coordinate conventions, missing-point masks, handedness and preprocessing version. Normalise position and scale consistently in training and inference. Assess whether additional facial cues improve the actual classification task; a sparse pose representation does not capture all linguistic facial information.
+
+Landmark dropout and camera framing failures should be represented explicitly. Do not replace missing coordinates with zeros without a mask and a tested convention. Mirroring must preserve left/right semantics and should only be used when linguistically valid. Any smoothing must be assessed for the delay it introduces. These are proposed engineering controls, not completed SB-15 results.
+
+# 6. Architecture Families (RQ2)
+
+## 6.1 LSTM and recurrent models
+
+LSTM models [7] update a hidden state over time and can aggregate the motion represented by landmark frames. Their useful role here is a transparent sequence baseline. Bidirectional variants use future context within the clip and must not be described as strictly causal streaming models. Sequence length, hidden size, feature encoding and the export path affect cost; the family name alone does not guarantee speed or generalisation.
+
+A recurrent classifier does not explicitly encode the joint graph unless spatial structure is added. It may therefore need feature engineering or a spatial encoder. Its simplicity makes failure analysis and controlled comparisons useful even if a more complex model later wins.
+
+## 6.2 Transformer models
+
+Self-attention [8] connects observations across a sequence; positional information is required to represent ordering. SPOTER [5] is a relevant pose-based recognition design. Encoder-only recognition and encoder-decoder translation have different objectives and should not be treated as one interchangeable model.
+
+For a small custom vocabulary, overfitting and sensitivity to padding, temporal resampling and landmark noise must be assessed. Attention does not automatically encode anatomical adjacency. Compact configurations are plausible candidates, but browser support and latency depend on the exported graph and runtime. No SPOTER result from another language is used as a numerical prediction for SignBridge.
+
+## 6.3 GCN and spatio-temporal graph models
+
+ST-GCN [9] models joint relationships over space and time. SL-GCN in SAM-SLR [4] adapts graph-based processing to signs. Its structural bias is relevant when the input has a known joint arrangement. Graph topology and omitted hand/facial nodes can materially affect the information retained.
+
+SAM-SLR combines multiple streams and modalities [4]; a whole-system score must not be labelled a landmark-only GCN score. Graph operations may be expressible through standard exported tensor operations, but compatibility depends on implementation, operator set and runtime. Export difficulty is therefore a test item for every family, not a universal GCN disadvantage.
+
+# 7. Comparative Evidence and Its Limits
+
+## 7.1 Recognition accuracy: one common benchmark
+
+Table 1 reproduces the AUTSL row of OpenHands [6, Table 2]: MediaPipe-derived 27-point 2D inputs, published benchmark test partition, signer-independent AUTSL setting. These are source-reported best-run results, not SignBridge measurements or current state-of-the-art claims.
+
+| Model | AUTSL top-1 accuracy | Source |
+|---|---|---|
+| LSTM | 77.4% | [6], Table 2 |
+| BERT-style Transformer | 81.0% | [6], Table 2 |
+| ST-GCN | 90.4% | [6], Table 2 |
+| SL-GCN | 91.9% | [6], Table 2 |
+
+For reproduction, retain the exact source split manifest; a matching dataset name alone is insufficient. This comparison favours graph models in this experiment, but does not establish a universal family ranking.
+
+## 7.2 Classifier timing: a separate experiment
+
+Table 2 is from OpenHands [6, Appendix B, Table 7]: INCLUDE test clips, pose classifier only, batch size one, Intel Xeon E5-2690 v4. It is neither AUTSL timing nor a browser/end-to-end benchmark. Signer independence of this timing set is not established here.
+
+| Model | Mean classifier latency per video |
+|---|---|
+| LSTM | 8.05 ms |
+| Transformer | 30.64 ms |
+| ST-GCN | 23.02 ms |
+| SL-GCN | 52.80 ms |
+
+Do not combine Tables 1 and 2 into an AUTSL accuracy/latency Pareto frontier. Different clip durations, devices and runtimes require new measurements.
+
+## 7.3 Shared decision criteria
+
+| Criterion | LSTM | Transformer | GCN |
 |---|---|---|---|
-| Accuracy on AUTSL, MediaPipe input [6] | Lowest | Medium | **Highest** |
-| Best reported pose-only AUTSL result | – | 81.0 % [6] | 95.45 % (HRNet, val.) [4] |
-| Uses skeleton structure | No | Only if added | **Yes (built-in)** |
-| Data needs | Low–medium | **High** | Medium |
-| Inference cost | **Lowest** | Medium | Medium–high |
-| Browser export (ONNX/TF.js) | Easy | Easy | Graph ops need care; must be tested |
-| Suitable for translation (seq2seq) | Possible | **Standard** [11] | Used as encoder (e.g. GNN-T [18]) |
+| Temporal modelling | Recurrent state | Attention plus ordering | Temporal processing with joint graph |
+| Spatial prior | Must be supplied or learned | Must be supplied or learned | Explicit joint adjacency |
+| Small-data concern | Overfitting remains possible | Capacity and regularisation require care | Graph validity and capacity require care |
+| Streaming concern | Causal only if designed so | Attention/window policy must be specified | Temporal receptive field must be specified |
+| Deployment gate | Validate export and browser execution | Validate export and browser execution | Validate export and browser execution |
+| Role in this project | Baseline | Recognition candidate; translation context | Recognition candidate; possible encoder |
 
-## 7.3 Evidence caveats
-
-1. The 98.42 / 98.53 % SAM-SLR figures include RGB and depth; they are not achievable with landmarks alone.
-2. HRNet keypoints [4] are more accurate than MediaPipe keypoints; OpenHands attributes its lower AUTSL score partly to this [6].
-3. Random-split numbers (e.g. 95.95 % on AUTSL [1]) must never be compared with signer-independent numbers.
-
-**Answer to RQ2.** For landmark-based isolated TİD recognition, GCNs are the most accurate family in like-for-like comparisons; Transformers are second and are the natural choice for translation and for simple browser export; LSTMs are the cheapest and are the right *baseline*.
+These criteria are an engineering comparison, not measured advantages on the proposed custom dataset. The decision gap in the reviewed evidence is the absence of a directly matched SignBridge vocabulary, unseen-signer recording protocol and browser target. The project's contribution is to evaluate that combination transparently rather than copy a benchmark ranking.
 
 # 8. Transfer Learning and Small Datasets (RQ3)
 
-SignBridge plans to pre-train on a public dataset and fine-tune on its own 150-sign recordings. The literature supports this, with conditions:
+OpenHands reports benefits from predictive pose pre-training and shows that pre-training objectives need not help equally [6]. This motivates testing transfer; it does not make it mandatory for every dataset.
 
-- OpenHands shows that self-supervised pre-training (predictive coding, DPC) on pose data improves ST-GCN on INCLUDE from 91.2 % to 94.7 %, and that **the gain grows as labelled data shrinks**: 79.7 → 86.27 % with 10 samples per class, 45 → 57.35 % with 5 [6].
-- Other pre-training strategies (masking, contrastive) gave little or no gain in the same study [6], so the pre-training method matters.
-- Cross-lingual pre-training (Indian SL → other sign languages) improved low-resource fine-tuning, e.g. LSA64 with 3 samples per class from 39.7 % to 57.19 % [6].
-- On BosphorusSign22k, a 3D-CNN fine-tuned from pre-trained weights reached 78.85 % top-1, compared with 57.76 % when trained from scratch [2]. This is an RGB result, but it shows the same pattern.
+For SignBridge, compare training from scratch with supervised public-data pre-training and fine-tuning. Consider self-supervised pre-training only if appropriate data, checkpoints, permissions and time are available. Keep the downstream model, split and tuning budget comparable. Record which layers are reused and how the classification head changes.
 
-**Implications:** (i) SignBridge's 150 signs × 10 signers is a low-resource setting, so pre-training is necessary, not optional; (ii) class overlap with AUTSL/BosphorusSign22k (SB-12) determines how much transfer is possible; (iii) signer diversity matters more than repetitions by the same signer, because evaluation must be signer-independent.
+The proposal plans at least ten recording participants and a 150-sign recognition vocabulary. This describes class and signer coverage, not the number of examples: repetitions, sessions and recording conditions still need specification. More repeated clips from the same person do not substitute for signer diversity. Adaptation must not tune on the held-out test signers.
 
-# 9. Translation and Continuous Signing (RQ4)
+Cross-language transfer may share visual motion features, but gloss semantics and inventories remain language-specific. Report negative transfer as well as improvements. No percentage gain from another language or dataset is assumed to transfer directly to TİD.
 
-## 9.1 Sign language translation
+# 9. Translation and Segmentation (RQ4)
 
-- **Neural SLT** [10] introduced end-to-end translation on RWTH-PHOENIX-Weather-2014T (German SL). Its Sign2Text model reached **9.58 BLEU-4 (test)**, and the two-step Sign2Gloss2Text reached **18.13** [10], [11].
-- **Sign Language Transformers** [11] (a *later* paper by the same group) jointly train recognition and translation with CTC; the best model reaches **21.32 BLEU-4 (test) when tuned for translation** and 21.80 when tuned for recognition, with 24.49 % WER for recognition.
+## 9.1 Translation evidence
 
-*Note:* 9.58 → 21.32/21.80 is a comparison between **two different papers** (2018 vs. 2020) on the same benchmark.
+Neural Sign Language Translation [10] and Sign Language Transformers [11] establish important sequence-to-sequence and joint recognition/translation approaches. Their language, input and annotation conditions differ from a small domain-specific TİD MVP. Their results are not substituted for TİD recognition accuracy.
 
-- **For TİD**, translation results are much lower: E-TSL's best model reaches 3.28 BLEU-4 [18]. In the opposite direction (Turkish → TİD gloss), a hybrid rule-based + statistical system reached 12.64 BLEU-4 on 3,561 sentence pairs [20].
+A directly relevant TİD example is E-TSL [18, Table II]. GNN-T obtains 3.28 BLEU-4 on its published test partition, with a MediaPipe-derived 53-landmark input. The publication specifies a train/dev/test split; signer-disjoint evaluation is not established by that description. BLEU is a translation overlap measure, not percent-correct sign recognition. This is a baseline in that study, not a claim about the best TİD system available in 2026.
 
-**Implication:** full sentence-level TİD-to-Turkish translation is a research problem with no strong public baseline. A realistic scope for SignBridge is **isolated-sign recognition of a fixed vocabulary + gloss sequence + rule/LLM-assisted gloss-to-Turkish generation**, with gloss as the interface between modules (SB-14). For the Turkish → avatar direction, the rule-based findings in [20] (suffix removal, ŞİMDİ/BİTTİ tense markers, DEĞİL negation, fingerspelled proper nouns) can be used directly for the gloss schema.
+Turkish-to-TİD work [20] motivates explicit gloss conversion, but rule reuse requires linguistic review. A fluent LLM output is not evidence that the original signs' meaning survived. Test recognised-gloss and gold-gloss inputs separately to distinguish recogniser errors from language-generation errors. Include negation, quantities, names and out-of-vocabulary cases. Assess meaning preservation through human review alongside the proposal's automatic metrics.
 
-## 9.2 Segmentation of continuous signing
+## 9.2 Signing detection, boundary detection and the MVP
 
-SignBridge's proposal segments signs using pauses. The literature shows this is not sufficient:
+Signing detection asks whether signing is occurring [12]. It does not identify every sign boundary. Linguistically motivated BIO segmentation [15] addresses natural streams in which neighbouring signs need not be separated by inactive frames. Its cross-domain observations do not validate a ready-made TİD segmenter for this project.
 
-- Moryossef et al. [12] detect *whether* someone is signing in real time from pose, which is useful as a first gate (signing vs. not signing).
-- Moryossef et al. [15] show that continuous signing often has **no gap between signs**, and replace IO tagging with **BIO tagging** of signs and phrases. Their LSTM model on **MediaPipe Holistic** input reaches sign IoU 0.69 and phrase IoU 0.82–0.85 on the DGS corpus (vs. 0.46/0.70 for the earlier baseline) [15].
+The proposal deliberately asks MVP users to pause between isolated signs. Preserve that interaction rule and explain it in the interface. Test missed boundaries, duplicate predictions, accidental motion and incomplete signs under this restricted protocol. Natural continuous signing and learned BIO segmentation are future research or a separately approved extension, not mandatory additions to the present sprint.
 
-**Implication:** use a two-stage pipeline: (1) a lightweight signing/not-signing detector; (2) a BIO segmenter (or a sliding window with confidence thresholds) feeding the isolated recogniser. Pause-based segmentation can be the first prototype but must be evaluated against this.
+# 10. Browser Deployment and Measurement (RQ5)
 
-# 10. Real-time, In-browser Deployment (RQ5)
+ONNX Runtime Web [21] and TensorFlow.js [22] provide deployment routes, but framework availability alone does not certify a trained model's browser compatibility. Validate numerical agreement before/after export, supported operators, loading time, memory use and inference on the intended browser/device. The selected Web landmark API must be tested independently [23].
 
-The proposal targets in-browser inference (≥ 15 FPS landmark extraction, ≤ 2 s end-to-end latency). Relevant evidence:
+The Kaggle competition [16] and participant account [17] provide examples of constrained landmark-based recognition. Their constraints are platform-specific. This review does not convert them into a browser performance guarantee or retain unverified memory/time caps as project requirements.
 
-- The Google ISLR competition required a **TFLite** model, ≈ **100 ms per video** and a **40 MB memory cap** [16], [17]. Top solutions under these limits used compact 1D-CNN + Transformer models [17], which shows that landmark-only, on-device sign recognition with a few hundred classes is feasible.
-- OpenHands' CPU latencies (8–53 ms per video, Section 7.1) are well below a 2 s budget, so **landmark extraction, not the classifier, is the likely bottleneck** [6].
-- Browser runtimes: models can be exported to ONNX and run with ONNX Runtime Web [21] or converted to TensorFlow.js [22]. LSTM and Transformer layers are widely supported. GCNs use graph/einsum operations that **must be tested for export** before committing to them.
+Keep three proposal measures separate: O1's browser throughput target of at least 15 FPS, sign-end-to-spoken-output median latency of at most 2.0 seconds, and speech-end-to-avatar-start median latency of at most 2.5 seconds. These are existing project targets, not published model results. Define exactly which pipeline stage the FPS measure covers before testing; record extraction and classification rates separately.
 
-**Implication for SB-15:** measure Holistic FPS and the classifier latency in the browser on a mid-range laptop and phone *before* finalising the model.
+For Direction A, timestamp sign completion, segmentation decision, recognition, gloss conversion and speech start. Measure network/LLM/TTS delays as well as landmark processing. Report distributions and device configuration, not only one favourable average. Profile to locate the bottleneck rather than assuming it is the extractor. Schedule heavy work to preserve UI responsiveness and include low-end failure behaviour in the feasibility assessment.
 
-# 11. Consistency with the Project Proposal (SB-8)
+# 11. Consistency with the Supplied Project Proposal (SB-8)
 
-| # | Proposal statement | Literature finding | Required change |
-|---|---|---|---|
-| 1 | The recogniser is a *keypoint-based Transformer* (Hypothesis H1) | On AUTSL with MediaPipe input, GCNs outperform the Transformer by ≈ 9–11 points [6] | Rephrase as *"a keypoint-based model; Transformer and GCN are the candidates, with an LSTM baseline, and the final choice follows the SB-13 evaluation protocol (Section 12)"*. H1 should not assume the architecture. |
-| 2 | Pre-training on AUTSL only | BosphorusSign22k has 428 health-domain classes [2] | Add BosphorusSign22k to the dataset table; justify AUTSL vs. BosphorusSign22k after SB-12's overlap analysis. |
-| 3 | MediaPipe Holistic as input | Consistent with [6], [14], [15] | Keep. State the selected landmark subset (Section 5). |
-| 4 | O1: ≥ 85 % top-1 on unseen signers | Best MediaPipe-based AUTSL result is 91.9 % on 226 classes with 43 signers [6]; the custom set has only 10 signers | Split into a **target** (≥ 85 %) and a **minimum acceptable** value (e.g. ≥ 75 %), always measured signer-independently. |
-| 5 | Pause-based segmentation | Gaps between signs are often absent [15] | Mention BIO segmentation [15] as the fallback/upgrade. |
-| 6 | Sign-to-sentence translation | TİD SLT baseline is 3.28 BLEU-4 [18] | Limit the claim to vocabulary-bounded recognition + gloss-to-text. |
+The comparison below uses the supplied nine-page proposal. It distinguishes existing commitments from suggested changes; it does not amend the proposal.
 
-# 12. Recommendation for SignBridge
+| Proposal item and location | Assessment | Recommended action |
+|---|---|---|
+| Product concept and H1 name a Transformer; Methods already includes comparison with a graph network (pp. 2, 7). | Comparison is already planned. The hypothesis and final model-selection language need clarification. | Retain the Transformer as a candidate; agree whether H1 tests it specifically or the selected model. Record the decision with SB-8's owner. |
+| BosphorusSign22k appears in the background and references; the resource plan names AUTSL (pp. 1, 8). | The dataset is already acknowledged. Its use for training is not yet established. | Ask SB-12 to assess domain overlap, permission and signer coverage before adding it as a committed resource. |
+| Holistic and normalised hand/body/face features are planned (pp. 2, 7). | Consistent in principle; legacy/current API conventions need separation. | Pin extractor/model versions and feature schema under SB-15 (Section 5). |
+| O1/H1 specify at least 85% top-1 on unseen signers; O1 also specifies top-5 and throughput targets (pp. 4, 7). | These are hypotheses/acceptance targets, not literature guarantees. | Preserve the current targets. Do not invent a 75% pass threshold; any change requires team/advisor agreement. |
+| MVP uses short pauses; continuous translation is explicitly excluded (p. 2). | This is an intentional, feasible scope boundary. | Preserve it. Review natural signing limitations without making BIO segmentation a compulsory MVP feature. |
+| Sign recognition feeds gloss-to-Turkish generation; reverse direction uses a separate animation library (pp. 2, 7). | Bounded recognition and language generation are distinct modules. | Evaluate the modules separately and document vocabulary limitations. Do not claim general continuous SLT. |
 
-1. **Baseline (Sprint 2):** LSTM/GRU on the selected MediaPipe Holistic subset, trained on AUTSL with the official signer-independent split.
-2. **Candidates:** (a) ST-GCN or SL-GCN; (b) a SPOTER-style pose Transformer. Train both on the same input and split.
-3. **Decision criteria (in priority order):** signer-independent top-1 accuracy; in-browser latency and model size after ONNX/TF.js export; fine-tuning accuracy on the first SignBridge recordings.
-4. **Expected outcome from the literature:** GCN wins on accuracy [4], [6]; the Transformer may win on ease of export. If the accuracy gap after export is < 3 points, prefer the model that is easier to deploy.
-5. **Pre-training:** use self-supervised pose pre-training (DPC-style) before fine-tuning on the 150-sign set [6].
-6. **Segmentation:** prototype with pauses, evaluate against a BIO segmenter [15].
+The proposal's 150 recognised signs and at least 300 avatar signs are different deliverables. SB-13 neither changes those counts nor requires model training, animation creation or a database implementation to complete this literature task. Proposal changes should be logged as decisions and agreed with the responsible owner, rather than treated as already approved.
 
-# 13. Limitations of this Review
+# 12. Recommendation and Proposed Evaluation Protocol
 
-- Most comparable numbers come from a single like-for-like study [6]; results on other datasets may differ.
-- No published in-browser FPS figure for MediaPipe Holistic was found; this must be measured (SB-15).
-- Kaggle competition details are taken from the competition page and a participant write-up [16], [17], not from a peer-reviewed paper.
-- This review did not run experiments; all recommendations must be confirmed in Sprint 2.
+## 12.1 Candidate models and scope
+
+Begin with one LSTM baseline, a compact pose Transformer and one graph candidate. Prefer ST-GCN as the first graph implementation if resources are limited; add SL-GCN only if justified by feasibility. Candidate selection is provisional. Reuse public checkpoints only when their licence, feature schema and model configuration are compatible. A failed export should be documented rather than silently changing the evaluation pipeline.
+
+## 12.2 Controlled comparison
+
+Use identical selected landmarks, normalisation, vocabulary, sequence policy and signer partitions. Specify a comparable tuning budget rather than forcing identical hyperparameters on different architectures. Use validation data for selection; reserve the test set for final evaluation. Report repeated-run variation when resources permit, along with exact configurations and split manifests.
+
+Measure top-1/top-5 accuracy, per-class errors, confusion patterns and failure cases on unseen signers. Record model size, memory, latency and throughput on the target browser/hardware with the same test clips. Separate numerical agreement after export from task accuracy. Report abstention/rejection behaviour for non-signing, unknown signs and low-confidence inputs.
+
+## 12.3 Decision gates and dependencies
+
+First verify that the model and extractor run correctly in the intended browser. Then compare recognition quality subject to the existing proposal's performance and usability requirements. Choose among feasible candidates using accuracy, resource cost and maintainability. Any weighting or tie-break rule must be agreed before final test evaluation; this review does not introduce an arbitrary accuracy-gap threshold.
+
+SB-12 supplies vocabulary/data compatibility; SB-14 supplies stable gloss identifiers and metadata; SB-15 supplies the versioned landmark contract and extraction feasibility. SB-8 records approved model/scope decisions. Training and deployment experiments are subsequent implementation work, subject to sprint planning, not results already produced for SB-13.
+
+# 13. Limitations
+
+The review is selective and not a complete 2026 literature census. The most directly matched recognition comparison is historical and comes from one benchmark study. No new training, browser experiment or participant study was performed. A paper's reported score is not independently reproduced here. Competition and participant evidence is secondary to peer-reviewed comparisons.
+
+Source-reported timing, languages, signer partitions and extraction versions differ. Some published splits do not establish unseen-signer testing; these are explicitly marked. No result guarantees performance on the custom vocabulary, hardware or users. Linguistic rules and non-manual annotations need validation, and public visibility of data does not establish permission to train on or redistribute it.
 
 # 14. Conclusion
 
-For landmark-based TİD recognition, the evidence favours GCN-based models on accuracy, Transformers on flexibility and translation, and LSTMs as a fast baseline. The most important methodological rule is to evaluate on **signer-independent** splits. The most important project risks are the small custom dataset (mitigated by pre-training), segmentation of continuous signing, and browser performance. The proposal should be updated so that the model choice follows the evaluation protocol in Section 12 instead of being fixed in advance.
+The literature supports evaluating recurrent, attention-based and graph-based recognisers under a shared landmark and unseen-signer protocol. It does not justify fixing the winner before the project's accuracy and browser measurements. Public pre-training is a strong candidate strategy, with its benefit tested against an appropriate baseline. The proposal's pause-separated, vocabulary-bounded MVP remains the implementation scope. The next decisions concern compatible data, a versioned feature contract and controlled evaluation, while continuous TİD translation remains a documented extension.
 
-# Appendix A — Traceability to SB-13
+# Appendix A. Traceability to SB-13
 
-| SB-13 requirement | Where addressed |
+| Acceptance criterion | Evidence in this document / delivery requirement |
 |---|---|
-| Comprehensive review of existing SLR models | Sections 2, 4, 6; 22 references |
-| Comparison of Transformer vs. LSTM vs. GCN | Sections 6, 7 |
-| Landmark-based | Sections 5, 7.1 |
-| TİD focus | Sections 3.2, 4, 9.1 |
-| Recognition *and translation* (title) | Sections 8, 9 |
-| Usable for the project | Sections 10, 11, 12 |
+| Documented review method | Section 2 and Appendix B; targeted search and audit limitations explicit |
+| At least 15 academic/official sources, cited in text | References: 23 entries; supplementary [17] separately identified |
+| LSTM vs Transformer vs GCN; result context | Sections 6-7; accuracy and timing separated |
+| Landmark extraction, transfer, translation, segmentation | Sections 5, 8 and 9 |
+| Model recommendation and proposal check | Sections 11-12 |
+| MD, BibTeX, PDF on story/SB-13; teammate PR approval | Deliverable files accompany this document; actual commit and approval must be recorded in PR #2 |
+| Jira PDF and Confluence Documentation summary | Upload this revised PDF and publish the accompanying summary; document existence is not proof of completion |
+
+# Appendix B. Targeted Source-Audit Record
+
+Audit date: 15 October 2026. These are focused retrievals for this revision and its preceding assessment, not a reconstructed historical systematic-search log.
+
+| Retrieval / source | Audit purpose and outcome |
+|---|---|
+| OpenHands ACL PDF [6], Table 2 and Appendix B | Checked recognition and timing provenance; separated AUTSL accuracy from INCLUDE timing. |
+| AUTSL author manuscript [1] | Checked dataset description and signer-independent evaluation rationale. |
+| BosphorusSign22k project page [2] | Checked dataset relevance; no new training-use permission inferred. |
+| E-TSL author manuscript [18], Sections III and Table II | Checked pose input, published partition and test translation metric; signer-disjoint status not inferred. |
+| Google Holistic overview and Web guide [14], [23] | Checked current output schema and Web API; no project device test claimed. |
+| ACL segmentation publication [15] | Checked task/boundary distinction and relevance to natural continuous signing. |
+| Supplied proposal (pp. 1-2, 4, 7-8) | Checked existing dataset mention, restricted MVP, model language and unchanged targets. |
 
 # References
 
@@ -252,7 +277,7 @@ For landmark-based TİD recognition, the evidence favours GCN-based models on ac
 
 [5] M. Boháček and M. Hrúz, "Sign pose-based transformer for word-level sign language recognition," in *Proc. IEEE/CVF WACV Workshops*, 2022, pp. 182–191.
 
-[6] P. Selvaraj, G. NC, P. Kumar, and M. Khapra, "OpenHands: Making sign language recognition accessible with pose-based pretrained models across languages," in *Proc. 60th Annual Meeting of the ACL (Vol. 1: Long Papers)*, 2022, pp. 2114–2133.
+[6] P. Selvaraj, G. NC, P. Kumar, and M. Khapra, "OpenHands: Making sign language recognition accessible with pose-based pretrained models across languages," in *Proc. 60th Annual Meeting of the ACL (Vol. 1: Long Papers)*, 2022, pp. 2114–2133, doi: 10.18653/v1/2022.acl-long.150.
 
 [7] S. Hochreiter and J. Schmidhuber, "Long short-term memory," *Neural Computation*, vol. 9, no. 8, pp. 1735–1780, 1997.
 
@@ -268,9 +293,9 @@ For landmark-based TİD recognition, the evidence favours GCN-based models on ac
 
 [13] I. Grishchenko and V. Bazarevsky, "MediaPipe Holistic — Simultaneous face, hand and pose prediction, on device," Google Research Blog, Dec. 2020.
 
-[14] Google AI Edge, "Holistic landmark detection guide for Web," MediaPipe Solutions documentation. [Online]. Available: https://developers.google.com/edge/mediapipe/solutions/vision/holistic_landmarker/web_js (accessed 15.10.2026).
+[14] Google AI Edge, "Holistic landmark detection guide," MediaPipe Solutions documentation. [Online]. Available: https://developers.google.com/edge/mediapipe/solutions/vision/holistic_landmarker (accessed 15.10.2026).
 
-[15] A. Moryossef, Z. Jiang, M. Müller, S. Ebling, and Y. Goldberg, "Linguistically motivated sign language segmentation," in *Findings of the Association for Computational Linguistics: EMNLP 2023*, 2023.
+[15] A. Moryossef, Z. Jiang, M. Müller, S. Ebling, and Y. Goldberg, "Linguistically motivated sign language segmentation," in *Findings of the Association for Computational Linguistics: EMNLP 2023*, 2023, pp. 12703–12724, doi: 10.18653/v1/2023.findings-emnlp.846.
 
 [16] Google, Georgia Tech, and Deaf Professional Arts Network, "Google – Isolated Sign Language Recognition," Kaggle competition, 2023. [Online]. Available: https://www.kaggle.com/competitions/asl-signs (accessed 15.10.2026).
 
@@ -285,3 +310,5 @@ For landmark-based TİD recognition, the evidence favours GCN-based models on ac
 [21] Microsoft, "ONNX Runtime Web," ONNX Runtime documentation. [Online]. Available: https://onnxruntime.ai/docs/tutorials/web/ (accessed 15.10.2026).
 
 [22] D. Smilkov *et al.*, "TensorFlow.js: Machine learning for the web and beyond," in *Proc. Machine Learning and Systems (MLSys)*, 2019.
+
+[23] Google AI Edge, "Holistic landmark detection guide for Web," MediaPipe Solutions documentation. [Online]. Available: https://developers.google.com/edge/mediapipe/solutions/vision/holistic_landmarker/web_js (accessed 15.10.2026).
