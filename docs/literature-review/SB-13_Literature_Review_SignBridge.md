@@ -13,9 +13,9 @@ lang: en
 | Epic | SB-1 PROJECT_MANAGEMENT_AND_DOCUMENTATION |
 | Sprint | SB Sprint 1 (05.10.2026 – 18.10.2026) |
 | Author | Ceren Bilgenoğlu |
-| Reviewer(s) | *to be filled after PR review* |
+| Reviewer(s) | KUTAY (review on GitHub PR #2) |
 | Related issues | SB-8 (Proposal), SB-12 (Datasets), SB-14 (Gloss/Lexicon), SB-15 (MediaPipe) |
-| Status | Draft for review |
+| Status | In review (GitHub PR #2, branch story/SB-13) |
 
 # 1. Introduction
 
