@@ -5,11 +5,11 @@ This document defines the Git workflow for SignBridge.
 ## Branches
 
 - `main`: stable integration branch. Do not push changes directly; use pull requests.
-- `story/SB-<issue-number>-<short-description>`: branches for user stories.
-- `task/SB-<issue-number>-<short-description>`: branches for technical tasks.
-- `bug/SB-<issue-number>-<short-description>`: branches for bug fixes.
+- `story/SB-<issue-number>`: branches for user stories.
+- `task/SB-<issue-number>`: branches for technical tasks.
+- `bug/SB-<issue-number>`: branches for bug fixes.
 
-Use lowercase kebab-case descriptions, with the Jira issue key preserved (for example, `task/SB-10-github-setup`). Create branches from the latest `main`, and keep each branch focused on one Jira issue.
+Name each branch using only the Jira issue type and exact Jira issue ID (for example, `task/SB-10`). Do not append a description after the issue ID. Create branches from the latest `main`, and keep each branch focused on one Jira issue.
 
 ## Pull Requests
 
