@@ -14,7 +14,7 @@
 
 **İletişim:** [e-posta / telefon]
 
-**Belge Sürümü / Tarihi:** v1.1 — 18 Ekim 2026
+**Belge Sürümü / Tarihi:** v1.2 — 18 Ekim 2026
 
 **Etik Kurul Onayı:** [Yaşar Üniversitesi ilgili Etik Kurulu — başvuru no ve tarih doldurulacak; onay alınmadan kayıt/test başlatılmaz]
 
@@ -90,7 +90,8 @@ Yukarıdaki bilgilendirme ve KVKK aydınlatma metnini okudum/anladım; soruları
 
 - [ ] Ses ve görüntü kaydımın alınmasına ve işlenmesine,
 - [ ] İşitme/engel (sağlık) durumumun kaydedilmesine ve işlenmesine,
-- [ ] Uygulama kullanım ve performans verilerimin işlenmesine.
+- [ ] Uygulama kullanım ve performans verilerimin işlenmesine,
+- [ ] Anket ve görüşme yanıtlarımın işlenmesine.
 
 _(İşaretlenmeyen veri türleri için açık rıza verilmemiş sayılır.)_
 

@@ -10,7 +10,7 @@ Language ↔ Turkish translation system
 **Institution:** Yaşar University, Software Engineering Dept. — senior/capstone project
 **Advisor (responsible investigator):** [Dr. Kazım Erdoğdu]
 **Project team / data controller:** [SignBridge-TR team — contact e-mail]
-**Version / date:** v1.1 — 18 October 2026
+**Version / date:** v1.2 — 18 October 2026
 **Note:** This is an **academic** capstone project, with no commercial purpose.
 
 ---
@@ -71,6 +71,7 @@ special-category health data), for the stated purpose only:
 - [ ] Recording and processing of my audio and video
 - [ ] Recording and processing of my hearing/disability (health) status
 - [ ] Processing of my app usage/performance data
+- [ ] Processing of my survey and interview answers
 
 Participant name: ______________________
 Date: __________   Signature: __________
