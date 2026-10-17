@@ -14,7 +14,7 @@
 
 **İletişim:** [e-posta / telefon]
 
-**Belge Sürümü / Tarihi:** v1.0 — 17 Ekim 2026
+**Belge Sürümü / Tarihi:** v1.1 — 18 Ekim 2026
 
 **Etik Kurul Onayı:** [Yaşar Üniversitesi ilgili Etik Kurulu — başvuru no ve tarih doldurulacak; onay alınmadan kayıt/test başlatılmaz]
 
@@ -44,7 +44,7 @@ Test sırasında aşağıdaki veriler toplanacaktır:
 - **Anket ve görüşme yanıtlarınız.**
 - **İşitme/engel durumunuz** — çalışmaya uygunluğun belirlenmesi amacıyla.
 
-Bunlardan **görüntü ve ses kaydınız** (biyometrik veri) ile **işitme/engel durumunuz** (sağlık verisi), 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.6 uyarınca **özel nitelikli kişisel veri** sayılır ve işlenmesi **açık rızanıza** bağlıdır.
+**İşitme/engel durumunuz** bir sağlık verisi olduğundan, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.6 uyarınca **özel nitelikli kişisel veridir** ve işlenmesi **açık rızanıza** bağlıdır. **Görüntü ve ses kaydınız** kişisel veridir; bu çalışmada **kimliğinizi tekil olarak tanımlamak (biyometrik tanıma) amacıyla işlenmediğinden** biyometrik özel nitelikli veri kapsamında **değildir**. Yine de görüntü ve ses kaydınızın işlenmesi **açık rızanıza** dayanır.
 
 ---
 
@@ -53,9 +53,9 @@ Bunlardan **görüntü ve ses kaydınız** (biyometrik veri) ile **işitme/engel
 6698 sayılı Kanun'un 10. maddesi (aydınlatma yükümlülüğü) kapsamında bilgilendirme:
 
 - **Veri sorumlusu:** [SignBridge-TR proje ekibi / Yaşar Üniversitesi], iletişim: [e-posta].
-- **İşlenen veri kategorileri:** Kimlik ve iletişim bilgileri (gerektiğinde ad-soyad/imza); görsel ve işitsel kayıtlar (yüz, el, ses — biyometrik, özel nitelikli); işitme/engel durumu (özel nitelikli); uygulama kullanım ve performans verileri; anket ve görüşme yanıtları.
+- **İşlenen veri kategorileri:** Kimlik ve iletişim bilgileri (gerektiğinde ad-soyad/imza); görsel ve işitsel kayıtlar (yüz, el, ses — **kişisel veri**; bu çalışmada kimlik tanıma amacıyla işlenmediğinden biyometrik özel nitelikli veri değildir); işitme/engel durumu (**sağlık verisi — özel nitelikli**); uygulama kullanım ve performans verileri; anket ve görüşme yanıtları.
 - **İşleme amaçları:** Yalnızca bu akademik projenin yürütülmesi; sistemin kullanılabilirliğinin ve doğruluğunun ölçülmesi; sonuçların **anonimleştirilerek** bitirme raporunda, sunum ve demo materyallerinde değerlendirilmesi.
-- **Hukuki sebep:** Kişisel verileriniz **açık rızanıza** dayanılarak işlenir (KVKK m.5/1; özel nitelikli veriler için m.6/2 — GDPR m.6/1-a ve m.9/2-a).
+- **Hukuki sebep:** Kişisel verileriniz **açık rızanıza** dayanılarak işlenir — ses/görüntü dâhil genel nitelikli kişisel verileriniz için KVKK m.5/1 ve GDPR m.6/1-a; özel nitelikli **sağlık** veriniz (işitme/engel durumu) için KVKK m.6/2 ve GDPR m.9/2-a.
 - **Toplama yöntemi:** Veriler, kullanıcı testi oturumunda doğrudan sizden; video/ses kaydı, anket ve görüşme yoluyla toplanır.
 - **Saklama süresi:** Ham ses/görüntü kayıtları yalnızca analiz süresince saklanır ve en geç [proje bitimi / __ tarihi] itibarıyla **silinir / yok edilir**. Raporda yalnızca anonimleştirilmiş, kimliğinizle ilişkilendirilemeyen sonuçlar yer alır.
 - **Aktarım:** Verileriniz üçüncü kişilerle paylaşılmaz ve yurt dışına aktarılmaz; yalnızca proje ekibi ve danışman erişebilir. [Barındırma için bir bulut hizmeti kullanılıyorsa burada belirtilir.]
@@ -86,10 +86,10 @@ Yukarıdaki haklarınızı kullanmak veya açık rızanızı geri çekmek için,
 
 ## Bölüm C — Açık Rıza Beyanı
 
-Yukarıdaki bilgilendirme ve KVKK aydınlatma metnini okudum/anladım; sorularımı sorma fırsatı buldum. Katılımın gönüllü olduğunu ve istediğim an, gerekçe göstermeksizin çekilebileceğimi biliyorum. Aşağıda işaretlediğim özel nitelikli kişisel verilerimin, yalnızca belirtilen amaçla işlenmesine **açık rıza veriyorum:**
+Yukarıdaki bilgilendirme ve KVKK aydınlatma metnini okudum/anladım; sorularımı sorma fırsatı buldum. Katılımın gönüllü olduğunu ve istediğim an, gerekçe göstermeksizin çekilebileceğimi biliyorum. Aşağıda işaretlediğim kişisel verilerimin (özel nitelikli sağlık verim dâhil), yalnızca belirtilen amaçla işlenmesine **açık rıza veriyorum:**
 
 - [ ] Ses ve görüntü kaydımın alınmasına ve işlenmesine,
-- [ ] İşitme/engel durumumun kaydedilmesine ve işlenmesine,
+- [ ] İşitme/engel (sağlık) durumumun kaydedilmesine ve işlenmesine,
 - [ ] Uygulama kullanım ve performans verilerimin işlenmesine.
 
 _(İşaretlenmeyen veri türleri için açık rıza verilmemiş sayılır.)_

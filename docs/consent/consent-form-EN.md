@@ -10,6 +10,7 @@ Language ↔ Turkish translation system
 **Institution:** Yaşar University, Software Engineering Dept. — senior/capstone project
 **Advisor (responsible investigator):** [Dr. Kazım Erdoğdu]
 **Project team / data controller:** [SignBridge-TR team — contact e-mail]
+**Version / date:** v1.1 — 18 October 2026
 **Note:** This is an **academic** capstone project, with no commercial purpose.
 
 ---
@@ -33,17 +34,19 @@ During the test we will collect:
 - **Your survey and interview answers,**
 - **Your hearing/disability status** (for eligibility).
 
-Your audio/video recordings and disability status are **special-category personal
-data** under the Turkish Personal Data Protection Law (**KVKK, Law No. 6698**) and,
-correspondingly, GDPR Art. 9. Processing them therefore requires your **explicit
-consent**.
+Your **hearing/disability status is health data** and is therefore **special-category
+personal data** under KVKK Art. 6 / GDPR Art. 9, requiring your **explicit consent**.
+Your **audio and video recordings are personal data**; because they are **not processed
+to uniquely identify you (biometric identification)** in this study, they are **not
+biometric special-category data**. Their processing still requires your consent.
 
 ## 3. Data protection notice
 - **Data controller:** [SignBridge-TR team / Yaşar University — contact].
 - **Purpose:** only the evaluation of this academic project (measuring usability
   and accuracy; results reported **anonymously** in the capstone report).
-- **Legal basis:** your explicit consent (special-category data, KVKK Art. 6/2;
-  GDPR Art. 9(2)(a)).
+- **Legal basis:** your consent — for ordinary personal data including audio/video,
+  KVKK Art. 5/1 and GDPR Art. 6(1)(a); for your special-category **health** data
+  (disability status), KVKK Art. 6/2 and GDPR Art. 9(2)(a).
 - **Storage:** raw audio/video is kept only for the duration of analysis and
   **deleted** by [project end / ___ date] at the latest. Results are reported in
   **anonymised** form; no identifiable recording is published or shared.
@@ -62,11 +65,11 @@ I have read and understood the information above. I had the opportunity to ask
 questions. I understand that participation is voluntary and that I may withdraw at
 any time.
 
-I give my **explicit consent** to the processing of the following special-category
-data, for the stated purpose only:
+I give my **consent** to the processing of the following data (including my
+special-category health data), for the stated purpose only:
 
-- [ ] Recording of my audio and video
-- [ ] Recording of my hearing/disability status
+- [ ] Recording and processing of my audio and video
+- [ ] Recording and processing of my hearing/disability (health) status
 - [ ] Processing of my app usage/performance data
 
 Participant name: ______________________

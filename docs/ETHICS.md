@@ -16,16 +16,19 @@ participant-facing forms live under [`docs/consent/`](consent/).
 | Activity | Real human participants? | Personal / special-category data? | Triggers ethics review? |
 |---|---|---|---|
 | Model training | No — we use existing/found datasets (e.g. AUTSL). We are **not** recording our own signers. | No new personal data collected by us | No (only dataset licence compliance + citation) |
-| **User study / usability test** | **Yes** — Deaf and other volunteers use the app | **Yes** — session audio + video recordings (face/hands, voice), app-usage/performance data, SUS survey, semi-structured interviews, and participants' disability status | **Yes** |
+| **User study / usability test** | **Yes** — Deaf and other volunteers use the app | **Yes** — session audio + video recordings (face/hands, voice), app-usage/performance data, SUS survey, interviews, and participants' disability status (health data) | **Yes** |
 
 Why the user study triggers it:
 - It involves **real human participants**, which is the actual trigger for ethics
   review — recording sign language is **not** the trigger by itself.
-- We **record audio and video** of participants during testing. Facial image and
-  voice are personal data; under KVKK these are treated as sensitive/biometric.
-- Participants' **disability status (hearing impairment)** is **special-category
-  personal data** under KVKK Art. 6 — on its own it requires *explicit consent*,
-  even if nothing were recorded.
+- We **record audio and video** of participants. These are **personal data**. They are
+  **not** special-category "biometric" data here, because biometric data is personal data
+  processed **for the purpose of uniquely identifying** a person (KVKK Art. 6 / GDPR
+  Art. 4(14)), and this study does **not** process the recordings for identification.
+  Processing them still requires the participant's consent.
+- Participants' **disability status (hearing impairment)** is **health data**, which is
+  **special-category personal data** under KVKK Art. 6 / GDPR Art. 9 — on its own it
+  requires *explicit consent*, even if nothing were recorded.
 
 > Note on the product vs. the study: in normal product operation raw video is
 > never stored — only anonymous keypoints and text leave the device. The
@@ -72,4 +75,4 @@ committee.
 - Consent forms: [`docs/consent/`](consent/)
 - Committee page / regulation: _TBD_
 - Related Jira issue: SB-9
-- Pull Request: _TBD_
+- Pull Request: https://github.com/EgeErdem35/signBridge/pull/12
