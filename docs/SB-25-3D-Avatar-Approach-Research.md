@@ -175,6 +175,58 @@ This is an evidence-supported **research recommendation**, not an approved engin
 - **Handbook rev2:** Issue type is **Story**, so branch **`story/SB-25`**, commit history and PR linked to Jira; teammate review before merge; research documentation is itself a work product and should go through Review; Confluence Documentation entry linked to repo and issue.
 - **Limitations:** no performance benchmark, production pilot, verified TİD sign, license clearance or advisor technology approval was performed in this issue.
 
+## 10A. Critical appraisal and proposal alignment (final editorial review)
+
+This section makes explicit which findings are documented facts, which are project-specific judgments, and which are not yet demonstrated. It is added as a quality-control supplement, not as a change to the approved research scope.
+
+### Evidence hierarchy
+
+| Evidence type | Examples in this report | Appropriate interpretation |
+|---|---|---|
+| Verified specification/documentation | Engine licenses, glTF loaders, stated AUTSL dataset fields | A technical capability or dataset property, **not** proof of an implementation in SignBridge |
+| Peer-reviewed research | SignAvatars [R10], Spoken2Sign [R11], notation-to-animation example [R12] | Demonstrates a research method under its authors' conditions; transfer to TİD requires validation |
+| Engineering judgment | Three.js is the first candidate because React/PWA is already proposed | A reasoned recommendation; **not** a benchmark result or advisor decision |
+| Scenario assumption | 0.5/2/4 hours per clip; 80-hour pipeline setup | An explicitly hypothetical sensitivity calculation; **not** observed team productivity |
+| Future measurement | Device frame rate, manual cleanup time, comprehensibility | Must be collected in a later authorized development/evaluation task |
+
+### Why academic examples cannot simply be copied
+
+**SignAvatars [R10]** reconstructs holistic 3D motion from its own research corpus. This supports the *possibility* of a video-assisted workflow but does **not** supply an AUTSL-specific, licensed, linguistically validated export pipeline for SignBridge. A custom avatar's skeleton hierarchy and face rig may differ from a research body model.
+
+**Spoken2Sign [R11]** separates text-to-gloss, sign dictionary construction, connecting motions, and avatar rendering. It supports the **modular architecture**, not a claim that concatenating isolated TİD signs produces natural continuous signing. Sentence syntax, transitional motion and non-manual grammar remain separate risks.
+
+**HamNoSys/SiGML [R12]** presents a notation-based animation approach in the context of **Indian Sign Language**. It is *not* evidence that a validated Turkish Sign Language notation lexicon or ready SignBridge-compatible player exists.
+
+### Project-specific decision gates
+
+**Gate A — Asset availability.** Before choosing any pipeline, inventory the permissible TİD reference clips, annotations, license restrictions and target vocabulary. Keep the recognition dataset classes separate from the planned avatar lexicon. If an imported model lacks independent finger joints or facial controls, do not treat the engine's nominal facial-animation support as sufficient.
+
+**Gate B — Representative technical pilot.** A subsequent issue should compare 5–10 varied signs and capture actual elapsed work separately for model/rig preparation, landmark extraction, retargeting, keyframe repair, independent review, and export. Compare rendering engines on the same assets and devices. This issue only specifies the pilot; it does not perform or promise one.
+
+**Gate C — 300-sign decision.** Recalculate **N × measured per-sign effort** plus one-time costs, the fingerspelling alphabet, independent review, planned revisions and a contingency allowance. The proposal schedules avatar rig/library work across December–March. Compare estimated calendar capacity with actual team availability before making feasibility claims. An hours total alone is not a schedule, because parallel work, dependencies, review bottlenecks and external approvals matter.
+
+**Gate D — Product-owner decision.** The project proposal keeps **O4 at ≥300 signs + full fingerspelling**, and calls for advisor consultation before the **13 November 2026** SoW milestone. If Gate C indicates a mismatch, **report a proposed scope adjustment for advisor approval**; do not silently replace O4, change the claim in this report to a lower committed target, or assume the team can film new training data. The recognition training-data no-recording rule and ethics-controlled user-study data are different matters.
+
+### Detailed schedule illustration — explicitly not a forecast
+
+At 600 *illustrative* manual-authoring hours, one person contributing 10 hours/week would need 60 person-weeks for authoring alone; three people consistently contributing 10 hours/week each would need 20 calendar weeks *if* work divided perfectly with no dependencies. These are arithmetic scenarios, not evidence that the team has such capacity. Review and asset preparation would increase duration. For assisted animation, the same calculation must include the one-time pipeline setup and correction rates actually observed; faster extraction does not imply fast verified animation.
+
+### Research completion versus prototype completion
+
+The research recommendation is complete for issue review when comparisons, sources, method alternatives, risks and assumptions are documented. **A working avatar, an evaluated retargeting system, an approved use of every dataset, and an advisor-approved technology lock-in are NOT deliverables of SB-25.** The user-study comprehension target (proposal O4) must never be declared achieved via a visual conformance-only test.
+
+### Recommended reviewer checklist
+
+- [ ] Ensure each engine's browser, animation, glTF and license claim is correctly matched to its primary source.
+- [ ] Confirm no third-party model or dataset license is inferred from the engine license.
+- [ ] Check that sign-language linguistic requirements (handshape, movement, place, orientation, facial/non-manual markers) are explicitly addressed.
+- [ ] Re-check each production estimate's labels: **assumed**, **illustrative**, or **measured**.
+- [ ] Confirm ≥300 signs + alphabet remains the proposal target; any alternative is framed as advisor-governed contingency.
+- [ ] Verify that all future pilots, tests and user recruitment are not represented as completed work.
+- [ ] Check Jira Story branch naming, linked PR, peer review and Confluence traceability before merging.
+
+---
+
 ## References (primary/academic sources)
 
 - **[R1]** Three.js, *GLTFLoader documentation*. https://threejs.org/docs/pages/GLTFLoader
@@ -186,8 +238,8 @@ This is an evidence-supported **research recommendation**, not an approved engin
 - **[R7]** Godot, *Exporting 3D scenes and glTF limitations*. https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/exporting_3d_scenes.html
 - **[R8]** Ankara University CVML, *AUTSL Dataset*. https://cvml.ankara.edu.tr/datasets/
 - **[R9]** Google AI Edge, *MediaPipe Hand Landmarker*. https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker
-- **[R10]** Yu, Z. et al., *SignAvatars: A Large-scale 3D Sign Language Holistic Motion Dataset and Benchmark*, ECCV 2024. https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/653_ECCV_2024_paper.php
-- **[R11]** Zuo, R. et al., *A Simple Baseline for Spoken Language to Sign Language Translation with 3D Avatars*, ECCV 2024. https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6499_ECCV_2024_paper.php
+- **[R10]** Yu, Z., Huang, S., Cheng, Y., & Birdal, T., *SignAvatars: A Large-scale 3D Sign Language Holistic Motion Dataset and Benchmark*, ECCV 2024. https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/653_ECCV_2024_paper.php
+- **[R11]** Zuo, R., Wei, F., Chen, Z., Mak, B., Yang, J., & Tong, X., *A Simple Baseline for Spoken Language to Sign Language Translation with 3D Avatars*, ECCV 2024. https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6499_ECCV_2024_paper.php
 - **[R12]** *HamNoSys to SiGML Conversion System for Sign Language Automation*, Procedia Computer Science (2016). https://doi.org/10.1016/j.procs.2016.06.063
 - **[R13]** Khronos Group, *glTF 2.0 specification*. https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html
 - **[R14]** Blender Foundation, *Blender manual*. https://docs.blender.org/manual/en/latest/
