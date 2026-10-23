@@ -116,7 +116,7 @@ The proposal correctly distinguishes **recognition classes** from the **avatar c
 
 ## 6. 300-sign feasibility — honest estimates
 
-Proposal v1.1 **O4 and Expected Deliverables** retain **≥300 signs plus Turkish fingerspelling**. **SB-25 cannot lower or silently change that target.** The proposal directs the team to discuss the avatar approach, estimated effort and any target change with the advisor in advance of the SoW milestone on **13 November 2026**.
+SB-18 v1.1 r5 draft **O4 and Expected Deliverables** retain **≥300 signs plus Turkish fingerspelling**. **SB-25 cannot lower or silently change that target.** The proposal directs the team to discuss the avatar approach, estimated effort and any target change with the advisor in advance of the SoW milestone on **13 November 2026**.
 
 Define N = number of clips; M = manually authored/reviewed hours per clip; P = one-time setup hours for semi-automated pipeline; C = extraction + correction + review hours per clip.
 
@@ -139,7 +139,7 @@ Difficulty differs by sign (one/two hands, complex finger articulation, face/hea
 
 ## 7. Pilot validation specification (FUTURE WORK; not performed in SB-25)
 
-The proposal's risk register anticipates a small pilot and advisor review, but this research issue explicitly excludes code development. This section therefore specifies a *subsequent, separately assigned* experiment; do not mark it completed or fabricate evidence.
+The SB-18 v1.1 r5 draft's risk register anticipates a pilot and advisor review, but this research issue explicitly excludes code development. This section therefore specifies a *subsequent, separately assigned* experiment; do not mark it completed or fabricate evidence.
 
 Choose **5–10 permitted, linguistically sourced signs** spanning simple/complex handshape, one/two hands, face proximity, motion trajectory and non-manual features. Record sign ID, gloss, licensed source, annotator, complexity class and whether the sign overlaps the target vocabulary.
 
@@ -213,7 +213,7 @@ This section makes explicit which findings are documented facts, which are proje
 
 **Gate C — 300-sign decision.** Recalculate **N × measured per-sign effort** plus one-time costs, the fingerspelling alphabet, independent review, planned revisions and a contingency allowance. The SB-18 r5 draft schedules avatar rig/library work across December–March; this is not evidence of completed animation or an already executed pilot. Compare estimated calendar capacity with actual team availability before making feasibility claims. An hours total alone is not a schedule, because parallel work, dependencies, review bottlenecks and external approvals matter.
 
-**Gate D — Advisor decision.** The SB-18 r5 draft keeps **O4 at ≥300 signs + full fingerspelling**, and calls for advisor consultation before the **13 November 2026** SoW milestone. If Gate C indicates a mismatch, **report a proposed scope adjustment for advisor approval**; do not silently replace O4, change the claim in this report to a lower committed target, or assume the team can film new training data. The recognition training-data no-recording rule and ethics-controlled user-study data are different matters.
+**Gate D — Advisor decision.** The SB-18 r5 draft keeps **O4 at ≥300 signs + full fingerspelling**, and calls for advisor consultation before the **13 November 2026** SoW milestone. If Gate C indicates a mismatch, **report a proposed scope adjustment for advisor approval**; do not silently replace O4, change the claim in this report to a lower committed target, or assume the team can film supplementary training data without the SB-18 r5 conditional permissions, ethics and advisor approvals. The recognition training-data no-recording rule and ethics-controlled user-study data are different matters.
 
 ### Detailed schedule illustration — explicitly not a forecast
 
