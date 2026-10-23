@@ -88,7 +88,15 @@ The 2024 **SignAvatars** work shows large-scale 3D holistic pose reconstruction 
 
 ### C. Symbolic notation (HamNoSys/SiGML; research alternative)
 
-Describe signs using linguistically meaningful notation, then transform these descriptions into a form consumable by a compatible signing avatar. **Potential:** structured reusable motion, consistency and rule-driven authoring. **Requirements:** TİD-specific notation entries, qualified annotators, compatible engine and semantic/non-manual validation. A Turkish text word is **not** a HamNoSys specification. Given unknown resource availability, this is an alternative to investigate rather than the default MVP method [R12].
+A notation-to-animation workflow is a **research alternative**, not an implemented Turkish Sign Language (TİD) player or a ready replacement for the planned Blender/glTF pipeline [R12].
+
+1. **Select a sign** from the proposed TİD gloss lexicon and obtain an authorized reference plus a TİD-informed description.
+2. **Author and check HamNoSys notation** for handshape, location, orientation and movement, with non-manual requirements separately identified. A Turkish word or gloss is **not** automatically a valid notation entry.
+3. **Convert HamNoSys into SiGML**, resolving unsupported or ambiguous symbols and verifying converter behavior.
+4. **Play the SiGML in a compatible signing-avatar system** and record any missing controls for facial grammar, hands and motion timing.
+5. **Review the resulting motion** against the licensed sign reference with qualified TİD expertise where available; revise notation, conversion rules or motion, then measure authoring effort.
+
+**Candidate tooling and licensing gate:** The academic **HamNoSys-to-SiGML conversion approach [R12]** establishes a published research route; a possible compatible playback ecosystem is **JASigning/SiGML**, whose contemporary availability, web/browser support, source-code licensing, ability to import/export glTF and right to redistribute output **must be verified before adoption**. No open-source license or deployed availability is assumed here. Critically, a SiGML player is not interchangeable with Three.js's generic glTF loader; a separate SiGML interpreter or a validated conversion/export layer would be required. The team has not identified an approved TİD-specific notation lexicon, which makes this the highest-dependency alternative.
 
 | Method | Setup effort | Effort per sign | Main uncertainty | Proposed role |
 |---|---|---|---|---|
@@ -104,7 +112,7 @@ Ankara University's AUTSL description specifies **226 isolated sign classes, 43 
 
 The proposal correctly distinguishes **recognition classes** from the **avatar clip lexicon**; the latter may draw on dictionary references and other permitted assets. The simple arithmetic 300 − 226 = 74 is *not a guaranteed exact coverage gap*: it only shows that 226 AUTSL classes cannot alone represent 300 distinct target signs. Actual vocabulary overlap may be lower; a gloss-by-gloss coverage audit is necessary. BosphorusSign22k's larger label inventory does not itself ensure access, redistribution rights or ready avatar motion.
 
-**Copyright/privacy:** a dictionary video used for scholarly reference need not be redistributable, and deriving motion may require checking license terms. Do not commit source recordings or third-party avatars to the repository without explicit permission. User-study recording and ethics approval are separate from reusing an existing dataset; the proposal prohibits own **training-data** recording but has separately unresolved user-study recording decisions.
+**Copyright/privacy:** a dictionary video used for scholarly reference need not be redistributable, and deriving motion may require checking license terms. Do not commit source recordings or third-party avatars to the repository without explicit permission. User-study recording and ethics approval are separate from reusing an existing dataset; the **SB-18 v1.1 r5 proposal draft (23 October 2026)** prioritizes existing datasets and proposes *conditional supplementary training recordings* only if a vocabulary/coverage audit demonstrates a need and **after advisor agreement, applicable ethics approval, informed consent and data-use arrangements**. This revises the 19 October team no-own-training-data decision but **is not yet advisor-approved**. User-study recordings are a separate ethics and consent decision.
 
 ## 6. 300-sign feasibility — honest estimates
 
@@ -164,14 +172,14 @@ Choose **5–10 permitted, linguistically sourced signs** spanning simple/comple
 2. **Recommend Blender as the initial rig/clip authoring tool**, assuming an appropriately licensed avatar with independent finger/face controls.
 3. **Prioritize a manual quality baseline and investigate a hybrid video-landmark-retargeting workflow**. Do not commit to fully automatic conversion, an AI-driven motion generator or an existing ready-made AUTSL animation library.
 4. **Preserve the ≥300 signs and fingerspelling proposal target for now**; describe it as *not yet validated as feasible*, not as an already delivered or unilaterally reduced requirement.
-5. **Seek a specific advisor decision before the 13 November SoW scope freeze** after the proposed pilot supplies actual effort and quality measurements.
+5. **Before the 13 November 2026 SoW milestone**, present the documented assumptions, coverage/licensing questions, estimated labor ranges, and a proposed pilot with decision gates to the advisor. **Do not imply a measured pilot will be completed by that date**: SB-25 is research-only and animation work is planned for December–March. Execute the technical/sign-quality pilot later as a separately tracked task, then return to the advisor with measured effort and any requested scope revision.
 
 This is an evidence-supported **research recommendation**, not an approved engineering selection or completed implementation.
 
 ## 10. Compliance and traceability
 
 - **Jira SB-25:** three alternatives; browser/license/cost, hand/face and glTF; animation production methods; effort per sign and 300-sign assessment; cited recommendation; **no code** — covered above.
-- **Proposal:** Separate Direction A recognition vocabulary and Direction B clip lexicon; prepared clips rather than generative signs; Three.js/Blender baseline; O4 ≥300 + alphabet; no own training-data recording; ethics before participants; advisor review before SoW — explicitly preserved.
+- **Proposal:** Separate Direction A recognition vocabulary and Direction B clip lexicon; prepared clips rather than generative signs; Three.js/Blender baseline; O4 ≥300 + alphabet and its avatar evaluation requirements; the SB-18 r5 **conditional recording proposal is pending advisor approval**, rather than a blanket permanent prohibition; ethics/consent before human participation; advisor discussion before SoW — explicitly preserved.
 - **Handbook rev2:** Issue type is **Story**, so branch **`story/SB-25`**, commit history and PR linked to Jira; teammate review before merge; research documentation is itself a work product and should go through Review; Confluence Documentation entry linked to repo and issue.
 - **Limitations:** no performance benchmark, production pilot, verified TİD sign, license clearance or advisor technology approval was performed in this issue.
 
@@ -203,9 +211,9 @@ This section makes explicit which findings are documented facts, which are proje
 
 **Gate B — Representative technical pilot.** A subsequent issue should compare 5–10 varied signs and capture actual elapsed work separately for model/rig preparation, landmark extraction, retargeting, keyframe repair, independent review, and export. Compare rendering engines on the same assets and devices. This issue only specifies the pilot; it does not perform or promise one.
 
-**Gate C — 300-sign decision.** Recalculate **N × measured per-sign effort** plus one-time costs, the fingerspelling alphabet, independent review, planned revisions and a contingency allowance. The proposal schedules avatar rig/library work across December–March. Compare estimated calendar capacity with actual team availability before making feasibility claims. An hours total alone is not a schedule, because parallel work, dependencies, review bottlenecks and external approvals matter.
+**Gate C — 300-sign decision.** Recalculate **N × measured per-sign effort** plus one-time costs, the fingerspelling alphabet, independent review, planned revisions and a contingency allowance. The SB-18 r5 draft schedules avatar rig/library work across December–March; this is not evidence of completed animation or an already executed pilot. Compare estimated calendar capacity with actual team availability before making feasibility claims. An hours total alone is not a schedule, because parallel work, dependencies, review bottlenecks and external approvals matter.
 
-**Gate D — Product-owner decision.** The project proposal keeps **O4 at ≥300 signs + full fingerspelling**, and calls for advisor consultation before the **13 November 2026** SoW milestone. If Gate C indicates a mismatch, **report a proposed scope adjustment for advisor approval**; do not silently replace O4, change the claim in this report to a lower committed target, or assume the team can film new training data. The recognition training-data no-recording rule and ethics-controlled user-study data are different matters.
+**Gate D — Advisor decision.** The SB-18 r5 draft keeps **O4 at ≥300 signs + full fingerspelling**, and calls for advisor consultation before the **13 November 2026** SoW milestone. If Gate C indicates a mismatch, **report a proposed scope adjustment for advisor approval**; do not silently replace O4, change the claim in this report to a lower committed target, or assume the team can film new training data. The recognition training-data no-recording rule and ethics-controlled user-study data are different matters.
 
 ### Detailed schedule illustration — explicitly not a forecast
 
@@ -213,7 +221,7 @@ At 600 *illustrative* manual-authoring hours, one person contributing 10 hours/w
 
 ### Research completion versus prototype completion
 
-The research recommendation is complete for issue review when comparisons, sources, method alternatives, risks and assumptions are documented. **A working avatar, an evaluated retargeting system, an approved use of every dataset, and an advisor-approved technology lock-in are NOT deliverables of SB-25.** The user-study comprehension target (proposal O4) must never be declared achieved via a visual conformance-only test.
+The research recommendation is complete for issue review when comparisons, sources, method alternatives, risks and assumptions are documented. **A working avatar, an evaluated retargeting system, an approved use of every dataset, and an advisor-approved technology lock-in are NOT deliverables of SB-25.** The **O4 avatar comprehension measure** (distinct from the O4 library-size count and from the **O7 usability/task-completion and SUS** measures) must never be declared achieved using only a visual reference-conformance inspection. Where target-user comprehension could not be measured, record it as **not measured**; do not substitute the O7 task-completion metric.
 
 ### Recommended reviewer checklist
 
