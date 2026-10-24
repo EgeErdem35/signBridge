@@ -133,7 +133,7 @@ jobs:
               // check configuration means there is no required check to invent or assume.
             } catch(e) { blockers.push('Cannot verify commit check status: '+e.message); }
             if (pr.draft) blockers.push('PR is still draft.');
-            if (!isMerged) blockers.push('PR has not been merged into main.');
+            // Pre-merge checks are valid; only the closed event must be merged to trigger Jira.
             if (onClosed && !isMerged) blockers.push('PR closed without merge.');
             if (blockers.length) {
               await feedback('### SB Jira Done gate — not completed\n\n'+blockers.map(x=>'- '+x).join('\n')+'\n\n**Jira was not transitioned.** Correct the above issues; merge a properly reviewed PR into `main`.');
