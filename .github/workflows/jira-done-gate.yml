@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   gate:
-    # Never checkout or execute code from a pull request. Use only GitHub API and Jira API.
+    # No checkout or PR source execution in this job; see security caveat about pull_request_review in docs.
     if: github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     steps:
@@ -68,8 +68,8 @@ jobs:
             }
             if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
             if (!issueMatch) blockers.push('Head branch must match exactly `story/SB-XX`, `task/SB-XX` or `bug/SB-XX` (no suffix).');
-            if (issueKey && !pr.title.includes(issueKey)) blockers.push('PR title must contain '+issueKey+'.');
-            if (issueKey && !pr.body?.includes('https://el-dili.atlassian.net/browse/' + issueKey))
+            if (issueKey && !(new RegExp(issueKey + '(?!\\d)')).test(pr.title)) blockers.push('PR title must contain '+issueKey+'.');
+            if (issueKey && !(new RegExp('/browse/' + issueKey + '(?!\\d)')).test(pr.body || '') )
               blockers.push('PR description must link the corresponding Jira issue.');
             if (!credsAvailable) blockers.push('Jira secrets not configured: JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN.');
             let jiraIssue;
@@ -89,7 +89,7 @@ jobs:
             const reviews = await github.paginate(github.rest.pulls.listReviews, {owner,repo,pull_number:prNumber,per_page:100});
             const latest = new Map();
             for (const r of reviews) {
-              if (r.user?.login && r.state !== 'PENDING') latest.set(r.user.login, r);
+              if (r.user?.login && !['PENDING','COMMENTED'].includes(r.state)) latest.set(r.user.login, r);
             }
             const peers = [...latest.values()].filter(r => r.user.login !== pr.user.login);
             const approvals = peers.filter(r => r.state === 'APPROVED' && r.commit_id === pr.head.sha);
@@ -127,7 +127,7 @@ jobs:
                 else if (!['success','neutral','skipped'].includes(run.conclusion)) blockers.push('Check did not pass: '+run.name+' ('+run.conclusion+').');
               }
               const state = await github.rest.repos.getCombinedStatusForRef({owner,repo,ref:pr.head.sha});
-              if (state.data.state === 'failure' || state.data.state === 'pending')
+              if (state.data.total_count > 0 && state.data.state !== 'success')
                 blockers.push('Commit status is '+state.data.state+'.');
               // GitHub branch protections enforce *which* checks are required. No required
               // check configuration means there is no required check to invent or assume.
