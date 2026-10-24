@@ -8,7 +8,7 @@
 > **Original task:** SB-9. Original documentation owner: Emir Ersan.
 > **Current task:** SB-19 — Share Ethics Documentation with Advisor.
 > **Current task owner:** Yasmin Malgir.
-> **Alignment source:** SB-18 proposal v1.1, r5 draft, 23 October 2026.
+> **Alignment source:** SB-18 proposal v1.1, r6 draft, 24 October 2026.
 >
 > This document does not record an ethics application, approval or advisor
 > endorsement of the proposed protocol.
@@ -73,7 +73,7 @@ repository.
 |---|---|---|
 | Training with existing datasets | Prioritise AUTSL, with BosphorusSign22k as the alternative described in the proposal. | Check licence terms, permitted processing and citation requirements. Confirm any institutional requirements for secondary use with the advisor. |
 | Simulated-condition pre-tests | Volunteers complete evaluation tasks under defined simulated conditions. | These are participant activities. No participant pre-test begins before applicable ethics approval and informed consent. |
-| Target-user evaluation | Suitable Deaf/hard-of-hearing TİD users, blind users and other relevant volunteers evaluate the application if they can be reached. | No participant evaluation begins before applicable ethics approval and informed consent. |
+| Target-user evaluation | Suitable target users evaluate the agreed features if volunteers can be reached. Blind-specific features and related evaluation remain subject to the team/advisor scope decision D-23. | Confirm participant groups and tasks against the agreed scope. No participant evaluation begins before applicable ethics approval and informed consent. |
 | Supplementary training recordings | Not currently scheduled; a conditional option if the coverage audit demonstrates a need. | Require advisor agreement, applicable ethics approval, informed consent and appropriate data-use arrangements before collection. |
 
 ### Existing datasets
@@ -92,6 +92,12 @@ do not establish usability for Deaf or blind users.
 
 Disability-related eligibility information must be limited to what the
 approved protocol needs and handled as sensitive participant information.
+
+Blind-specific features remain proposed rather than an agreed MVP
+commitment in the R6 proposal (open decision D-23). General accessibility
+remains in scope. The team and advisor must settle the affected features,
+participant groups and tasks before the evaluation protocol and consent
+forms are finalised. This document does not resolve that scope decision.
 
 ### Supplementary training recordings
 
@@ -184,6 +190,9 @@ Questions for the advisor:
 8. What additional review and consent materials would be needed if
    supplementary training recordings become necessary?
 9. What are the application deadlines and expected review schedule?
+10. Based on the submitted proposal, which participant groups and tasks
+    should be included in the ethics application, particularly for the
+    blind-specific features marked as pending confirmation?
 
 Committee page, official checklist and confirmed decisions will be recorded
 after they are provided or verified.
@@ -277,3 +286,14 @@ e-mail content or personal contact details.
 - Marked session recording, service selection and retention as unresolved.
 - Added advisor questions and a sharing/application record.
 - Preserved the SB-9 documentation history.
+
+### SB-19 R6 alignment update — 24 October 2026
+
+- Updated the alignment source to the SB-18 v1.1 R6 proposal.
+- Recorded D-23 as an unresolved team/advisor decision concerning
+  blind-specific features and the related evaluation scope.
+- Kept general accessibility in scope.
+- Required participant groups, tasks and consent materials to follow
+  the agreed scope before evaluation.
+- Retained the existing conditions for participant approval, recording,
+  external services and supplementary training-data collection.
