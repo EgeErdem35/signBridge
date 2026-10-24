@@ -1,6 +1,6 @@
 # SB-27 — Repository-wide Jira Done automation
 
-**Status:** Proposed implementation; not active until this PR is approved and merged into `main`, and Jira credentials are configured.
+**Status (24 October 2026):** Implemented and merged into `main` through SB-27 PR #18, then corrected in SB-28 PR #19. The SB-28 merge was reported to complete Jira SB-28 and post a success bot comment. The `gate` check has now been configured as a required status check in the `main-branch-protection` ruleset; this requirement is being independently verified with a fresh PR (SB-29).
 
 ## Purpose
 
@@ -58,7 +58,7 @@ At **Settings → Rules → Rulesets**, or **Settings → Branches → Branch pr
 
 If a merged PR's final gate run cannot transition Jira to Done (temporary Jira outage, permission issue, missing required transition fields or a fixable validation problem), correct the issue and use **GitHub → Actions → Jira Done gate → the closed/merged workflow run → Re-run jobs**. It fetches the current PR and Jira state and is safe to rerun. Never manually alter Jira to hide a failing gate; resolve the reported issue first. Some Jira Done transitions require a screen field (for example Resolution); if a transition returns HTTP 400, configure the workflow transition or add the required field only after confirming its value with the Jira administrator.
 
-A required `gate` status check should be enabled **only after its run appears in GitHub**, and the deployment must be tested after PR #18 is merged into main.
+The `gate` status check was configured as required in the `main-branch-protection` ruleset after the workflow appeared in GitHub. A fresh PR is needed to verify the rule blocks merging with a failing check and allows merging after independent approval and successful validation. Do not claim that the ruleset's enforcement is proven merely because its settings were saved.
 
 ## Verification / rollout plan
 
@@ -70,7 +70,7 @@ A required `gate` status check should be enabled **only after its run appears in
 6. Open a PR with a wrong prefix/issue type or a failing required check; confirm **no Done transition**, appropriate feedback and no permitted merge when branch rules are enabled.
 7. Test idempotence by re-running the workflow on an already completed issue; it must not perform a second transition.
 
-**Deployment caveat:** No live end-to-end GitHub-to-Jira automation can be claimed verified until repository secrets, GitHub rules and independent merge/testing are completed.
+**Verification caveat:** SB-28 is Done following merged PR #19 and a bot success comment was reported; nevertheless the required-check ruleset must be tested on a new PR, and both positive and negative gate cases recorded. Passing a single merged PR is not proof of every rejection scenario.
 
 ## Related resources
 
