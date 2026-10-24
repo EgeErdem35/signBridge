@@ -1,6 +1,6 @@
 # SB-18: Instructor Feedback and Team Review Matrix
 
-**Status:** Prepared on 20–24 October 2026 (R6, after the PR #16 review) for the revised proposal draft. Status: R5 under review in PR #16 (changes requested, not merged); R6 prepared for the same branch, not yet pushed; not yet resubmitted to the advisor (original due date 23 October 2026). “Resolved” means addressed in the draft text; it does not mean approved.
+**Status:** Prepared on 20–24 October 2026 (R6, after the PR #16 review) for the revised proposal draft. Status: R6 pushed to PR #16 for re-review (not merged); not yet resubmitted to the advisor (original due date 23 October 2026). “Resolved” means addressed in the draft text; it does not mean approved.
 
 *Source types: Instructor = comments in the instructor-feedback screenshot (AKK, KE, AC), confirmed complete by the reviewer in PR #16; Advisor decision = Sprint 1 Review, 19 October 2026; PR review = Emir Ersan’s review of PR #16; Team review = findings and suggestions from team reviews, not decisions; Team report / Sample check = status reported by a team member and the re-check of the supplied sample files (no dataset content is included). Page numbers refer to the final proposal draft (10 pages).*
 
