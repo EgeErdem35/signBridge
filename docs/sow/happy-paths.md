@@ -17,7 +17,7 @@ The high-level functionalities that these paths require, their use cases and the
 1. **Only the successful scenario is shown.** Failures (a sign is not recognised, speech is misheard, no network, a word is missing from the avatar library) are handled in the use cases of SB-24, not here.
 2. **Only MVP functions are used**, as SB-23 requires (the point was raised in the Sprint 2 Technical Meeting). The functions are listed in the table below, with their source in the proposal. Blind-specific features are not an agreed MVP commitment (open decision D-23). Where a step uses one, it is marked **PROPOSED** and has its own ID (PX1–PX3).
 3. **Two controls separate input from output** in every sign-to-speech flow, as the proposal requires (functional requirement 3): the signer ends the sign sequence with an accessible **Done** control (a longer pause is an alternative, Technical Notes §4), and then **confirms or edits** the generated sentence before it is spoken.
-4. **Gloss examples are illustrative and unverified.** Several wireframe glosses (SİMİT, BİR, KARIN, AĞRI, RANDEVU) are not Dataset classes, and the single *saat* class does not cover numbers or clock times. The scenario dialogues are fixed only after the coverage audit (before 13 November 2026) and may be shortened.
+4. **Gloss examples are illustrative.** The signed input of HP-1, HP-2 and HP-3 (Direction A) is built mainly from words that a class-name match found in AUTSL: HASTANE, DOKTOR, İLAÇ, YARDIM, YARIN and OKUL (the match also found ECZANE, SAAT and TEŞEKKÜR). A name match does not prove that the Dataset sign is the intended TİD sign, and the other glosses (for example BULUŞMAK and Mİ) and the café order of HP-4 have not been checked. The single *saat* class does not cover numbers or clock times. The avatar side (Direction B) uses the team's own clip library, which is separate from the Dataset vocabulary. The scenario dialogues are fixed only after the coverage audit (before 13 November 2026) and may be shortened.
 5. **Labels are in English for readability.** The final interface will be in Turkish. In the flow tables, **S1, S2, …** refer to the numbered screens of that path's storyboard; some steps show their result on the next screen.
 6. **Raw camera video is processed on the device and is neither stored nor sent** (objective O8); only recognised glosses and text move on.
 
@@ -72,14 +72,14 @@ No new targets are set here. The measures below are the existing objectives, and
 | # | User action | System response | MVP functions | Sketch |
 |---|---|---|---|---|
 | 1 | Ayşe opens the app, places the phone on the desk and taps **Two-way conversation**. | Shows the home screen with the four modes, opens two-way mode and starts the camera preview. | MF1, MF10, MF12 | S1 |
-| 2 | Ayşe signs her request (*BEN, RANDEVU, VAR, KARIN, AĞRI*), pausing briefly between signs. | Extracts landmarks on the device, recognises each isolated sign after its pause and lists the glosses live. | MF2, MF3 | S2 |
+| 2 | Ayşe signs her request (*HASTANE, DOKTOR, YARDIM*), pausing briefly between signs. | Extracts landmarks on the device, recognises each isolated sign after its pause and lists the glosses live. | MF2, MF3 | S2 |
 | 3 | Ayşe taps **Done**. | Ends the sign sequence, builds the Turkish sentence from the glosses and shows it in large text with **Speak** and **Edit**. | MF4, MF5 | S3 |
-| 4 | Ayşe checks the sentence and taps **Speak**. | Reads *"Randevum var, karnım ağrıyor."* aloud to the clerk and keeps it on screen; **Repeat** is available. | MF5, MF6 | S4 |
-| 5 | The clerk answers aloud: *"Kimliğinizi alabilir miyim? 3 numaralı odaya geçin."* | Switches to listening, shows a live transcript and, when the speech ends, sends it on. | MF7, MF10 | S5 |
+| 4 | Ayşe checks the sentence and taps **Speak**. | Reads *"Doktor kaydı için yardım eder misiniz?"* aloud to the clerk and keeps it on screen; **Repeat** is available. | MF5, MF6 | S4 |
+| 5 | The clerk answers aloud: *"Kaydınız tamam. Doktor sizi çağıracak."* | Switches to listening, shows a live transcript and, when the speech ends, sends it on. | MF7, MF10 | S5 |
 | 6 | Ayşe watches the avatar. | Converts the sentence into a gloss sequence from the library and plays the clips with a caption; Ayşe can replay or change the speed. | MF8, MF9 | S6 |
-| 7 | Ayşe hands over her ID and goes to room 3. | Flow ends. | – | S7 |
+| 7 | Ayşe takes a seat in the waiting area. | Flow ends. | – | S7 |
 
-**Outcome:** Ayşe is registered and knows where to go. No interpreter and no written notes were needed.
+**Outcome:** Ayşe is registered and knows that the doctor will call her. No interpreter and no written notes were needed.
 
 **Measures exercised:** O5-A (signing to spoken output), O5-B (clerk's speech to avatar), O6, O7 (Deaf/hard-of-hearing TİD users and hearing non-signers), O8.
 
@@ -107,9 +107,9 @@ No new targets are set here. The measures below are the existing objectives, and
 | 1 | Mehmet opens the app, taps **Two-way conversation** and turns the tablet toward the customer. | Opens two-way mode (as HP-1, step 1). | MF1, MF10, MF12 | S1 |
 | 2 | Mehmet says: *"Bu ilacı günde iki kez, yemekten sonra için."* | Transcribes live so that Mehmet can check that he was heard correctly; when the speech ends, sends the transcript on. | MF7 | S2 |
 | 3 | The customer watches the avatar. | Converts the sentence into a gloss sequence from the library, with numbers and times as explicit signs, and plays the clips with a caption; the customer can replay or slow down. | MF8, MF9 | S3 |
-| 4 | The customer signs a question (*AÇ, KARIN, OLUR, Mİ*) and taps **Done**. | After the avatar finishes, switches to the camera, recognises the signs and lists the glosses; on **Done**, builds the sentence and shows it with **Speak** and **Edit**. | MF2, MF3, MF4, MF5, MF10 | S4–S5 |
-| 5 | The customer confirms with **Speak**. | Reads *"Aç karnına içebilir miyim?"* aloud and shows it in large text, with a **Reply** button. | MF5, MF6 | S5–S6 |
-| 6 | Mehmet taps **Reply** and answers by voice: *"Evet, aç karnına içebilirsiniz."* | Repeats steps 2–3: transcript, gloss sequence, avatar with caption. | MF7, MF8, MF9, MF10 | S6–S7 |
+| 4 | The customer signs a question (*İLAÇ, YARIN, Mİ*) and taps **Done**. | After the avatar finishes, switches to the camera, recognises the signs and lists the glosses; on **Done**, builds the sentence and shows it with **Speak** and **Edit**. | MF2, MF3, MF4, MF5, MF10 | S4–S5 |
+| 5 | The customer confirms with **Speak**. | Reads *"İlacı yarın da içeyim mi?"* aloud and shows it in large text, with a **Reply** button. | MF5, MF6 | S5–S6 |
+| 6 | Mehmet taps **Reply** and answers by voice: *"Evet, yarın da aynı şekilde için."* | Repeats steps 2–3: transcript, gloss sequence, avatar with caption. | MF7, MF8, MF9, MF10 | S6–S7 |
 | 7 | The customer understands the answer and leaves. | Flow ends. | – | S8 |
 
 **Outcome:** The customer leaves with the dosage understood. No notes were passed back and forth, and the risk of a misunderstood "twice a day, after meals" is removed.
@@ -133,6 +133,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 - SignBridge-TR is open on Zeynep's phone; VoiceOver is on, permissions are granted and the device is online.
 - Emre sits opposite Zeynep and the phone is positioned so that the camera sees him (Emre sets it up or the phone stands on a stand). Zeynep cannot check the framing herself.
+- The phone is Zeynep's, so VoiceOver stays on while Emre uses the on-screen controls **Done**, **Speak** and **Edit**. With VoiceOver on, a control is selected with one tap (the focus frame is visible) and activated with a double-tap; Zeynep shows Emre this once. Whether the signer's side needs a view that works without VoiceOver gestures is open point 7.
 
 **Flow**
 
@@ -140,8 +141,8 @@ No new targets are set here. The measures below are the existing objectives, and
 |---|---|---|---|---|
 | 1 | Zeynep starts the app with VoiceOver, moves the focus to **Two-way conversation** and double-taps. (**PROPOSED** alternative: she says "Start conversation".) | VoiceOver announces the control; opens two-way mode and starts the camera. | MF1, MF10, MF12 (PX1) | S1 |
 | 2 | Zeynep waits. | **PROPOSED:** speaks a cue when Emre's hands are fully in the frame: *"Emre is in frame. Both hands visible. Ready."* | PX2, MF2 | S2 |
-| 3 | Emre signs (*ÖDEV, YARIN, KÜTÜPHANE, YAPMAK, Mİ*) and taps **Done**. | Recognises the signs and lists the glosses for Emre; on **Done**, builds the sentence. | MF3, MF4, MF5 | S3 |
-| 4 | Emre checks the sentence and taps **Speak**. | Reads *"Ödevi yarın kütüphanede yapalım mı?"* aloud and exposes the text to VoiceOver as a status message. | MF5, MF6, MF12 | S4–S5 |
+| 3 | Emre signs (*YARIN, OKUL, BULUŞMAK, Mİ*) and ends the sequence with **Done** (tap to select, double-tap to activate). | Recognises the signs and lists the glosses for Emre; on **Done**, builds the sentence. | MF3, MF4, MF5 | S3 |
+| 4 | Emre checks the sentence and confirms with **Speak** (tap, double-tap). | Reads *"Yarın okulda buluşalım mı?"* aloud and exposes the text to VoiceOver as a status message. | MF5, MF6, MF12 | S4–S5 |
 | 5 | Zeynep activates **Answer by voice** (focus and double-tap; **PROPOSED** alternative: voice command) and says: *"Olur, saat ikide buluşalım."* | Transcribes the speech and, when it ends, sends it on. | MF7 (PX1) | S5–S6 |
 | 6 | Emre watches the avatar. | Converts the sentence into a gloss sequence and plays the clips with a caption. **PROPOSED:** tells Zeynep by voice *"Delivered to Emre."* | MF8, MF9, PX3 | S7 |
 | 7 | Zeynep and Emre have agreed the meeting. | Flow ends. | – | S8 |
@@ -180,6 +181,8 @@ No new targets are set here. The measures below are the existing objectives, and
 | 5 | Can taps **Save to Quick phrases**. | Stores the sentence on the device and shows it at the top of the Quick phrases list. | MF11 | S5–S6 |
 | 6 | *Next visit:* Can opens **Quick phrases** and taps the saved phrase. | Speaks the phrase at once, without the camera step. | MF11, MF6 | S7 |
 
+*The glosses of this path are illustrative: no word of the café order has been confirmed by the class-name match (see ground rule 4).*
+
 **Outcome:** Can gets his order right the first time and hears the barista's reply directly. His order is saved for one-tap reuse.
 
 **Measures exercised:** O5-A, O6, O7, O8.
@@ -216,9 +219,10 @@ Not shown on any path: the fingerspelling fallback for words that are not in the
 | 1 | **Blind-user scope (D-23)** | HP-3 is kept as a proposed path with PX1–PX3 marked; a fallback variant for mediated communication is described. | Team, then advisor |
 | 2 | **Confirm before speaking** | Every sign-to-speech flow has Done and confirm/edit (functional requirement 3, Technical Notes §4). Figure 2 (a) and (b) in the Technical Notes show the sentence spoken directly, so those wireframes would need to be updated if the team agrees. | Team |
 | 3 | **When speech is sent to the avatar** | Sent automatically when the speech ends. Figure 2 (a) says "Auto-sent" and (b) shows a **Send to avatar** button; the two differ. | Team |
-| 4 | **Vocabulary** | Glosses are illustrative. If the coverage audit shows that a sign is missing (for example SİMİT, BİR, KARIN, AĞRI, RANDEVU), the scenario sentence is rephrased with covered glosses. | Owner of the coverage audit |
+| 4 | **Vocabulary** | Glosses are illustrative. HP-1 to HP-3 use mainly classes found by name match (HASTANE, DOKTOR, YARDIM, İLAÇ, YARIN, OKUL); HP-4 (SİMİT, BİR, ÇAY, LÜTFEN) has none confirmed. If the coverage audit shows that a sign is missing, the scenario sentence is rephrased with covered glosses. | Owner of the coverage audit |
 | 5 | **Quick phrases (HP-4)** | Saving is an explicit user action, and phrases are stored on the device only. The proposal says only "saved quick phrases". | Team, together with the privacy decisions (data-flow table) |
 | 6 | **Figure 2 (d) items not carried over** | The persona need "a voice he chose" has no matching functional requirement, so a default voice is used. Confirming the sentence by signing TAMAM is not used; confirmation is by tap only. | Team |
+| 7 | **VoiceOver on a shared phone (HP-3)** | The signer uses the controls of the blind user's phone with VoiceOver on (tap, then double-tap). If this proves impractical, the signer's side needs a view without VoiceOver gestures, or the path is reduced to the mediated variant. | Team, together with D-23 |
 
 ## 9. Traceability
 
