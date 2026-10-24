@@ -27,6 +27,8 @@ This Action **does not merge PRs**. Merge is still a separate authorized action,
 7. PR is not a draft and **is merged to main** before Jira Done.
 8. Jira API confirms an available transition to a Done-category status; current Done issues are not transitioned twice.
 
+**Feedback permissions and recovery:** GitHub event/repository token policies can reject PR comment writes with HTTP 403 (observed on merged PR #18, Actions run 40099333409). This does not by itself mean the Jira transition failed. The gate emits the feedback and 403 details as an Actions job annotation/warning if the PR comment cannot be published. A validation blocker still makes the job fail, while a completed Jira transition remains a successful job even if writing the success comment is denied. Verify the Jira status separately and do not repeat the Jira transition merely to fix a comment. A rerun of the merged event is idempotent when the issue is already Done. If the team requires bot comments on every PR, investigate GitHub event policy/token write restrictions or install a narrowly permissioned GitHub App; do not broaden Jira privileges to address GitHub 403s.
+
 This automation is **fail-closed with respect to Jira transitions**. An API error, missing secrets, or invalid criteria does **not** mark Jira Done. It cannot guarantee that a collaborator cannot merge an invalid PR unless branch-protection rules prevent it.
 
 ## Required one-time GitHub repository setup
