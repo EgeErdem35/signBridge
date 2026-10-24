@@ -27,7 +27,7 @@ This Action **does not merge PRs**. Merge is still a separate authorized action,
 7. PR is not a draft and **is merged to main** before Jira Done.
 8. Jira API confirms an available transition to a Done-category status; current Done issues are not transitioned twice.
 
-**Feedback permissions and recovery:** GitHub event/repository token policies can reject PR comment writes with HTTP 403 (observed on merged PR #18, Actions run 40099333409). This does not by itself mean the Jira transition failed. The gate emits the feedback and 403 details as an Actions job annotation/warning if the PR comment cannot be published. A validation blocker still makes the job fail, while a completed Jira transition remains a successful job even if writing the success comment is denied. Verify the Jira status separately and do not repeat the Jira transition merely to fix a comment. A rerun of the merged event is idempotent when the issue is already Done. If the team requires bot comments on every PR, investigate GitHub event policy/token write restrictions or install a narrowly permissioned GitHub App; do not broaden Jira privileges to address GitHub 403s.
+**Feedback permissions and recovery:** GitHub event/repository token policies can reject PR comment writes with HTTP 403 (observed on merged PR #18, Actions run 40099333409). This does not by itself mean the Jira transition failed. SB-28 also requests explicit `pull-requests: write` permission for its PR-feedback API, while retaining `issues: write`; the team must verify the granted permissions and comment creation in a post-merge Actions run before declaring the 403 resolved. The gate emits the feedback and 403 details as an Actions job annotation/warning if the PR comment cannot be published. A validation blocker still makes the job fail, while a completed Jira transition remains a successful job even if writing the success comment is denied. Verify the Jira status separately and do not repeat the Jira transition merely to fix a comment. A rerun of the merged event is idempotent when the issue is already Done. If the team requires bot comments on every PR, investigate GitHub event policy/token write restrictions or install a narrowly permissioned GitHub App; do not broaden Jira privileges to address GitHub 403s.
 
 This automation is **fail-closed with respect to Jira transitions**. An API error, missing secrets, or invalid criteria does **not** mark Jira Done. It cannot guarantee that a collaborator cannot merge an invalid PR unless branch-protection rules prevent it.
 
@@ -77,3 +77,7 @@ A required `gate` status check should be enabled **only after its run appears in
 - [Jira SB-27](https://el-dili.atlassian.net/browse/SB-27)
 - [Existing branch and PR policy](BRANCHING.md)
 - [SignBridge Jira](https://el-dili.atlassian.net/jira/software/projects/SB)
+
+## Pre-merge script syntax validation
+
+For any change to the inline `actions/github-script` script, extract its JavaScript from the YAML `script: |` block and run `node --check` on the extracted `.js` file before merging. A `pull_request_target` run uses the workflow on the trusted base branch and therefore **does not prove the candidate feature-branch YAML/script parses correctly**. The SB-28 changes were also syntax-checked as an async JavaScript function before review.
