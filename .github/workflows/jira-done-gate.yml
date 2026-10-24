@@ -137,7 +137,7 @@ jobs:
             if (onClosed && !isMerged) blockers.push('PR closed without merge.');
             if (blockers.length) {
               await feedback('### SB Jira Done gate — not completed\n\n'+blockers.map(x=>'- '+x).join('\n')+'\n\n**Jira was not transitioned.** Correct the above issues; merge a properly reviewed PR into `main`.');
-              core.info(blockers.join('\n'));
+              core.setFailed(blockers.join('\n'));
               return;
             }
             // Prior to merge, only guidance is provided. This conditional is deliberately
