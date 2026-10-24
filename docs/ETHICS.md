@@ -243,12 +243,12 @@ and is not ethics approval.
 
 | Item | Current record |
 |---|---|
-| SB-19 document sharing | Pending — sending not yet recorded |
-| Actual sending date | Not yet recorded |
+| SB-19 document sharing | Sent to the advisor for draft review |
+| Actual sending date | 24 October 2026, 22:20 (Türkiye time, UTC+3) |
 | Intended recipient | Advisor: Dr. Öğr. Üyesi Kazım Erdoğdu |
-| Documents to share | ETHICS.md; onam-formu-TR.md; consent-form-EN.md |
-| Exact versions or commit reference sent | To be recorded after sending |
-| Advisor response and decisions | Not yet recorded |
+| Documents to share | Sent: ETHICS.md; onam-formu-TR.md; consent-form-EN.md |
+| Exact versions or commit reference sent | Repository snapshot: commit 14ef3a9 on task/SB-19; ETHICS.md dated 24 October 2026 and Turkish/English consent drafts v1.3 dated 24 October 2026 |
+| Advisor response and decisions | Pending — awaiting advisor response |
 | Confluence record | [SB-19 Documentation Summary](https://el-dili.atlassian.net/wiki/spaces/SIGNBRIDGE/pages/14123010/SB-19+Share+Ethics+Documentation+with+Advisor+-+Summary) |
 | SB-19 Pull Request | [PR #20](https://github.com/EgeErdem35/signBridge/pull/20) |
 | Confirmed committee and official checklist | Not yet recorded |
