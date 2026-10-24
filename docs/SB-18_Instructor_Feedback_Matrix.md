@@ -1,8 +1,8 @@
 # SB-18: Instructor Feedback and Team Review Matrix
 
-**Status:** Prepared on 20–23 October 2026 for the revised proposal draft. Status: awaiting team review; not yet sent to the advisor or instructors (resubmission due 23 October 2026). “Resolved” means addressed in the draft text; it does not mean approved.
+**Status:** Prepared on 20–24 October 2026 (R6, after the PR #16 review) for the revised proposal draft. Status: R5 under review in PR #16 (changes requested, not merged); R6 prepared for the same branch, not yet pushed; not yet resubmitted to the advisor (original due date 23 October 2026). “Resolved” means addressed in the draft text; it does not mean approved.
 
-*Source types: Instructor = comments visible in the feedback screenshot (AKK, KE, AC); Advisor decision = Sprint 1 Review, 19 October 2026; Team review = findings and suggestions from team reviews, not decisions; Team report / Sample check = status reported by a team member and the re-check of the supplied sample files (no dataset content is included). Page numbers refer to the final proposal draft (10 pages).*
+*Source types: Instructor = comments in the instructor-feedback screenshot (AKK, KE, AC), confirmed complete by the reviewer in PR #16; Advisor decision = Sprint 1 Review, 19 October 2026; PR review = Emir Ersan’s review of PR #16; Team review = findings and suggestions from team reviews, not decisions; Team report / Sample check = status reported by a team member and the re-check of the supplied sample files (no dataset content is included). Page numbers refer to the final proposal draft (10 pages).*
 
 ## 1. Findings → changes
 
@@ -17,7 +17,7 @@
 | I-AC-O4 | Instructor (AC) | O4 unclear; rephrase the “two independent people” criterion. | Three evidence types: sign recognition, reference conformance (five components), sentence comprehension; reference conformance reported separately and not a substitute; “not measured” rule. | Table 2, p. 4; Methods 5, p. 8 | Partly resolved | Comprehension group (D-3); advisor review of D-2. |
 | I-AC-MP | Instructor (AC) | MediaPipe frame rate for fast gestures; hardware; phones; bandwidth if not on device. | Laptop-only fps target; four measured quantities; device record; bottlenecks; bandwidth formula as assumption. | Methods 4, p. 7; Methods 4, p. 7 | Partly resolved | No benchmark yet; keypoint upload (D-6). |
 | I-AC-TR | Instructor (AC) | What is trained, with what data; Transformer with 100 examples; fine-tune; is training needed. | Pipeline from Dataset videos to model; three compared options; O2 set separated from training data; H1 a hypothesis. | Methods 1, p. 6; Methods 2, p. 7; H1, p. 6 | Partly resolved | Pretrained-model suitability unchecked. |
-| I-CUT | Instructor (source) | Screenshot cut off after AC’s point on training data. | Only visible comments used; not claimed complete. | — | Open – decision needed | Obtain the full feedback text (F-1). |
+| I-CUT | Instructor (source) | Earlier recorded as: screenshot cut off after AC’s point on training data (superseded by reviewer confirmation). | Emir Ersan confirmed during PR review that the supplied instructor-feedback screenshot is complete. Separately, the screenshot was re-compared with this matrix: AKK, KE and AC (general readability, scope/achievability, O2, O3, O4, MediaPipe/devices, training) are covered by I-AKK … I-AC-TR; no further uncovered comment was found. | — | Resolved | Source issue closed; this does not mean every comment is fully resolved or approved (see the statuses above). |
 | A-1 | Advisor decision (19 Oct) | Examine Engelsiz Çeviri and differentiation. | Claims limited to the site checked on 21 Oct 2026; Table 4. | Introduction – gap, p. 2 | Partly resolved | Full analysis is SB-21. |
 | A-2 | Advisor decision | Request AUTSL by university e-mail. | Status: instructions provided 21 Oct; a team member reported downloading the data; decoding and label matching verified for the supplied sample files only. | Methods 1, p. 6 | Partly resolved | Full-dataset check (F-2). |
 | A-3 | Advisor decision | Ethics review may take 2–3 months; advisor reviews documents. | Ethics statements definite; risk row; Table 6 review bar. | Methods 6, p. 8 | Partly resolved | Recording decision (D-4); SB-19. |
@@ -45,7 +45,7 @@
 | T-17 | Team review | “Without help from anyone else” not measurable. | Measured as O7 task completion without researcher assistance. | Aim, p. 4 | Resolved | — |
 | T-18 | Team review | κ with percent agreement; O2 threshold basis. | Both reported; point estimate against ≥80%. | Methods 5, p. 8 | Resolved | — |
 | T-19 | Team review | T1 “No” vs client/back-end/services. | Kept with a reason; reviewers decide. | Use-Case Point Complexity, p. 9 | Open – decision needed | D-14. |
-| T-20 | Team review | Student number starting with 25. | Not changed (IDs are not altered from their prefix). | Title page, p. 1 | Open – decision needed | Owner confirms (F-6); public-repo redaction (D-15). |
+| T-20 | Team review | One student number on the cover was questioned. | Not changed; numbers are not altered by guesswork. | Title page, p. 1 | Open – decision needed | Owner confirms (F-6); publication question D-15. |
 | T-21 | Team review | Add a MoSCoW scope plan and decision gates. | Two review points proposed; no priorities or targets changed. | Methods 7, p. 9 | Open – decision needed | D-11. |
 | T-22 | Team review | Change list needs a short summary. | Revision summary placed first. | List of Changes, p. 1 | Resolved | — |
 | T-23 | Team review | “Only/at most keypoints and text leave the device” contradicts server STT. | Replaced by the data-flow table everywhere (O8, Table 1, Figure 1, Methods 6, scope summary). | Methods 6, p. 8 | Resolved | — |
@@ -77,6 +77,10 @@
 | V-16 | Team request (23 Oct) | “Gave TİD a legal basis” overstated Article 15. | Article 15 wording: provides for the creation of a TİD system to support education and communication. | Introduction, p. 1 | Resolved | — |
 | V-17 | Team request (23 Oct) | [12] Hand Talk and [13] Engelsiz Çeviri incomplete as IEEE web references. | Completed from the official pages checked on 23 Oct 2026 (page title, responsible organisation); no publication date given, none invented. | References, p. 10 | Resolved | — |
 | V-18 | Team request (23 Oct) | Mixed “keypoints” / “landmarks”. | “MediaPipe landmarks (keypoints)” defined once; “landmarks” for our pipeline in text, tables and Figure 1; other methods’ and sources’ terms kept. | Key terms, p. 1; Figure 1, p. 3 | Resolved | — |
+| R-1 | PR review (Emir Ersan) | Documents still describe the instructor feedback as cut off (I-CUT, F-1, IF-AC). | I-CUT and F-1 closed by reviewer confirmation; IF-AC updated; “visible comments” wording replaced in the change list and matrix. | Matrix; List of Changes | Resolved | — |
+| R-2 | PR review (Emir Ersan) | D-15 still open; F-6 repeats a student number. | D-15: file option recorded (keep numbered copy, task owner’s instruction); F-6 no longer repeats the number. | Title page, p. 1; matrix D-15, F-6 | Partly resolved | Reviewer/team confirmation of D-15. |
+| R-3 | PR review (Emir Ersan) | SB-8 companion lost its risk register while the intro still mentions risks. | Short risk register restored from Table 1; Evaluation plan kept. | SB-8 companion, Risk register | Resolved | — |
+| R-4 | PR review (Emir Ersan) | Blind-specific features still promised although the team decided not to build them; not in the decisions table. | Listed as open decision D-23; affected parts marked as proposed, pending scope decision (accessibility item, Aim, Zeynep persona and path, RQ4, Table 4, Figure 1, Technical Notes, SB-8). No feature removed; numeric targets unchanged. | Introduction, p. 2; Happy Paths, p. 5 | Open – decision needed | D-23. |
 | T-33 | Team review | AUTSL access is not a right to distribute derived content (avatars, landmarks). | Stated in Methods 1; O4 300-sign risk kept open. | Methods 1, p. 6 | Open – decision needed | D-1, D-18. |
 
 ## 2. Team / advisor decisions required
@@ -97,7 +101,7 @@
 | D-12 | Fictional-scenario test protocol (no real patient data) | Proposed, not yet agreed | Adopt; revise | Methods 6 | Before the ethics application |
 | D-13 | O7 participant numbers, distribution and sampling (quotas removed by the team on 23 Oct) | Access to target users uncertain; one initial contact, response pending | Agree numbers and sampling per stage with the advisor; or reinstate quotas if the advisor requires them | O7; Methods 5–6 | Advisor, before any test with participants |
 | D-14 | T1 declaration | Client, back-end and external services | Keep “No” with reason; change to “Yes” | Table 7 | Before resubmission |
-| D-15 | Student IDs in the public repository copy | Repository is public | Keep; publish a redacted copy (single source kept) | Title page | Before the PR |
+| D-15 | Student IDs in the public repository copy | Repository is public; the PR #16 review asks for a conscious team decision | Option chosen for the files: keep the numbered proposal copy (task owner’s instruction; as in the copy already in the repository). Not chosen: a redacted copy. Remaining step: reviewer/team confirmation that this is the team’s decision – not recorded as team approval | Title page; repository | Before PR #16 is approved |
 | D-16 | Feasibility decision thresholds (coverage, landmark quality) | Not set in the proposal | Agree thresholds with the advisor | Methods 1 | Before the SoW |
 | D-17 | Placement of Figure 2 | Unreadable at 100% within 10 pages | Keep in Supporting Technical Notes (current); move back to the proposal and shorten elsewhere | Happy Paths | Before resubmission |
 | D-18 | Use of AUTSL-derived content (landmarks, avatar clips, demo) in the public repository or app | Access is not a right to redistribute | Ask the AUTSL authors; keep derived data private; produce avatar clips independently | O4; repository; Deliverable 3 | Before any derived data is committed |
@@ -105,15 +109,16 @@
 | D-20 | Team proposal: allow supplementary sign recordings if the coverage audit finds gaps (revision of the 19 Oct decision) | Existing datasets may not cover the scenario vocabulary; not approved | Keep the 19 Oct decision (no own recordings); or accept the conditional option (no collection before advisor agreement, ethics approval, consent and data-use arrangements) | Methods 1; Methods 6; Table 1; Table 5 | Advisor, after the coverage audit |
 | D-21 | Offer a manual single-sign capture mode as a fallback | Automatic segmentation may not be reliable enough; extra scope | Automatic only; add the manual fallback; decide after pilot tests | Methods 2; FR; O5; O6 | After the feasibility check, with the advisor |
 | D-22 | How O5 applies to the manual mode | The start event differs (capture window end vs sign end) | Report manual mode descriptively only; or set its own O5 event definition with the advisor (O5 targets unchanged) | O5; Methods 4 | Before the SoW, if D-21 adds the mode |
+| D-23 | Blind-user scope: independent blind-user features vs communication through the Deaf user’s device | Team preference reported in the PR #16 review: no blind-specific features; the blind person communicates through the Deaf user’s device. The R5/R6 draft still proposes an accessibility layer for blind users, spoken framing guidance, the Zeynep path and blind-user support in Table 4, now marked as proposed | Keep the independent blind-user flow; or narrow to mediated communication on a shared device managed by the Deaf user (general keyboard access, readable text and captions stay in either case) | Introduction/product concept; gap (3); Aim; Zeynep persona and happy path; RQ4; O6/O7 (targets unchanged, may be affected); Figure 1; Figure 2 (c) in the Technical Notes; Table 4; Deliverables 1 and 9; SB-8 companion | Team and advisor, before resubmission / final scope acceptance |
 
 ## 3. Follow-ups (verification, not decisions)
 
 | ID | Follow-up |
 |---|---|
-| F-1 | Obtain the full instructor feedback; the screenshot is cut off after AC’s training-data point. |
+| F-1 | Closed (superseded by reviewer confirmation): Emir Ersan confirmed during PR review that the supplied instructor-feedback screenshot is complete. No separate original feedback source is included in this package or was examined beyond that screenshot. |
 | F-2 | Check completeness and integrity of the full downloaded AUTSL data (only the supplied sample files were checked: 6 MP4 files, 4 sample IDs, decoding and label matching); run the coverage audit; then update the status line. |
 | F-3 | SB-14 class-name comparison (label file only): 8 of 12 illustrative entries found (OKUL, HASTANE, DOKTOR, İLAÇ, YARDIM, YARIN, ECZANE, TEŞEKKÜR); 4 not found (SU, RANDEVU, BUGÜN, GİTMEK). Name match only; whether the AUTSL sign is the intended sign is unverified. |
 | F-4 | Resolved: SignGemma now cited to the Google Developers Blog I/O 2025 recap (20 May 2025); no current availability or TİD support is inferred. |
 | F-5 | Align docs/ETHICS.md and the consent drafts with the data-flow table and the recording decision (they still mention anonymous keypoints and recording). |
-| F-6 | Student number 25070006080 to be confirmed by its owner (not changed). |
+| F-6 | The cover number questioned in T-20 is to be confirmed by the team member it belongs to; not changed, and not repeated here. |
 | F-7 | Arık and Sevinç sources in SB-14 were consulted only as abstracts/summaries; their claims are not used in the proposal. |

@@ -5,7 +5,7 @@
 **Source proposal:** [SignBridge-TR Project Proposal (PDF)](./SignBridge-TR_Project_Proposal.pdf)  
 **Related:** [List of changes](./SB-18_Proposal_List_of_Changes.md) · [Supporting Technical Notes](./SB-18_Supporting_Technical_Notes.md) · [Instructor Feedback and Team Review Matrix](./SB-18_Instructor_Feedback_Matrix.md)
 
-This scope companion summarises the proposal’s scope, architecture, requirements, users and risks. The PDF is the complete proposal. SB-8 was completed in Sprint 1 with proposal v1.0 (9 October 2026). The revised v1.1 draft (SB-18, prepared 20–23 October 2026) is awaiting team review and resubmission to the advisor (due 23 October 2026); this companion matches that draft.
+This scope companion summarises the proposal’s scope, architecture, requirements, users and risks. The PDF is the complete proposal. SB-8 was completed in Sprint 1 with proposal v1.0 (9 October 2026). The revised v1.1 draft (SB-18, prepared 20–24 October 2026; R6 after the PR #16 review) is under review in PR #16 and not yet resubmitted to the advisor; this companion matches that draft.
 
 ## Aim and scope
 
@@ -67,7 +67,7 @@ In the configuration shown, landmarks stay on the device and only recognised glo
 3. Turkish text and speech from recognised glosses; an accessible “done / finish input” control ends the sign sequence, and a separate confirmation step comes before speaking.
 4. Speech/text input converted to TİD gloss sequences.
 5. Avatar playback of prepared clips with captions and adjustable speed; fingerspelling for words not in the library.
-6. Screen-reader output, voice control with keyboard/touch alternatives, spoken framing guidance and delivery confirmation.
+6. Screen-reader output, voice control with keyboard/touch alternatives, spoken framing guidance and delivery confirmation. These blind-specific features are proposed, pending a team/advisor scope decision (it may affect RQ4, O6 and O7), and are not an agreed MVP commitment; general accessibility (keyboard, readable text, captions) stays in scope. (D-23)
 7. Saved quick phrases.
 
 ### Non-functional requirements and success measures
@@ -91,10 +91,25 @@ In the configuration shown, landmarks stay on the device and only recognised glo
 |---|---|
 | Deaf or hard-of-hearing TİD user (Ayşe) | Hospital desk: signs a question, sees the clerk’s answer signed by the avatar. |
 | Hearing person without TİD (Mehmet) | Pharmacy: speaks directions, including numbers and times, shown as signs. |
-| Blind person (Zeynep) | Uses a small set of in-app voice commands, VoiceOver and keyboard controls; audio framing cues; vibration only where supported. |
+| Blind person (Zeynep; proposed, scope decision pending, D-23) | Uses a small set of in-app voice commands, VoiceOver and keyboard controls; audio framing cues; vibration only where supported. |
 | Speech-impaired TİD user (Can) | Signs an order, confirms it before it is spoken, saves a quick phrase; launches the PWA from its home-screen icon. |
 
 Scenario dialogues are fixed after the coverage audit; no vocabulary is assumed to be in the Dataset, and a missing class is a vocabulary gap, not an incomplete download. For example, hastane, doktor, ilaç, eczane, saat, yardım and yarın are classes, while randevu, karın, ağrı and gitmek are not, and the single saat class does not cover numbers or clock times. The recognition vocabulary (Direction A) is separate from the avatar clip vocabulary (Direction B). The wireframes are in the Supporting Technical Notes.
+
+## Risk register
+
+Summary of Table 1 in the proposal (likelihood / impact as rated there; no new ratings or commitments).
+
+| Risk (L / I) | Current mitigation | Alternative / open decision |
+|---|---|---|
+| Dataset vocabulary does not cover the scenarios; dataset cannot be downloaded or used as planned (H / H; M / H) | Train on existing datasets first; check completeness, integrity, class mapping and terms; coverage audit before scenarios are fixed | BosphorusSign22k (parallel request awaits team approval); narrow scenarios; supplementary recordings only as a conditional team proposal (D-20). Dataset access is not permission to redistribute data, derived landmarks or animations (D-18) |
+| Recognition fails for new signers, lighting or backgrounds (M / H) | Signer-independent test split; landmark-quality check; live-webcam results reported separately; framing guidance; sentence confirmation | Model comparison (Methods 2) |
+| Wrong Turkish ↔ TİD conversion (M / H) | Rule layer checked against the Current TİD Dictionary; output limited to library glosses; fingerspelling fallback; held-out rated sets | Direction B threshold (D-9) |
+| Avatar signs hard to understand; 300-sign library takes longer than planned (M / H) | Clips based on dictionary and reference videos; comprehension tested with Deaf TİD users where reachable; pilot of method and effort per clip | Avatar method and effort (D-1); the ≥300 target is kept unless the advisor decides otherwise |
+| Device performance or total delay above target (M / M) | On-device model, caching, smaller model if needed; devices benchmarked before the SoW | Server-assisted classification helps only with classification time; it does not fix slow on-device landmark extraction (D-6) |
+| Too few volunteers from the target groups; no TİD interpreter (M / M) | Initial contact made, response pending; outreach to several institutions | Simulated pre-tests only, reported as such; they do not replace target-user validation, and target-user measures are reported as not measured (D-13) |
+| Ethics approval late; privacy of face and hand data (M / M; L / H) | Apply early; raw camera video never leaves the device; data-flow table; written consent; no participant test before approval | Recording decision (D-4); fictional-scenario protocol (D-12); service selection after KVKK review (D-5) |
+| AI services become paid or unavailable (M / L) | Open-source alternatives behind the same interface; caching | — |
 
 ## Evaluation plan
 
@@ -106,8 +121,8 @@ Evaluation data are research data and are not used as training data; any supplem
 
 ## Open decisions
 
-See section 2 of the [Instructor Feedback and Team Review Matrix](./SB-18_Instructor_Feedback_Matrix.md) (avatar method and effort, O4 reference-conformance status, recording, speech/LLM/TTS services, landmark upload, MediaPipe version, BosphorusSign22k request, Direction B threshold, O3 audio source, review-point options, O7 participant numbers and sampling, T1, public-repo IDs, feasibility thresholds, Figure 2 placement, use of AUTSL-derived content, O4 counting unit, conditional supplementary recordings, manual single-sign fallback and its O5 measurement).
+See section 2 of the [Instructor Feedback and Team Review Matrix](./SB-18_Instructor_Feedback_Matrix.md) (avatar method and effort, O4 reference-conformance status, recording, speech/LLM/TTS services, landmark upload, MediaPipe version, BosphorusSign22k request, Direction B threshold, O3 audio source, review-point options, O7 participant numbers and sampling, T1, public-repo IDs, feasibility thresholds, Figure 2 placement, use of AUTSL-derived content, O4 counting unit, conditional supplementary recordings, manual single-sign fallback and its O5 measurement, blind-user scope D-23).
 
 ## Review and approval
 
-SB-8 is complete for proposal v1.0. The v1.1 revision (SB-18) is a draft; team review, pull request (`task/SB-18` → `main`), Confluence update and resubmission to the advisor (due 23 October 2026) are pending.
+SB-8 is complete for proposal v1.0. The v1.1 revision (SB-18) is a draft under review in PR #16 (`task/SB-18` → `main`; changes requested, not merged). The R6 update, the Confluence update and resubmission to the advisor are pending.

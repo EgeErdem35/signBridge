@@ -1,6 +1,6 @@
 ---
 title: "SignBridge-TR – Supporting Technical Notes for the Revised Proposal (v1.1)"
-subtitle: "Companion to the revised project proposal · prepared 20–23 October 2026 · draft for team review"
+subtitle: "Companion to the revised project proposal · prepared 20–24 October 2026 (R6) · draft for team review"
 ---
 
 **Status.** These notes add detail to the revised proposal (v1.1). They are a draft for team review. They are **not** the Statement of Work, have not been approved by the advisor, and report **no measurement results**: every number below is either a target already in the proposal or a clearly labelled assumption. The proposal can be read without these notes; where the two differ, the proposal applies.
@@ -184,13 +184,13 @@ For the 300-sign library (target unchanged): clip source and its usage, derivati
 
 # Appendix – Figure 2: happy-path wireframes (corrected)
 
-Moved from the proposal so that the wireframes are readable. Two captions were corrected: (c) step 4 now reads “audio cue confirms she was heard; vibration only where supported”, and (d) step 1 reads “one-tap launch from the installed PWA’s home-screen icon” (a PWA has no lock-screen widget). Labels are in English for readability; the final interface will be in Turkish. Gloss examples are illustrative and unverified; several wireframe glosses (e.g. SİMİT, BİR, KARIN) are not Dataset classes, so the wireframes do not show the recognisable vocabulary.
+Moved from the proposal so that the wireframes are readable. Wireframe (c) shows the proposed independent blind-user path; it awaits the open team/advisor scope decision (matrix D-23) and is not an agreed MVP commitment. Two captions were corrected: (c) step 4 now reads “audio cue confirms she was heard; vibration only where supported”, and (d) step 1 reads “one-tap launch from the installed PWA’s home-screen icon” (a PWA has no lock-screen widget). Labels are in English for readability; the final interface will be in Turkish. Gloss examples are illustrative and unverified; several wireframe glosses (e.g. SİMİT, BİR, KARIN) are not Dataset classes, so the wireframes do not show the recognisable vocabulary.
 
 ![Figure 2 (a) – Ayşe at a hospital registration desk](fig2_a_ayse.png){width=5.6in}
 
 ![Figure 2 (b) – Mehmet explaining a prescription](fig2_b_mehmet.png){width=5.6in}
 
-![Figure 2 (c) – Zeynep planning a group assignment with her Deaf classmate](fig2_c_zeynep.png){width=5.6in}
+![Figure 2 (c) – Zeynep planning a group assignment with her Deaf classmate (proposed path; blind-user scope decision pending)](fig2_c_zeynep.png){width=5.6in}
 
 ![Figure 2 (d) – Can ordering at a busy café](fig2_d_can.png){width=5.6in}
 
