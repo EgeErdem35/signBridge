@@ -38,6 +38,9 @@ jobs:
             const {data: pr} = await github.rest.pulls.get({owner, repo, pull_number:prNumber});
             const issues = github.rest.issues;
             const blockers = [];
+            // Review readiness changes without a new commit SHA. Keep it advisory
+            // before merge, so old failed check runs cannot pin the PR red.
+            const reviewBlockers = [];
             const issueMatch = /^(story|task|bug)\/(SB-[1-9]\d*)$/.exec(pr.head.ref);
             const issueKey = issueMatch?.[2];
             const isMerged = pr.merged === true;
@@ -101,8 +104,8 @@ jobs:
             const peers = [...latest.values()].filter(r => r.user.login !== pr.user.login);
             const approvals = peers.filter(r => r.state === 'APPROVED' && r.commit_id === pr.head.sha);
             const rejections = peers.filter(r => r.state === 'CHANGES_REQUESTED');
-            if (!approvals.length) blockers.push('No independent APPROVED review for the latest PR head commit. Request an updated review.');
-            if (rejections.length) blockers.push('Unresolved CHANGES_REQUESTED reviews: '+rejections.map(r=>r.user.login).join(', ')+'.');
+            if (!approvals.length) reviewBlockers.push('No independent APPROVED review for the latest PR head commit. Request an updated review.');
+            if (rejections.length) reviewBlockers.push('Unresolved CHANGES_REQUESTED reviews: '+rejections.map(r=>r.user.login).join(', ')+'.');
             // All discussion threads must be resolved (limit protects against incomplete pagination).
             try {
               let cursor = null, hasNext = true, unresolved = 0, pages = 0;
@@ -121,9 +124,9 @@ jobs:
                 cursor = threads.pageInfo.endCursor;
                 pages++;
               }
-              if (hasNext) blockers.push('Review-thread count exceeds audit limit; manual verification required.');
-              if (unresolved) blockers.push(unresolved+' unresolved review discussion thread(s).');
-            } catch(e) { blockers.push('Could not check review thread resolution: '+e.message); }
+              if (hasNext) reviewBlockers.push('Review-thread count exceeds audit limit; manual verification required.');
+              if (unresolved) reviewBlockers.push(unresolved+' unresolved review discussion thread(s).');
+            } catch(e) { reviewBlockers.push('Could not check review thread resolution: '+e.message); }
             // Check all non-gate statuses and checks for the exact head SHA.
             try {
               const runs = await github.paginate(github.rest.checks.listForRef, {owner,repo,ref:pr.head.sha,per_page:100});
@@ -139,12 +142,22 @@ jobs:
               // GitHub branch protections enforce *which* checks are required. No required
               // check configuration means there is no required check to invent or assume.
             } catch(e) { blockers.push('Cannot verify commit check status: '+e.message); }
-            if (pr.draft) blockers.push('PR is still draft.');
+            if (pr.draft) reviewBlockers.push('PR is still draft.');
             // Pre-merge checks are valid; only the closed event must be merged to trigger Jira.
             if (onClosed && !isMerged) blockers.push('PR closed without merge.');
+            // Native main protection enforces independent latest-push approval,
+            // CHANGES_REQUESTED and conversation resolution. Do not fail a
+            // required check for these mutable review states before merge:
+            // GitHub preserves older failed check runs on the same commit SHA.
+            // After merge, fail closed before attempting any Jira transition.
+            if (onClosed && isMerged) blockers.push(...reviewBlockers);
             if (blockers.length) {
               await feedback('### SB Jira Done gate — not completed\n\n'+blockers.map(x=>'- '+x).join('\n')+'\n\n**Jira was not transitioned.** Correct the above issues; merge a properly reviewed PR into `main`.');
               core.setFailed(blockers.join('\n'));
+              return;
+            }
+            if (!onClosed && reviewBlockers.length) {
+              await feedback('### SB Jira Done gate — review pending\n\n'+reviewBlockers.map(x=>'- '+x).join('\n')+'\n\n**This gate check passed structural validation, but the PR is NOT merge-ready.** GitHub branch protection still requires approval of the latest push and resolved conversations. Jira was not transitioned.');
               return;
             }
             // Prior to merge, only guidance is provided. This conditional is deliberately
