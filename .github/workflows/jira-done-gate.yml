@@ -65,6 +65,12 @@ jobs:
               } else {
                 await issues.createComment({owner,repo,issue_number:prNumber,body});
               }
+              } catch (e) {
+                // PR comment permissions can be restricted by event/repository policy.
+                // Reporting must never misrepresent a successful Jira transition.
+                core.warning('PR feedback unavailable (GitHub '+(e.status || 'API')+'): '+e.message);
+                core.summary.addHeading('Jira Done gate feedback').addRaw(message).write();
+              }
             }
             if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
             if (!issueMatch) blockers.push('Head branch must match exactly `story/SB-XX`, `task/SB-XX` or `bug/SB-XX` (no suffix).');
