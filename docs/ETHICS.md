@@ -249,8 +249,8 @@ and is not ethics approval.
 | Documents to share | ETHICS.md; onam-formu-TR.md; consent-form-EN.md |
 | Exact versions or commit reference sent | To be recorded after sending |
 | Advisor response and decisions | Not yet recorded |
-| Confluence record | Link to be added |
-| SB-19 Pull Request | Link to be added |
+| Confluence record | [SB-19 Documentation Summary](https://el-dili.atlassian.net/wiki/spaces/SIGNBRIDGE/pages/14123010/SB-19+Share+Ethics+Documentation+with+Advisor+-+Summary) |
+| SB-19 Pull Request | [PR #20](https://github.com/EgeErdem35/signBridge/pull/20) |
 | Confirmed committee and official checklist | Not yet recorded |
 | Ethics application date and reference | Not yet recorded |
 | Ethics approval date and reference | No approval recorded |
