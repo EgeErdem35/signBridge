@@ -9,7 +9,7 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
   checks: read
   statuses: read
   issues: write
@@ -56,6 +56,7 @@ jobs:
             }
             // A stable, actionable PR comment. Identical messages are not repeated on each event.
             async function feedback(message) {
+              try {
               const body = marker + '\n' + message;
               const comments = await github.paginate(issues.listComments, {owner,repo,issue_number:prNumber,per_page:100});
               const own = comments.filter(c => c.user?.type === 'Bot' && c.body?.startsWith(marker));
@@ -64,6 +65,12 @@ jobs:
                 await issues.updateComment({owner,repo,comment_id:own.at(-1).id,body});
               } else {
                 await issues.createComment({owner,repo,issue_number:prNumber,body});
+              }
+              } catch (e) {
+                // PR comment permissions can be restricted by event/repository policy.
+                // Reporting must never misrepresent a successful Jira transition.
+                core.warning('PR feedback unavailable (GitHub '+(e.status || 'API')+'): '+e.message);
+                core.notice(message);
               }
             }
             if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
