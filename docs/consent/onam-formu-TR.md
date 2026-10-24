@@ -1,106 +1,366 @@
-# SignBridge-TR — Aydınlatılmış Onam ve Açık Rıza Formu
+# SignBridge-TR — Katılımcı Bilgilendirme, Araştırmaya Katılım Onamı ve Kişisel Veri Metinleri
 
-> **TASLAK** — Köşeli parantezli alanlar doldurulacaktır. Etik kurul onayı alınmadan hiçbir kayıt veya test başlatılmaz. Form, katılımcıya kayıttan önce okutulur/anlatılır ve imzalatılır.
+> **TASLAK — Danışman ve kurumsal inceleme içindir; katılımcı imzasına hazır değildir.**
+>
+> Köşeli parantezli alanlar ve açık kararlar, onaylanan araştırma protokolüne
+> göre tamamlanacaktır. Gerekli etik kurul onayı ve bilgilendirilmiş onam
+> sağlanmadan katılımcı testi veya araştırma kaydı başlatılmaz. Bu koşul,
+> gönüllülerle yapılan simüle koşullardaki ön testler için de geçerlidir.
+>
+> **Belge sürümü / tarihi:** v1.3 — SB-19 taslağı, 24 Ekim 2026.
+> **Uyum kaynakları:** SB-18 proposal v1.1, r6, 24 Ekim 2026;
+> [ETHICS.md](../ETHICS.md).
+>
+> Bu dosyada araştırmaya katılım onamı, KVKK aydınlatma metni ve açık rıza
+> metni ayrı bölümler ve ayrı beyanlar olarak düzenlenmiştir.
 
-**Araştırmanın Başlığı:** SignBridge-TR gerçek zamanlı Türk İşaret Dili ↔ Türkçe çeviri sisteminin kullanılabilirlik (kullanıcı testi) çalışması
+## Araştırma Ekibi İçin Hazırlık Notu
 
-**Yürütücü Kurum:** Yaşar Üniversitesi, Mühendislik Fakültesi, Yazılım Mühendisliği Bölümü — Bitirme Projesi (SE4910/SE4920)
+Bu bölüm hazırlık içindir. Katılımcıya sunulacak sürümde açık kararlar
+sonuçlandırılmalı ve hazırlık notları kaldırılmalıdır.
 
-**Sorumlu Araştırmacı (Danışman):** [Dr. Öğr. Üyesi Kazım Erdoğdu]
-
-**Araştırmacılar / Proje Ekibi:** [ad-soyad]
-
-**Veri Sorumlusu:** [SignBridge-TR proje ekibi / Yaşar Üniversitesi]
-
-**İletişim:** [e-posta / telefon]
-
-**Belge Sürümü / Tarihi:** v1.2 — 18 Ekim 2026
-
-**Etik Kurul Onayı:** [Yaşar Üniversitesi ilgili Etik Kurulu — başvuru no ve tarih doldurulacak; onay alınmadan kayıt/test başlatılmaz]
-
-**Çalışmanın Niteliği:** Akademik bitirme projesi; ticari amaç taşımaz.
-
----
-
-## Bölüm A — Bilgilendirme
-
-Bu çalışmaya, geliştirdiğimiz SignBridge-TR işaret dili çeviri uygulamasının kullanılabilirliğini ve doğruluğunu değerlendirmek amacıyla düzenlenen bir kullanıcı testine katılmanız için davet edilmektesiniz.
-
-**Çalışmanın amacı:** Uygulamanın gerçek kullanıcılarla ne kadar kullanışlı, anlaşılır ve doğru çalıştığını ölçmek; elde edilen sonuçları bitirme projesi raporunda **anonim** olarak değerlendirmek.
-
-**Sizden ne istenecek:** Uygulamayı yaklaşık [X dakika] kullanmanız, ardından kısa bir kullanılabilirlik anketi (SUS) doldurmanız ve birkaç soruluk yarı yapılandırılmış bir görüşmeye katılmanız istenecektir.
-
-**Gönüllülük ve çekilme hakkı:** Katılım tamamen gönüllüdür. Katılmamanız ya da çalışmayı istediğiniz anda, gerekçe göstermeksizin yarıda bırakmanız hiçbir olumsuz sonuç doğurmaz. Çekilmeniz hâlinde o ana kadar alınan kayıtlarınız silinir.
-
-**Riskler ve faydalar:** Çalışmanın bilinen bir fiziksel riski yoktur; en fazla test sırasında hafif bir yorgunluk hissedebilirsiniz. Katılımınızın size doğrudan maddi bir faydası bulunmamaktadır; katkınız, işaret dili erişilebilirliğine yönelik bir aracın geliştirilmesine yardımcı olacaktır.
-
-### Toplanacak Kişisel Veriler
-
-Test sırasında aşağıdaki veriler toplanacaktır:
-
-- **Görüntü kaydı** — uygulamayı kullanırken yüzünüz ve elleriniz.
-- **Ses kaydı** — konuşma ve görüşme yanıtlarınız.
-- **Uygulama kullanım ve performans verileri** — doğruluk, gecikme, etkileşim kayıtları.
-- **Anket ve görüşme yanıtlarınız.**
-- **İşitme/engel durumunuz** — çalışmaya uygunluğun belirlenmesi amacıyla.
-
-**İşitme/engel durumunuz** bir sağlık verisi olduğundan, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.6 uyarınca **özel nitelikli kişisel veridir** ve işlenmesi **açık rızanıza** bağlıdır. **Görüntü ve ses kaydınız** kişisel veridir; bu çalışmada **kimliğinizi tekil olarak tanımlamak (biyometrik tanıma) amacıyla işlenmediğinden** biyometrik özel nitelikli veri kapsamında **değildir**. Yine de görüntü ve ses kaydınızın işlenmesi **açık rızanıza** dayanır.
+- Katılımcı grupları, uygunluk koşulları, görevler ve oturum süresi
+  kesinleştirilmelidir. R6'daki D-23 kapsamında görme engelli kullanıcılara
+  özgü özellikler ve ilgili değerlendirme henüz ekip/danışman kararına
+  bağlıdır; genel erişilebilirlik kapsamda kalır. Bu taslak D-23'ü
+  sonuçlandırmaz.
+- Ses ve görüntü kaydının yapılıp yapılmayacağı; yapılacaksa her birinin
+  zorunlu mu isteğe bağlı mı olduğu ve reddin katılıma etkisi
+  belirlenmelidir. Kullanılmayacak kayıt seçenekleri nihai metinden
+  çıkarılmalıdır.
+- Veri sorumlusu, sorumlu araştırmacı, iletişim bilgileri, her veri türünün
+  hukuki işleme şartı, saklama süreleri ve aktarım koşulları kurumla
+  doğrulanmalıdır.
+- Kullanılacak uygulama sürümünün veri akışları kontrol edilmelidir.
+  Hizmet sağlayıcılar ve aktarım koşulları açıklanmadan dış hizmetlerle
+  katılımcı verisi işlenmemelidir.
+- Simüle koşullardaki ön testler ve hedef kullanıcı değerlendirmesi ayrı
+  raporlanmalıdır. Simüle sonuçlar, ilgili hedef kullanıcı grubunun
+  kullanılabilirlik sonuçları olarak sunulmamalıdır.
+- Bu form değerlendirme çalışması içindir. Mevcut plana göre değerlendirme
+  verileri model eğitiminde yeniden kullanılmaz. Koşullu ek eğitim verisi
+  toplama faaliyeti ayrı protokol, gerekli onaylar, onam ve veri kullanım
+  düzenlemeleri gerektirir.
+- İmzalı formlar, katılımcı kimlikleri, tanımlanabilir kayıtlar ve özel
+  yazışmalar açık GitHub deposuna yüklenmemelidir.
 
 ---
 
-## Bölüm B — KVKK Aydınlatma Metni
+## Bölüm A — Katılımcı Bilgilendirme ve Araştırmaya Katılım Onamı
 
-6698 sayılı Kanun'un 10. maddesi (aydınlatma yükümlülüğü) kapsamında bilgilendirme:
+### A.1. Araştırma Bilgileri
 
-- **Veri sorumlusu:** [SignBridge-TR proje ekibi / Yaşar Üniversitesi], iletişim: [e-posta].
-- **İşlenen veri kategorileri:** Kimlik ve iletişim bilgileri (gerektiğinde ad-soyad/imza); görsel ve işitsel kayıtlar (yüz, el, ses — **kişisel veri**; bu çalışmada kimlik tanıma amacıyla işlenmediğinden biyometrik özel nitelikli veri değildir); işitme/engel durumu (**sağlık verisi — özel nitelikli**); uygulama kullanım ve performans verileri; anket ve görüşme yanıtları.
-- **İşleme amaçları:** Yalnızca bu akademik projenin yürütülmesi; sistemin kullanılabilirliğinin ve doğruluğunun ölçülmesi; sonuçların **anonimleştirilerek** bitirme raporunda, sunum ve demo materyallerinde değerlendirilmesi.
-- **Hukuki sebep:** Kişisel verileriniz **açık rızanıza** dayanılarak işlenir — ses/görüntü dâhil genel nitelikli kişisel verileriniz için KVKK m.5/1 ve GDPR m.6/1-a; özel nitelikli **sağlık** veriniz (işitme/engel durumu) için KVKK m.6/2 ve GDPR m.9/2-a.
-- **Toplama yöntemi:** Veriler, kullanıcı testi oturumunda doğrudan sizden; video/ses kaydı, anket ve görüşme yoluyla toplanır.
-- **Saklama süresi:** Ham ses/görüntü kayıtları yalnızca analiz süresince saklanır ve en geç [proje bitimi / __ tarihi] itibarıyla **silinir / yok edilir**. Raporda yalnızca anonimleştirilmiş, kimliğinizle ilişkilendirilemeyen sonuçlar yer alır.
-- **Aktarım:** Verileriniz üçüncü kişilerle paylaşılmaz ve yurt dışına aktarılmaz; yalnızca proje ekibi ve danışman erişebilir. [Barındırma için bir bulut hizmeti kullanılıyorsa burada belirtilir.]
-- **Veri güvenliği:** Kayıtlar erişimi sınırlı, parola korumalı ortamlarda tutulur; mümkün olan yerlerde kimliği belirsizleştirme (yüz bulanıklaştırma, tanımlayıcı meta verilerin kaldırılması) uygulanır.
+**Araştırmanın başlığı:** SignBridge-TR Türk İşaret Dili ↔ Türkçe iletişim
+prototipinin kullanılabilirlik ve performans değerlendirmesi.
 
-### İlgili Kişinin Hakları (KVKK m.11)
+**Yürütücü kurum:** Yaşar Üniversitesi, Mühendislik Fakültesi, Yazılım
+Mühendisliği Bölümü — Bitirme Projesi (SE4910/SE4920).
 
-KVKK m.11 uyarınca, veri sorumlusuna başvurarak aşağıdaki haklara sahipsiniz:
+**Proje danışmanı:** Dr. Öğr. Üyesi Kazım Erdoğdu.
 
-- Kişisel verilerinizin işlenip işlenmediğini öğrenme ve işlenmişse buna ilişkin bilgi talep etme,
-- İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme,
-- Yurt içinde/yurt dışında verilerin aktarıldığı üçüncü kişileri bilme,
-- Eksik veya yanlış işlenmişse düzeltilmesini isteme,
-- Kanun'daki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,
-- Düzeltme/silme işlemlerinin, verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme,
-- İşlenen verilerin münhasıran otomatik sistemlerle analizi sonucu aleyhinize bir sonucun ortaya çıkmasına itiraz etme,
-- Verilerin hukuka aykırı işlenmesi sebebiyle zarara uğramanız hâlinde zararın giderilmesini talep etme.
+**Sorumlu araştırmacı:** [Kurumca doğrulanacak ad, unvan ve görev].
 
-### Veri Sorumlusuna Başvuru (KVKK m.13)
+**Araştırma ekibi:** [Adlar ve görevler].
 
-Yukarıdaki haklarınızı kullanmak veya açık rızanızı geri çekmek için, KVKK m.13 uyarınca veri sorumlusuna yazılı olarak ya da [e-posta] adresi üzerinden başvurabilirsiniz. Başvurunuz en geç 30 gün içinde ücretsiz olarak sonuçlandırılır. Açık rızanızı istediğiniz an geri çekebilirsiniz; geri çektiğinizde size ait kayıtlar silinir ve bu tarihten sonra işlenmez. Geri çekme, geri çekme anına kadar yapılan işlemelerin hukukiliğini etkilemez.
+**Araştırma iletişim bilgileri:** [Kurumsal e-posta ve uygun iletişim yöntemi].
 
-### Erişilebilirlik
+**Etik kurul:** [Doğrulanacak kurul adı].
 
-İşitme engelli ya da iletişim gereksinimi olan katılımcılar için bu form ve bilgilendirme, imzadan önce erişilebilir biçimde (yazılı olarak ve/veya Türk İşaret Dili ile) açıklanır. Katılımcı, formu okuduğunu/anladığını ve sorularını sorma fırsatı bulduğunu beyan eder. Gerekli hâllerde bir TİD tercümanı veya işaret dili bilen bir ekip üyesi oturumda hazır bulunur.
+**Etik onay bilgisi:** [Onay alındıktan sonra tarih ve karar/başvuru numarası].
+
+**Çalışmanın niteliği:** Akademik bitirme projesi; ticari amaç taşımaz.
+
+### A.2. Neden Davet Ediliyorsunuz?
+
+SignBridge-TR, seçilmiş bir söz varlığı ve sınırlı senaryolar içinde Türk
+İşaret Dili ile Türkçe metin ve ses arasında iletişimi desteklemeyi
+amaçlayan bir tarayıcı prototipidir. İlk sürümde işaret tanıma, tekil ve
+kısa duraklamalarla ayrılan işaretlerle sınırlıdır. Sistem serbest ve
+kesintisiz TİD anlatımının güvenilir çevirisini sağladığı iddiasında değildir.
+
+Bu çalışmanın amacı, üzerinde anlaşılmış özelliklerin kullanılabilirliğini,
+anlaşılabilirliğini ve performansını değerlendirmektir.
+
+**Davet edildiğiniz katılımcı grubu ve uygunluk koşulları:**
+[Onaylanan protokole göre açıklanacak].
+
+**Katılacağınız değerlendirme türü:**
+[Simüle koşullardaki ön test / hedef kullanıcı değerlendirmesi;
+uygulanacak olan açıkça yazılacak].
+
+### A.3. Sizden Ne İstenecek?
+
+Yaklaşık [dakika] süren bir oturumda [görevler, kullanılacak giriş/çıkış
+yöntemleri ve tekrar sayıları] uygulanacaktır. Ardından [uygulanacaksa
+SUS kullanılabilirlik anketi] ve [uygulanacaksa görüşme ve süresi]
+istenecektir.
+
+Onaylanan protokolde senaryo kullanılıyorsa kurgusal bilgiler
+kullanılacaktır. Gerçek hasta bilgisi veya başka kişilere ait özel bilgi
+paylaşmanız istenmeyecektir.
+
+Uygulama bir araştırma prototipidir; hatalı sonuç üretebilir. Test sırasında
+verdiği çıktılar gerçek bir sağlık, acil durum veya benzeri önemli karar
+için kullanılmayacaktır.
+
+### A.4. Uygulamanın Veri İşlemesi ve Oturum Kaydı
+
+Önerilen uygulama tasarımında kamera görüntüsü, el, yüz ve vücut işaret
+noktalarını çıkarmak için cihaz üzerinde işlenir. Ham kamera videosu
+uygulama tarafından saklanmaz veya gönderilmez. İşaret noktaları
+kendiliğinden anonim sayılmaz; sunucu destekli sınıflandırma seçilirse
+projenin arka ucuna gönderilebilir.
+
+Mikrofon sesi, konuşmayı metne dönüştürme veya sesli komutlar için
+kullanılabilir. Dış bir konuşma hizmeti ya da sunucu tabanlı tarayıcı
+tanıması seçilirse ses cihaz dışına çıkabilir. Önerilen tasarımda uygulama
+mikrofon sesini saklamaz; sağlayıcının işlemesi ve saklama koşulları
+ayrıca açıklanacaktır. İşaret etiketleri (gloss) ve Türkçe metin de seçilen
+dil modeli veya seslendirme hizmetlerinde işlenebilir.
+
+**Bu oturumda kullanılacak doğrulanmış veri akışı ve hizmetler:**
+[Bölüm B ile tutarlı olarak somutlaştırılacak].
+
+Araştırma oturumunun ayrıca ses veya video ile kaydedilmesi, uygulamanın
+anlık kamera/mikrofon işlemesinden farklıdır.
+
+**Araştırma oturumu kayıt kararı:**
+[Kayıt alınmayacak / yalnızca ses / yalnızca görüntü / ses ve görüntü;
+kesinleştirilecek].
+
+**Kayıt varsa:**
+[Ne kaydedilecek, hangi amaçla, zorunlu veya isteğe bağlı oluşu ve kaydı
+reddetmenin katılıma etkisi açıklanacak].
+
+Kayıt yapılacaksa ilgili bilgilendirme ve gereken onam tamamlanmadan
+kayıt başlatılmayacaktır.
+
+### A.5. Gönüllülük ve Çekilme
+
+Katılım gönüllüdür. Katılmamanız veya gerekçe göstermeden ayrılmanız
+nedeniyle herhangi bir yaptırımla karşılaşmazsınız. İstediğiniz zaman
+ara verebilir veya oturumu durdurabilirsiniz.
+
+Çekilme talebinizi [iletişim yöntemi] üzerinden iletebilirsiniz.
+Kimliğinizle ilişkilendirilebilen araştırma verilerinin kullanımı ve
+silinmesi, aşağıda açıklanan süreç ve uygulanabilir yükümlülükler
+çerçevesinde ele alınacaktır. Veriler geri döndürülemez biçimde
+anonimleştirildikten sonra hangi verinin size ait olduğu
+belirlenemeyeceği için bu verilerden size ait kısmın çıkarılması
+mümkün olmayabilir.
+
+**Çekilme ve silme süreci; anonimleştirme zamanı ve varsa saklama
+istisnaları:** [Açıkça tamamlanacak].
+
+### A.6. Olası Riskler ve Faydalar
+
+Görevler yorgunluk, iletişim güçlüğü veya hatalı sonuçlara bağlı
+rahatsızlık yaratabilir. Kişisel veri toplanması hâlinde gizliliğin ihlali
+riski de bulunur. Ara verme, oturumu durdurma ve aşağıdaki veri güvenliği
+önlemleri bu riskleri azaltmak için kullanılacaktır.
+
+Doğrudan kişisel yarar garanti edilmez. Geri bildiriminiz prototipin
+geliştirilmesine katkı sağlayabilir.
+
+**Ödeme, ödül veya masraf karşılığı:**
+[Yok / varsa koşulları açıklanacak].
+
+### A.7. Erişilebilir Bilgilendirme
+
+Bilgilendirme ve görevler iletişim gereksiniminize uygun biçimde
+sunulacaktır. [Yazılı anlatım, erişilebilir dijital metin, ekran okuyucu
+desteği, TİD tercümanı veya diğer desteklerden gerçekten sağlanacak
+olanlar belirtilecek].
+
+Sorularınızı sormanız ve karar vermeniz için yeterli süre tanınacaktır.
+Tercüman veya yardımcı kişi bulunuyorsa görevi ve gizlilik düzenlemesi
+açıklanacaktır. Bir destek kişinin bulunması, kendi katılım kararınızın
+yerine geçmez.
+
+### A.8. Araştırmaya Katılım Beyanı
+
+Araştırmanın amacı, görevler, olası riskler, gönüllülük ve çekilme süreci
+bana anlayabileceğim şekilde açıklandı. Sorularımı sorma ve yanıt alma
+fırsatı buldum. Araştırmaya gönüllü olarak katılmayı kabul ediyorum.
+
+Bu beyan, Bölüm C'deki kişisel veri tercihleri yerine geçmez ve
+açıklanmamış işlemler için izin oluşturmaz.
+
+**Katılımcı** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+**Bilgilendirmeyi yapan araştırmacı** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+**Tercüman / tanık (varsa)** — Ad-soyad ve görev: __________________
+Tarih: __________ İmza: __________
+
+[Yasal temsilci gerektiren bir katılım grubu planlanıyorsa kurumca
+onaylanan ayrı katılım ve onam düzenlemesi burada tanımlanmalıdır.
+Bu taslak böyle bir grubun katılımını kendiliğinden kapsamaz.]
 
 ---
 
-## Bölüm C — Açık Rıza Beyanı
+## Bölüm B — Kişisel Verilerin İşlenmesine İlişkin KVKK Aydınlatma Metni Taslağı
 
-Yukarıdaki bilgilendirme ve KVKK aydınlatma metnini okudum/anladım; sorularımı sorma fırsatı buldum. Katılımın gönüllü olduğunu ve istediğim an, gerekçe göstermeksizin çekilebileceğimi biliyorum. Aşağıda işaretlediğim kişisel verilerimin (özel nitelikli sağlık verim dâhil), yalnızca belirtilen amaçla işlenmesine **açık rıza veriyorum:**
+> **Hazırlık notu:** Bu metin bilgilendirme içindir; onay veya rıza talebi
+> değildir. Veri sorumlusu, somut veri işleme şartları ve aşağıdaki alanlar
+> kurumca doğrulanmadan katılımcıya nihai aydınlatma olarak sunulamaz.
 
-- [ ] Ses ve görüntü kaydımın alınmasına ve işlenmesine,
-- [ ] İşitme/engel (sağlık) durumumun kaydedilmesine ve işlenmesine,
-- [ ] Uygulama kullanım ve performans verilerimin işlenmesine,
-- [ ] Anket ve görüşme yanıtlarımın işlenmesine.
+### B.1. Veri Sorumlusu ve İletişim
 
-_(İşaretlenmeyen veri türleri için açık rıza verilmemiş sayılır.)_
+**Veri sorumlusu:** [Kurumca doğrulanmış tam unvan ve adres].
 
-**Katılımcı** — Ad-Soyad: __________________  Tarih: __________  İmza: __________
+**Başvuru ve iletişim kanalı:**
+[Doğrulanmış iletişim bilgileri ve başvuru yöntemi].
 
-**Araştırmacı (bilgilendirmeyi yapan)** — Ad-Soyad: __________________  Tarih: __________  İmza: __________
+### B.2. Veriler, Amaçlar ve İşleme Şartları
 
-**Yasal Temsilci / Vasi (gerekiyorsa)** — Ad-Soyad: __________________  Tarih: __________  İmza: __________
+Yalnızca onaylanan protokol için gerekli veriler toplanacaktır.
+Tanı belgesi veya ayrıntılı sağlık geçmişi kendiliğinden istenmeyecektir.
 
-**Tanık / TİD Tercümanı (gerekiyorsa)** — Ad-Soyad: __________________  Tarih: __________  İmza: __________
+| Veri kategorisi | Amaç | Toplama yöntemi ve uygulanacak somut hukuki işleme şartı |
+|---|---|---|
+| Gerekli kimlik, iletişim ve onam bilgileri | Katılım/onam kaydını tutmak; gerekli iletişimi sağlamak | [Toplanacak alanlar, yöntem ve somut işleme şartı] |
+| Gerekli katılımcı uygunluk bilgileri | Onaylanan katılımcı grubuna uygunluğu belirlemek | [Asgari alanlar, yöntem ve somut işleme şartı; sağlık verisi içeriyorsa ayrıca belirtilecek] |
+| Görev tamamlama, doğruluk, gecikme ve etkileşim verileri | Kullanılabilirlik ve performansı değerlendirmek | [Ölçüm ve günlük alanları; somut işleme şartı] |
+| Anket ve görüşme yanıtları | Kullanıcı deneyimini değerlendirmek | [Uygulanacak araçlar ve yöntem; somut işleme şartı] |
+| Uygulamanın anlık kamera, işaret noktası, ses ve metin işlemesi | Test görevlerinde tanıma, metne dönüştürme, dil işleme veya seslendirme sağlamak | [Gerçekte kullanılacak veriler, cihaz/sunucu işleme yöntemi ve her işlem için somut işleme şartı] |
+| Araştırma oturumu ses kaydı — yalnızca kararlaştırılırsa | [Kayıt için özel değerlendirme amacı] | [Kayıt yöntemi ve somut işleme şartı; alınmayacaksa bu satır çıkarılacak] |
+| Araştırma oturumu görüntü kaydı — yalnızca kararlaştırılırsa | [Kayıt için özel değerlendirme amacı] | [Kayıt yöntemi ve somut işleme şartı; alınmayacaksa bu satır çıkarılacak] |
 
-Bu form iki nüsha düzenlenir; bir nüshası katılımcıya verilir, diğeri araştırma ekibinde saklanır.
+Verilerin hukuki niteliği ve uygun işleme şartları gerçek işlemler
+üzerinden kurumca doğrulanacaktır. Ses, görüntü veya işaret noktaları
+için otomatik olarak anonim ya da belirli bir hukuki kategori dışında
+oldukları varsayılmayacaktır.
+
+Değerlendirme verileri mevcut plan kapsamında model eğitiminde
+kullanılmayacaktır. Bu metin ayrı eğitim verisi toplama faaliyeti
+için izin oluşturmaz.
+
+### B.3. Erişim ve Aktarım
+
+Araştırma verilerine görevleri gereği erişebilecek kişiler:
+[Yetkilendirilmiş roller ve erişim sınırları].
+
+Uygulamadaki dış hizmet kullanımı, araştırma verilerinin saklandığı
+ortamdan ayrı olarak açıklanacaktır. Kullanılacak hizmetler bakımından
+aşağıdaki bilgiler nihai sürümde doldurulacaktır:
+
+| Hizmet / alıcı | İşlenen veya aktarılan veri | Amaç, işleme yeri ve varsa yurt dışı aktarım | Somut aktarım şartı ve sağlayıcının saklama koşulları |
+|---|---|---|---|
+| [Konuşmayı metne dönüştürme / tarayıcı konuşma hizmeti] | [Ses ve ilgili bilgiler] | [Doğrulanacak] | [Doğrulanacak] |
+| [Proje arka ucu / dil modeli / seslendirme hizmeti] | [Gerçekte gönderilecek işaret noktaları, gloss, metin veya diğer bilgiler] | [Doğrulanacak] | [Doğrulanacak] |
+| [Araştırma verisi saklama hizmeti, varsa] | [Saklanan araştırma verileri] | [Doğrulanacak] | [Doğrulanacak] |
+
+Kullanılmayacak satırlar çıkarılacak, başka alıcılar varsa eklenecektir.
+Bu taslak, herhangi bir yurt dışı aktarımın yapıldığını veya yapılmadığını
+kesinleştirmez; aktarım için genel bir rıza talep etmez.
+
+### B.4. Saklama, Güvenlik ve Silme
+
+| Veri grubu | Saklama yeri ve yetkili erişim | Saklama süresi / silme veya anonimleştirme zamanı |
+|---|---|---|
+| Kimlik, iletişim ve imzalı onam kayıtları | [Doğrulanacak; analiz verilerinden ayrı tutulacak] | [Süre, başlangıç olayı ve varsa zorunlu saklama gerekçesi] |
+| Uygunluk bilgileri ve katılımcı kodu eşleştirmesi | [Doğrulanacak] | [Doğrulanacak] |
+| Ölçümler, etkileşim kayıtları, anket ve görüşme yanıtları | [Doğrulanacak] | [Doğrulanacak] |
+| Araştırma ses/görüntü kayıtları, varsa | [Doğrulanacak] | [Doğrulanacak; yedek kopyalar dâhil] |
+| Sağlayıcı günlükleri, önbellekler ve diğer hizmet kayıtları, varsa | [Sağlayıcı bazında doğrulanacak] | [Sağlayıcı bazında doğrulanacak] |
+
+Önerilen önlemler: yetkilendirilmiş erişim, uygun parola ve şifreleme
+önlemleri, katılımcı kodları kullanılması, kimlik eşleştirmesinin ayrı
+tutulması ve belirlenen sürelerde silme. Uygulanacak önlemler veri
+yönetim planında kesinleştirilecektir.
+
+Katılımcı kodu kullanılması tek başına anonimleştirme değildir. Rapor
+ve sunumlarda kimliği belirlenemeyen toplulaştırılmış veya uygun biçimde
+anonimleştirilmiş sonuçlar kullanılacaktır. Bu form tanımlanabilir ses,
+görüntü veya kişisel bilgilerin kamuya açık demo, yayın ya da depoda
+paylaşılmasına izin vermez.
+
+### B.5. Haklarınız ve Başvuru
+
+KVKK kapsamındaki haklarınıza ilişkin nihai metin ve başvuru yöntemi
+kurumca doğrulanacaktır. Bunlar:
+
+- Verilerinizin işlenip işlenmediğini öğrenme.
+- İşlenmişse bilgi isteme.
+- İşleme amacını ve amaca uygun kullanımı öğrenme.
+- Verilerin aktarıldığı üçüncü kişileri bilme.
+- Eksik veya yanlış verilerin düzeltilmesini isteme.
+- Kanuni koşullarda silme veya yok etme talep etme.
+- İlgili düzeltme ve silme işlemlerinin alıcılara bildirilmesini isteme.
+- Yalnızca otomatik analizle aleyhinize oluşan sonuca itiraz etme.
+- Hukuka aykırı işleme nedeniyle zararın giderilmesini talep etme.
+
+**Başvuru kanalı, kimlik doğrulama yöntemi ve uygulanacak yanıt süreci:**
+[Kurumca doğrulanarak tamamlanacak].
+
+Açık rızaya dayalı işlemler için rızanızı [yöntem] üzerinden geri
+çekebilirsiniz. Geri çekmenin ileriye dönük etkisi, ilgili verilerin
+silinmesi ve varsa başka bir somut işleme şartına dayalı saklama
+yükümlülükleri nihai metinde açıkça belirtilecektir. Araştırmadan
+çekilme süreci Bölüm A.5'te ayrıca açıklanmıştır.
+
+### B.6. Aydınlatmanın Yapıldığına İlişkin Beyan
+
+Kişisel verilerimin işlenmesine ilişkin bu aydınlatma metni bana sunuldu
+ve anlayabileceğim biçimde açıklandı. Sorularımı sorma fırsatı buldum.
+Bu beyan, veri işlemeye açık rıza verdiğim anlamına gelmez.
+
+**Katılımcı** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+**Aydınlatmayı yapan kişi** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+---
+
+## Bölüm C — Kişisel Veri İşleme İçin Ayrı Açık Rıza Beyanı Taslağı
+
+> **Hazırlık notu:** Yalnızca somut işleme şartı açık rıza olarak belirlenen
+> faaliyetler bu bölümde yer alacaktır. Diğer işleme şartlarına dayanan
+> faaliyetler için ayrıca rıza talep edilmeyecektir. Aşağıdaki seçenekler
+> nihai protokole göre düzenlenecek; açıklanmamış amaç, veri veya hizmet
+> için rıza alınmayacaktır.
+
+Bölüm B'de açıklanan veri işleme faaliyetleri hakkında bilgilendirildim.
+Aşağıdaki her faaliyet için tercihimi ayrı olarak belirtiyorum.
+Araştırmaya katılım onamının ve aydınlatma beyanının bu tercihler
+yerine geçmediğini biliyorum.
+
+| Açık rızaya dayalı olduğu doğrulanırsa uygulanacak faaliyet | Rıza veriyorum | Rıza vermiyorum |
+|---|---|---|
+| [Belirtilen uygulama kullanım ve performans verilerimin, Bölüm B'de tanımlanan değerlendirme amacıyla işlenmesi] | [ ] | [ ] |
+| [Anket ve görüşme yanıtlarımın belirtilen değerlendirme amacıyla işlenmesi] | [ ] | [ ] |
+| [Uygunluk için zorunlu olduğu doğrulanan, açıkça listelenmiş işitme/engel durumuna ilişkin bilgilerimin belirtilen amaçla işlenmesi] | [ ] | [ ] |
+| [Araştırma oturumumun ses kaydının, açıklanan amaç ve koşullarla alınması ve işlenmesi; yalnızca kayıt planlanırsa] | [ ] | [ ] |
+| [Araştırma oturumumun görüntü kaydının, açıklanan amaç ve koşullarla alınması ve işlenmesi; yalnızca kayıt planlanırsa] | [ ] | [ ] |
+| [Uygulamanın anlık veri işlemesinde açık rıza gerektiren başka bir somut faaliyet varsa ayrı ve anlaşılır biçimde tanımlanacak] | [ ] | [ ] |
+
+Her satırda yalnızca bir seçenek işaretlenecektir. Boş bırakılan veya
+iki seçeneği birden işaretlenen satır için açık rıza verilmiş
+sayılmayacaktır.
+
+**Rıza verilmemesinin katılıma etkisi:**
+[Her uygulanacak faaliyet için açıkça belirtilecek. İsteğe bağlı kaydın
+reddi ile temel test işlemlerinin reddi ayrı açıklanacak; varsa kayıtsız
+alternatif belirtilecek].
+
+Bu beyan model eğitimi, açıklanmamış dış hizmetler, genel yurt dışı
+aktarım veya tanımlanabilir kayıtlarımın kamuya açık paylaşımı için
+izin oluşturmaz. Rızamı geri çekme yöntemini ve Bölüm A.5 ile B.5'te
+açıklanan süreci biliyorum.
+
+**Katılımcı** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+**Açıklamayı yapan araştırmacı** — Ad-soyad: __________________
+Tarih: __________ İmza: __________
+
+**Tercüman / tanık (varsa)** — Ad-soyad ve görev: __________________
+Tarih: __________ İmza: __________
+
+Nihai bilgilendirme metinlerinin ve imzaladığınız beyanların bir kopyası
+size verilecektir. Ekibin saklayacağı kopyalar Bölüm B'deki erişim ve
+saklama koşullarına tabi olacaktır.
