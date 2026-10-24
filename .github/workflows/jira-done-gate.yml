@@ -69,7 +69,7 @@ jobs:
                 // PR comment permissions can be restricted by event/repository policy.
                 // Reporting must never misrepresent a successful Jira transition.
                 core.warning('PR feedback unavailable (GitHub '+(e.status || 'API')+'): '+e.message);
-                core.summary.addHeading('Jira Done gate feedback').addRaw(message).write();
+                core.notice(message);
               }
             }
             if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
