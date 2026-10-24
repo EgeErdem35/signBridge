@@ -1,0 +1,162 @@
+name: Jira Done gate
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review, closed]
+    branches: [main]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: read
+  statuses: read
+  issues: write
+
+concurrency:
+  group: jira-done-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    # Never checkout or execute code from a pull request. Use only GitHub API and Jira API.
+    if: github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const prNumber = context.payload.pull_request.number;
+            const {data: pr} = await github.rest.pulls.get({owner, repo, pull_number:prNumber});
+            const issues = github.rest.issues;
+            const blockers = [];
+            const issueMatch = /^(story|task|bug)\/(SB-[1-9]\d*)$/.exec(pr.head.ref);
+            const issueKey = issueMatch?.[2];
+            const isMerged = pr.merged === true;
+            const onClosed = context.eventName === 'pull_request_target' && context.payload.action === 'closed';
+            const marker = '<!-- signbridge-jira-done-gate -->';
+            const jiraBase = (process.env.JIRA_BASE_URL || '').replace(/\/+$/, '');
+            const credsAvailable = Boolean(jiraBase && process.env.JIRA_EMAIL && process.env.JIRA_API_TOKEN);
+            const auth = credsAvailable
+              ? 'Basic ' + Buffer.from(process.env.JIRA_EMAIL + ':' + process.env.JIRA_API_TOKEN).toString('base64')
+              : '';
+            const jiraHeaders = {'Authorization':auth, 'Accept':'application/json', 'Content-Type':'application/json'};
+            async function jira(path, opts={}) {
+              const response = await fetch(jiraBase + path, { ...opts, headers:jiraHeaders });
+              if (!response.ok) throw new Error('Jira API '+response.status+' for '+path);
+              return response.status === 204 ? null : response.json();
+            }
+            // A stable, actionable PR comment. Identical messages are not repeated on each event.
+            async function feedback(message) {
+              const body = marker + '\n' + message;
+              const comments = await github.paginate(issues.listComments, {owner,repo,issue_number:prNumber,per_page:100});
+              const own = comments.filter(c => c.user?.type === 'Bot' && c.body?.startsWith(marker));
+              if (own.at(-1)?.body === body) return;
+              if (own.length) {
+                await issues.updateComment({owner,repo,comment_id:own.at(-1).id,body});
+              } else {
+                await issues.createComment({owner,repo,issue_number:prNumber,body});
+              }
+            }
+            if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
+            if (!issueMatch) blockers.push('Head branch must match exactly `story/SB-XX`, `task/SB-XX` or `bug/SB-XX` (no suffix).');
+            if (issueKey && !pr.title.includes(issueKey)) blockers.push('PR title must contain '+issueKey+'.');
+            if (issueKey && !pr.body?.includes('https://el-dili.atlassian.net/browse/' + issueKey))
+              blockers.push('PR description must link the corresponding Jira issue.');
+            if (!credsAvailable) blockers.push('Jira secrets not configured: JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN.');
+            let jiraIssue;
+            if (issueMatch && credsAvailable) {
+              try {
+                jiraIssue = await jira('/rest/api/3/issue/' + issueKey + '?fields=issuetype,status');
+                const actual = (jiraIssue.fields?.issuetype?.name || '').toLowerCase();
+                const allowed = {
+                  story:['story','hikaye'],
+                  task:['task','görev'],
+                  bug:['bug','hata']
+                }[issueMatch[1]];
+                if (!allowed.includes(actual)) blockers.push('Jira issue type "'+actual+'" does not match branch prefix "'+issueMatch[1]+'".');
+              } catch(e) { blockers.push('Could not verify Jira issue '+issueKey+': '+e.message); }
+            }
+            // Evaluate latest review per user: stale approvals and CHANGES_REQUESTED do not count.
+            const reviews = await github.paginate(github.rest.pulls.listReviews, {owner,repo,pull_number:prNumber,per_page:100});
+            const latest = new Map();
+            for (const r of reviews) {
+              if (r.user?.login && r.state !== 'PENDING') latest.set(r.user.login, r);
+            }
+            const peers = [...latest.values()].filter(r => r.user.login !== pr.user.login);
+            const approvals = peers.filter(r => r.state === 'APPROVED' && r.commit_id === pr.head.sha);
+            const rejections = peers.filter(r => r.state === 'CHANGES_REQUESTED');
+            if (!approvals.length) blockers.push('No independent APPROVED review for the latest PR head commit. Request an updated review.');
+            if (rejections.length) blockers.push('Unresolved CHANGES_REQUESTED reviews: '+rejections.map(r=>r.user.login).join(', ')+'.');
+            // All discussion threads must be resolved (limit protects against incomplete pagination).
+            try {
+              let cursor = null, hasNext = true, unresolved = 0, pages = 0;
+              while (hasNext && pages < 20) {
+                const q = await github.graphql(`query($owner:String!,$repo:String!,$n:Int!,$cursor:String) {
+                  repository(owner:$owner,name:$repo) {
+                    pullRequest(number:$n) { reviewThreads(first:100,after:$cursor) {
+                      nodes { isResolved }
+                      pageInfo { hasNextPage endCursor }
+                    } }
+                  }
+                }`, {owner,repo,n:prNumber,cursor});
+                const threads = q.repository.pullRequest.reviewThreads;
+                unresolved += threads.nodes.filter(t=>!t.isResolved).length;
+                hasNext = threads.pageInfo.hasNextPage;
+                cursor = threads.pageInfo.endCursor;
+                pages++;
+              }
+              if (hasNext) blockers.push('Review-thread count exceeds audit limit; manual verification required.');
+              if (unresolved) blockers.push(unresolved+' unresolved review discussion thread(s).');
+            } catch(e) { blockers.push('Could not check review thread resolution: '+e.message); }
+            // Check all non-gate statuses and checks for the exact head SHA.
+            try {
+              const runs = await github.paginate(github.rest.checks.listForRef, {owner,repo,ref:pr.head.sha,per_page:100});
+              for (const run of runs) {
+                // Prevent the current gate from waiting on itself; it is not the build/test suite.
+                if (run.name === 'gate' && run.app?.slug === 'github-actions') continue;
+                if (run.status !== 'completed') blockers.push('Check still pending: '+run.name);
+                else if (!['success','neutral','skipped'].includes(run.conclusion)) blockers.push('Check did not pass: '+run.name+' ('+run.conclusion+').');
+              }
+              const state = await github.rest.repos.getCombinedStatusForRef({owner,repo,ref:pr.head.sha});
+              if (state.data.state === 'failure' || state.data.state === 'pending')
+                blockers.push('Commit status is '+state.data.state+'.');
+              // GitHub branch protections enforce *which* checks are required. No required
+              // check configuration means there is no required check to invent or assume.
+            } catch(e) { blockers.push('Cannot verify commit check status: '+e.message); }
+            if (pr.draft) blockers.push('PR is still draft.');
+            if (!isMerged) blockers.push('PR has not been merged into main.');
+            if (onClosed && !isMerged) blockers.push('PR closed without merge.');
+            if (blockers.length) {
+              await feedback('### SB Jira Done gate — not completed\n\n'+blockers.map(x=>'- '+x).join('\n')+'\n\n**Jira was not transitioned.** Correct the above issues; merge a properly reviewed PR into `main`.');
+              core.info(blockers.join('\n'));
+              return;
+            }
+            // Prior to merge, only guidance is provided. This conditional is deliberately
+            // redundant with the blocker for clear fail-closed semantics.
+            if (!isMerged || !onClosed) return;
+            try {
+              if (jiraIssue.fields.status?.statusCategory?.key === 'done') {
+                await feedback('### SB Jira Done gate — already Done\n\n'+issueKey+' was already in a completed status; no duplicate transition performed.');
+                return;
+              }
+              const transitions = await jira('/rest/api/3/issue/'+issueKey+'/transitions');
+              const chosen = transitions.transitions?.find(t => t.to?.statusCategory?.key === 'done' && /^(done|tamam)$/i.test(t.to?.name || ''))
+                || transitions.transitions?.find(t => t.to?.statusCategory?.key === 'done');
+              if (!chosen) throw new Error('No available transition to a Done-category status.');
+              await jira('/rest/api/3/issue/'+issueKey+'/transitions', {
+                method:'POST',body:JSON.stringify({transition:{id:chosen.id}})
+              });
+              await feedback('### SB Jira Done gate — success\n\n'+issueKey+' was automatically transitioned to **'+chosen.to.name+'** after PR #'+prNumber+' was merged into main and all gates passed.');
+            } catch(e) {
+              await feedback('### SB Jira Done gate — Jira transition failed\n\n**Jira remains unchanged.** '+e.message+'\n\nCheck Jira user permissions, available workflow transitions and repository secrets.');
+              core.setFailed('Jira transition failed: '+e.message);
+            }
