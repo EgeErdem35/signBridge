@@ -53,14 +53,16 @@ The e-mail stated that participation will be voluntary, informed consent will be
 
 ## 5. Outcome
 
-No response was received from the disability support unit. Therefore, the fixed participant targets in the original proposal could not be confirmed.
+No response was received from the disability support unit. Therefore, the fixed participant targets in the original proposal could not be confirmed, and feasibility of target-user testing remains unconfirmed.
 
 ## 6. Decision
 
-- User testing will be conducted for all defined service scenarios under suitable simulated conditions.
-- If suitable Deaf/hard-of-hearing or blind volunteers can be reached during the project, user testing will also be carried out with them.
+- User testing will be conducted for all defined service scenarios under suitable simulated conditions. These pre-tests are intended to identify system behaviour and interface issues; they do not replace validation with target users.
+- Any pre-test involving participants will be carried out only after the applicable ethics approval has been obtained and informed consent has been collected, consistent with SB-18 R6.
+- If suitable Deaf/hard-of-hearing volunteers can be reached during the project, user testing will also be carried out with them.
+- The scope of blind-user features and their evaluation remains subject to the team/advisor decision recorded as D-23 in SB-18 R6. Reaching blind volunteers does not imply that the corresponding MVP scope is already agreed.
 - Participant numbers, distribution and sampling for any target-user testing will be agreed with the advisor before testing.
-- The proposal's O7 objective has been revised accordingly.
+- The O7 objective has been revised accordingly in the proposal draft under review in PR #16 (SB-18 R6); this does not represent final advisor acceptance.
 
 ## 7. Privacy Note
 
