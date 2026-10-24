@@ -11,7 +11,7 @@ This Action **does not merge PRs**. Merge is still a separate authorized action,
 ## Event flow
 
 - `pull_request_target` on opened, reopened, synchronize, ready_for_review and closed; plus `pull_request_review` submitted or dismissed.
-- No PR code is checked out or executed. The trusted workflow accesses GitHub REST/GraphQL APIs and the Atlassian Jira API only.
+- The workflow itself performs **no PR code checkout or execution**; it calls GitHub APIs and Jira APIs. **Security caveat:** `pull_request_review` runs in a different security context from `pull_request_target`; review events associated with same-repository branches can expose repository secrets to a modified workflow file. Keep workflow edits strictly protected by independent review and branch access controls. Prefer a dedicated least-privilege Jira service account long-term; the project owner has explicitly elected to use their Jira account for the initial rollout and accepts that actions will be attributed to that account. This consent does not eliminate the need to avoid untrusted PR code or protect secrets.
 - On open/review: checks criteria, posts (or edits) an explanatory bot PR comment on violations and **fails the gate check**; otherwise leaves Jira unchanged.
 - On PR closed-and-merged: rechecks all criteria; if every condition passes, calls Jira's issue transition API to move the issue to Done. If anything fails, **Jira stays unchanged** and a PR comment explains why.
 - A PR closed without merge is never completed in Jira.
@@ -23,7 +23,7 @@ This Action **does not merge PRs**. Merge is still a separate authorized action,
 3. PR title contains the correct SB key, and PR body includes its Jira issue URL.
 4. At least one **independent reviewer approval on the latest head commit**; the latest review per reviewer must not be `CHANGES_REQUESTED`.
 5. No unresolved inline review discussion threads.
-6. All observable checks on the exact head SHA are completed successfully (or neutral/skipped); failing/pending commit statuses block closure. GitHub branch-protection rules determine which checks are mandatory; configure those explicitly.
+6. All observable checks on the exact head SHA are completed successfully (or neutral/skipped); failing/pending **existing** commit statuses block closure; zero GitHub commit statuses are not treated as pending. `COMMENTED` review events do not supersede an approval or change request. GitHub branch-protection rules determine which checks are mandatory; configure those explicitly.
 7. PR is not a draft and **is merged to main** before Jira Done.
 8. Jira API confirms an available transition to a Done-category status; current Done issues are not transitioned twice.
 
@@ -36,21 +36,27 @@ At **GitHub → repository Settings → Secrets and variables → Actions**, add
 | Secret | Purpose |
 |---|---|
 | `JIRA_BASE_URL` | `https://el-dili.atlassian.net` (site base URL, without `/wiki`) |
-| `JIRA_EMAIL` | Email of a designated **authorized Jira automation account** |
-| `JIRA_API_TOKEN` | API token for that account, with read issue / transition issue permissions |
+| `JIRA_EMAIL` | Email of the authorized Jira account (owner's personal account for initial rollout by their explicit choice; a dedicated automation account remains the safer long-term option) |
+| `JIRA_API_TOKEN` | API token for that Jira account, with permissions to browse SB issues and perform allowed transitions |
 
-**Never** put the API token or actual credentials in the repository, PR body, chat, build output, or Confluence. Rotate/revoke the token if exposed. The Jira account must be permitted to browse and transition all in-scope SB issues.
+**Never** put the API token or actual credentials in the repository, PR body, chat, build output, or Confluence. Rotate/revoke the token if exposed. The chosen Jira account must be permitted to browse and transition all in-scope SB issues. API actions will be attributed to that account; the owner should periodically audit Jira history and rotate the token, and can later replace the secrets with a dedicated account.
 
 At **Settings → Actions → General**, allow this workflow and ensure the GitHub token has the **Issues: write** permission it needs for feedback. Organizations may restrict the default token or workflow use; adjust repository action permissions according to organizational policy.
 
 At **Settings → Rules → Rulesets**, or **Settings → Branches → Branch protection rule** for `main`, configure where your repo plan permits:
 - Require a PR before merging, with **at least one approving review**.
-- Dismiss stale approvals on new commits.
+- **Mandatory:** Dismiss stale approvals on new commits (the gate demands an approval on the exact head SHA). Also enable approval of the most recent reviewable push where supported.
 - Require all conversations resolved.
 - Require status checks to pass: include **`gate` (Jira Done gate)** once it has run, plus your CI/test checks.
 - Prohibit direct pushes and force pushes to `main` and prevent bypasses by ordinary contributors.
 
 **Important:** There may be plan or private-repo limitations on enforcement; document any unimplemented protection requirement explicitly. The Action itself is not a substitute for branch protection.
+
+## Recovery and failure modes
+
+If a merged PR's final gate run cannot transition Jira to Done (temporary Jira outage, permission issue, missing required transition fields or a fixable validation problem), correct the issue and use **GitHub → Actions → Jira Done gate → the closed/merged workflow run → Re-run jobs**. It fetches the current PR and Jira state and is safe to rerun. Never manually alter Jira to hide a failing gate; resolve the reported issue first. Some Jira Done transitions require a screen field (for example Resolution); if a transition returns HTTP 400, configure the workflow transition or add the required field only after confirming its value with the Jira administrator.
+
+A required `gate` status check should be enabled **only after its run appears in GitHub**, and the deployment must be tested after PR #18 is merged into main.
 
 ## Verification / rollout plan
 
@@ -63,10 +69,6 @@ At **Settings → Rules → Rulesets**, or **Settings → Branches → Branch pr
 7. Test idempotence by re-running the workflow on an already completed issue; it must not perform a second transition.
 
 **Deployment caveat:** No live end-to-end GitHub-to-Jira automation can be claimed verified until repository secrets, GitHub rules and independent merge/testing are completed.
-
-## Relationship with existing SB-25 reminder
-
-A previous **ChatGPT hourly watch for SB-25** remains separate from this repo-wide action. After the new action is tested and confirmed operational, disable the older watch to avoid redundant actions.
 
 ## Related resources
 
