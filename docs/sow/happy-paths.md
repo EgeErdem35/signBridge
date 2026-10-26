@@ -3,7 +3,7 @@
 **Project:** SignBridge-TR (İşaret Köprüsü)
 **SoW template section:** Happy Paths of the User Personas
 **Jira:** [SB-23 — Statement of Work – Happy Paths for User Personas](https://el-dili.atlassian.net/browse/SB-23) (depends on [SB-22](https://el-dili.atlassian.net/browse/SB-22), SoW skeleton)
-**Status:** Draft for team review · 24 October 2026 · revised 25 October 2026 after the first review · prepared by Barış Hansu. Not yet reviewed by the team or approved by the advisor. The Statement of Work is due on 13 November 2026.
+**Status:** Draft for team review · 24 October 2026 · revised 25 October 2026 after the review comments on PR #22 · prepared by Barış Hansu. Not yet approved by the team or the advisor. The Statement of Work is due on 13 November 2026.
 **Sources:** [Project Proposal v1.1 (PDF)](../SignBridge-TR_Project_Proposal.pdf) · [SB-8 scope companion](../SB-8_Project_Proposal_and_Scope.md) · [Supporting Technical Notes](../SB-18_Supporting_Technical_Notes.md) (Figure 2 wireframes, latency events) · [Instructor Feedback and Team Review Matrix](../SB-18_Instructor_Feedback_Matrix.md) · [Ethics and data flows](../ETHICS.md) · Sprint 2 Technical Meeting (20 October 2026, Topic 3)
 
 ## 1. Purpose
@@ -17,7 +17,7 @@ The high-level functionalities that these paths require, their use cases and the
 1. **Only the successful scenario is shown.** Failures (a sign is not recognised, speech is misheard, no network, a word is missing from the avatar library) are handled in the use cases of SB-24, not here.
 2. **Only MVP functions are used**, as SB-23 requires (the point was raised in the Sprint 2 Technical Meeting). The functions are listed in the table below, with their source in the proposal. Blind-specific features are not an agreed MVP commitment (open decision D-23). Therefore the primary path of the blind persona (HP-3) uses only MVP functions, and the independent blind-user flow is kept apart as the **proposal HP-3P**, whose steps use the proposed features PX1–PX3.
 3. **Two controls separate input from output** in every sign-to-speech flow, as the proposal requires (functional requirement 3): the signer ends the sign sequence with an accessible **Done** control (a longer pause is an alternative, Technical Notes §4), and then **confirms or edits** the generated sentence before it is spoken.
-4. **Gloss examples are illustrative, not confirmed signs.** No gloss in this document has passed the coverage audit yet. The table below separates what a class-name comparison with AUTSL found from what has not been checked at all. A name match does not prove that the Dataset sign is the intended TİD sign. The single *saat* class does not cover numbers or clock times. The avatar side (Direction B) uses the team's own clip library, which is separate from the Dataset vocabulary and has not been produced or validated yet. The scenario dialogues are fixed only after the coverage audit (before 13 November 2026) and may be shortened or replaced.
+4. **Gloss examples are illustrative, not confirmed signs.** No gloss in this document has passed the coverage audit yet. The table below separates what a class-name comparison with the 226 AUTSL classes found from what is not among them. A name match does not prove that the Dataset sign is the intended TİD sign. The single *saat* class does not cover numbers or clock times. The avatar side (Direction B) uses the team's own clip library, which is separate from the Dataset vocabulary and has not been produced or validated yet. The scenario dialogues are fixed only after the coverage audit (before 13 November 2026) and may be shortened or replaced.
 5. **Labels are in English for readability.** The final interface will be in Turkish. In the flow tables, **S1, S2, …** refer to the numbered screens of that path's storyboard; some steps show their result on the next screen.
 6. **Raw camera video is processed on the device and is neither stored nor sent by the application** (objective O8). Landmarks are also processed on the device; they would be sent to the project back-end only if server-assisted classification is selected, which is undecided. Microphone audio, glosses and Turkish text may be processed by external speech, language-model or text-to-speech services, depending on the providers that are chosen later. These data flows are defined in [ETHICS.md](../ETHICS.md), section 4; the paths below do not depend on any of these choices.
 7. **Healthcare scenarios make no claim of correctness.** HP-1 and HP-2 take place in healthcare settings. They show the intended flow only. They do not claim that medical information is communicated correctly or that misunderstandings are removed; that depends on validated vocabulary, validated avatar signs and measured system performance (O1, O4, O5, O7), and is tested in the usability study. The health professional remains responsible for checking that the message was understood.
@@ -27,9 +27,9 @@ The high-level functionalities that these paths require, their use cases and the
 | Path | Signed input (Direction A) | Status |
 |---|---|---|
 | HP-1 | HASTANE, DOKTOR, YARDIM | Found by class-name match in AUTSL; coverage audit pending |
-| HP-2 | İLAÇ, YARIN, Mİ | İLAÇ and YARIN found by class-name match; Mİ not checked; coverage audit pending |
-| HP-3 | YARIN, OKUL, BULUŞMAK, Mİ | YARIN and OKUL found by class-name match; BULUŞMAK and Mİ not checked; coverage audit pending |
-| HP-4 | ÇAY, BİR, SİMİT, LÜTFEN | **Illustrative only.** No gloss is confirmed, not even by a name match |
+| HP-2 | İLAÇ, YARIN, Mİ | İLAÇ and YARIN found by class-name match; Mİ **not found** among the 226 classes; coverage audit pending |
+| HP-3 | YARIN, OKUL, BULUŞMAK, Mİ | YARIN and OKUL found by class-name match; BULUŞMAK and Mİ **not found** (classes that exist and could replace them after the audit: *beraber, arkadas, nerede, saat, olur, tamam*) |
+| HP-4 | ÇAY, BİR, SİMİT, LÜTFEN | **Illustrative.** ÇAY found by class-name match; BİR, SİMİT and LÜTFEN **not found** (existing classes that fit a café order: *cay, rica_etmek, tesekkur, para, seker, sut, bardak*); coverage audit pending |
 
 ### MVP functions used by the happy paths
 
@@ -84,7 +84,7 @@ No new targets are set here. The measures below are the existing objectives, and
 | 1 | Ayşe opens the app, places the phone on the desk and taps **Two-way conversation**. | Shows the home screen with the four modes, opens two-way mode and starts the camera preview. | MF1, MF10, MF12 | S1 |
 | 2 | Ayşe signs her request (*HASTANE, DOKTOR, YARDIM*), pausing briefly between signs. | Extracts landmarks on the device, recognises each isolated sign after its pause and lists the glosses live. | MF2, MF3 | S2 |
 | 3 | Ayşe taps **Done**. | Ends the sign sequence, builds the Turkish sentence from the glosses and shows it in large text with **Speak** and **Edit**. | MF4, MF5 | S3 |
-| 4 | Ayşe checks the sentence and taps **Speak**. | Reads *"Doktor kaydı için yardım eder misiniz?"* aloud to the clerk and keeps it on screen; **Repeat** is available. | MF5, MF6 | S4 |
+| 4 | Ayşe checks the sentence and taps **Speak**. | Reads *"Hastanede doktor için yardım istiyorum."* aloud to the clerk and keeps it on screen; **Repeat** is available. | MF5, MF6 | S4 |
 | 5 | The clerk answers aloud: *"Kaydınız tamam. Doktor sizi çağıracak."* | Switches to listening, shows a live transcript and, when the speech ends, sends it on. | MF7, MF10 | S5 |
 | 6 | Ayşe watches the avatar. | Converts the sentence into a gloss sequence from the library and plays the clips with a caption; Ayşe can replay or change the speed. | MF8, MF9 | S6 |
 | 7 | Ayşe takes a seat in the waiting area. | Flow ends. | – | S7 |
@@ -215,7 +215,7 @@ No new targets are set here. The measures below are the existing objectives, and
 | 5 | Can taps **Save to Quick phrases**. | Stores the sentence on the device and shows it at the top of the Quick phrases list. | MF11 | S5–S6 |
 | 6 | *Next visit:* Can opens **Quick phrases** and taps the saved phrase. | Speaks the phrase at once, without the camera step. | MF11, MF6 | S7 |
 
-*The glosses of this path are illustrative only. No word of the café order is confirmed, neither by the coverage audit nor by the class-name match (see the vocabulary table in section 2). The scenario is rephrased after the audit if the words are not covered.*
+*The glosses of this path are illustrative. Only ÇAY is found by the class-name match; BİR, SİMİT and LÜTFEN are not among the 226 AUTSL classes (see the vocabulary table in section 2). No gloss is confirmed by the coverage audit. The scenario is rephrased after the audit with covered glosses.*
 
 **Outcome:** Can gets his order right the first time and hears the barista's reply directly. His order is saved for one-tap reuse.
 
@@ -253,7 +253,7 @@ Not shown on any path: the fingerspelling fallback for words that are not in the
 | 1 | **Blind-user scope (D-23)** | HP-3 is the MVP-compatible mediated flow (Emre operates the device, Zeynep speaks and listens). The independent blind-user flow with PX1–PX3 is kept apart as the proposal HP-3P and is dropped if D-23 narrows the scope. | Team, then advisor |
 | 2 | **Confirm before speaking** | Every sign-to-speech flow has Done and confirm/edit (functional requirement 3, Technical Notes §4). Figure 2 (a) and (b) in the Technical Notes show the sentence spoken directly, so those wireframes would need to be updated if the team agrees. | Team |
 | 3 | **When speech is sent to the avatar** | Sent automatically when the speech ends. Figure 2 (a) says "Auto-sent" and (b) shows a **Send to avatar** button; the two differ. | Team |
-| 4 | **Vocabulary** | Glosses are illustrative and none is confirmed by the coverage audit yet. HP-1 to HP-3 use mainly classes found by a name match; HP-4 (ÇAY, BİR, SİMİT, LÜTFEN) has none (see the vocabulary table in section 2). If the audit shows that a sign is missing, the scenario sentence is rephrased with covered glosses. | Owner of the coverage audit |
+| 4 | **Vocabulary** | Glosses are illustrative and none is confirmed by the coverage audit yet. HP-1 to HP-3 use mainly classes found by a name match; HP-4 has only ÇAY (BİR, SİMİT and LÜTFEN are not among the classes), and BULUŞMAK and Mİ of HP-3 are not found either (see the vocabulary table in section 2). If the audit shows that a sign is missing, the scenario sentence is rephrased with covered glosses. | Owner of the coverage audit |
 | 5 | **Quick phrases (HP-4)** | Saving is an explicit user action, and phrases are stored on the device only. The proposal says only "saved quick phrases". | Team, together with the privacy decisions (data-flow table) |
 | 6 | **Figure 2 (d) items not carried over** | The persona need "a voice he chose" has no matching functional requirement, so a default voice is used. Confirming the sentence by signing TAMAM is not used; confirmation is by tap only. | Team |
 | 7 | **VoiceOver on a shared phone (HP-3P)** | In the proposal, the signer uses the controls of the blind user's phone with VoiceOver on (tap, then double-tap). If this proves impractical, the signer's side needs a view without VoiceOver gestures, or HP-3P is dropped. | Team, together with D-23 |
