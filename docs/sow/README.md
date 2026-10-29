@@ -31,4 +31,5 @@ Dependencies: SB-22 (this skeleton) must be completed before SB-23 and SB-24. SB
 ## Files
 
 - `happy-paths.md` and `happy-paths/`: SB-23 (Happy Paths of the User Personas).
+- `SB-24.md`: SB-24 (Scope of Work, use cases, complexity and acceptance criteria).
 - Further files are added by the responsible issues as they are completed.
