@@ -41,8 +41,12 @@ jobs:
             // Review readiness changes without a new commit SHA. Keep it advisory
             // before merge, so old failed check runs cannot pin the PR red.
             const reviewBlockers = [];
-            const issueMatch = /^(story|task|bug)\/(SB-[1-9]\d*)$/.exec(pr.head.ref);
-            const issueKey = issueMatch?.[2];
+            // Existing PRs opened before the issue-only naming policy took effect.
+            const legacyBranches = new Set(['task/SB-44', 'task/SB-45']);
+            const legacyMatch = legacyBranches.has(pr.head.ref)
+              ? /^(task)\/(SB-[1-9]\d*)$/.exec(pr.head.ref)
+              : null;
+            const issueKey = /^(SB-[1-9]\d*)$/.exec(pr.head.ref)?.[1] ?? legacyMatch?.[2];
             const isMerged = pr.merged === true;
             const onClosed = context.eventName === 'pull_request_target' && context.payload.action === 'closed';
             const marker = '<!-- signbridge-jira-done-gate -->';
@@ -77,22 +81,19 @@ jobs:
               }
             }
             if (pr.base.ref !== 'main') blockers.push('PR target must be `main`.');
-            if (!issueMatch) blockers.push('Head branch must match exactly `story/SB-XX`, `task/SB-XX` or `bug/SB-XX` (no suffix).');
+            if (!issueKey) blockers.push('Head branch must match the exact Jira issue key `SB-XX`.');
             if (issueKey && !(new RegExp(issueKey + '(?!\\d)')).test(pr.title)) blockers.push('PR title must contain '+issueKey+'.');
             if (issueKey && !(new RegExp('/browse/' + issueKey + '(?!\\d)')).test(pr.body || '') )
               blockers.push('PR description must link the corresponding Jira issue.');
             if (!credsAvailable) blockers.push('Jira secrets not configured: JIRA_BASE_URL, JIRA_EMAIL, JIRA_API_TOKEN.');
             let jiraIssue;
-            if (issueMatch && credsAvailable) {
+            if (issueKey && credsAvailable) {
               try {
                 jiraIssue = await jira('/rest/api/3/issue/' + issueKey + '?fields=issuetype,status');
-                const actual = (jiraIssue.fields?.issuetype?.name || '').toLowerCase();
-                const allowed = {
-                  story:['story','hikaye'],
-                  task:['task','görev'],
-                  bug:['bug','hata']
-                }[issueMatch[1]];
-                if (!allowed.includes(actual)) blockers.push('Jira issue type "'+actual+'" does not match branch prefix "'+issueMatch[1]+'".');
+                if (legacyMatch) {
+                  const actual = (jiraIssue.fields?.issuetype?.name || '').toLowerCase();
+                  if (!['task', 'görev'].includes(actual)) blockers.push('Jira issue type "'+actual+'" does not match the legacy task branch.');
+                }
               } catch(e) { blockers.push('Could not verify Jira issue '+issueKey+': '+e.message); }
             }
             // Evaluate latest review per user: stale approvals and CHANGES_REQUESTED do not count.
