@@ -139,7 +139,7 @@ The `frontend/` and `backend/` folders are **placeholders**, not runnable applic
 
 Follow the [repository branching strategy](docs/BRANCHING.md) and the course Handbook:
 
-1. Create or select a Jira issue and work in `story/SB-XX`, `task/SB-XX` or `bug/SB-XX`, matching the Jira issue type.
+1. Create or select a Jira issue and use its exact Jira key as the branch name (for example, `SB-46`).
 2. Open a focused PR to `main` with the issue key and Jira link; keep documentation and evidence up to date.
 3. Obtain an **independent review on the latest commit**, resolve any requested changes and review discussions, and satisfy the required checks.
 4. Merge using the protected **squash-and-merge** process. The GitHub Actions workflow then verifies the merged PR and may transition the matching Jira issue to **Done**. Do not bypass checks or assume a PR is ready solely because its structural `gate` is green.
