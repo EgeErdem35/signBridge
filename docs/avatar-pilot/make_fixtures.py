@@ -70,27 +70,28 @@ mesh.parent = rig
 skin = mesh.modifiers.new("Hand skin", "ARMATURE")
 skin.object = rig
 
-scene = bpy.context.scene
-scene.render.fps = 24
-scene.frame_start, scene.frame_end = 1, 49
-for fixture, fingers in (("index-curl", ("index",)), ("four-finger-curl", FINGERS)):
-    rig.animation_data_clear()
-    for action in list(bpy.data.actions):
-        bpy.data.actions.remove(action)
-    for name in FINGERS:
-        for segment, angle in (("base", -1.05), ("tip", -0.75)):
-            joint = rig.pose.bones[f"{name}_{segment}"]
-            joint.rotation_mode = "XYZ"
-            for frame in (1, 25, 49):
-                joint.rotation_euler.x = angle if frame == 25 and name in fingers else 0
-                joint.keyframe_insert(data_path="rotation_euler", frame=frame)
-    rig.animation_data.action.name = fixture
-    scene.frame_set(1)
-    bpy.ops.export_scene.gltf(
-        filepath=str(OUTPUT / f"{fixture}.glb"),
-        export_format="GLB",
-        export_animation_mode="ACTIONS",
-        export_frame_range=True,
-        export_anim_slide_to_zero=True,
-        export_frame_step=1,
-    )
+if __name__ == "__main__":
+    scene = bpy.context.scene
+    scene.render.fps = 24
+    scene.frame_start, scene.frame_end = 1, 49
+    for fixture, fingers in (("index-curl", ("index",)), ("four-finger-curl", FINGERS)):
+        rig.animation_data_clear()
+        for action in list(bpy.data.actions):
+            bpy.data.actions.remove(action)
+        for name in FINGERS:
+            for segment, angle in (("base", -1.05), ("tip", -0.75)):
+                joint = rig.pose.bones[f"{name}_{segment}"]
+                joint.rotation_mode = "XYZ"
+                for frame in (1, 25, 49):
+                    joint.rotation_euler.x = angle if frame == 25 and name in fingers else 0
+                    joint.keyframe_insert(data_path="rotation_euler", frame=frame)
+        rig.animation_data.action.name = fixture
+        scene.frame_set(1)
+        bpy.ops.export_scene.gltf(
+            filepath=str(OUTPUT / f"{fixture}.glb"),
+            export_format="GLB",
+            export_animation_mode="ACTIONS",
+            export_frame_range=True,
+            export_anim_slide_to_zero=True,
+            export_frame_step=1,
+        )

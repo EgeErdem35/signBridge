@@ -45,8 +45,21 @@ async function loadFixture() {
     const [clip] = gltf.animations
     if (!clip) throw new Error('Animation clip missing')
     const mixer = new THREE.AnimationMixer(gltf.scene)
-    mixer.clipAction(clip).play()
+    const action = mixer.clipAction(clip)
+    if (fixture.startsWith('tid-')) {
+      action.setLoop(THREE.LoopOnce, 1)
+      action.clampWhenFinished = true
+    }
+    action.play()
     if (id !== request) return
+    const isTid = fixture.startsWith('tid-')
+    if (isTid) {
+      camera.position.set(0, 1.7, 7.4)
+      camera.lookAt(0, 1.7, 0)
+    } else {
+      camera.position.set(2.2, -2.1, 2.7)
+      camera.lookAt(0, 0, -0.8)
+    }
     current = { model: gltf.scene, mixer, clip }
     scene.add(current.model)
     mixer.setTime(0)
@@ -58,9 +71,19 @@ async function loadFixture() {
 }
 
 selector.addEventListener('change', loadFixture)
-play.addEventListener('click', () => { playing = !playing })
+play.addEventListener('click', () => {
+  const action = current.mixer.existingAction(current.clip)
+  if (action.paused) {
+    action.reset().play()
+    current.mixer.setTime(0)
+    playing = true
+  } else {
+    playing = !playing
+  }
+})
 midpoint.addEventListener('click', () => {
   playing = false
+  current.mixer.existingAction(current.clip).reset().play()
   current.mixer.setTime(current.clip.duration / 2)
 })
 

@@ -36,3 +36,36 @@ for (const [fixture, movingJoints] of [
   }
   console.log(`PASS ${fixture} · ${clip.duration.toFixed(2)} s · ${observed.join(', ')}`)
 }
+
+for (const fixture of ['tid-many', 'tid-maternal-aunt']) {
+  const bytes = await readFile(new URL(`./${fixture}.glb`, import.meta.url))
+  const { scene, animations } = await new GLTFLoader().parseAsync(new Uint8Array(bytes).buffer, '')
+  assert.equal(animations.length, 1)
+  const [clip] = animations
+  assert.equal(clip.name, fixture)
+  assert.equal(clip.duration, 1.5)
+  assert.ok(scene.getObjectByName('Head'))
+  const hand = scene.getObjectByName('SyntheticHand')
+  assert.ok(hand)
+  const index = scene.getObjectByName('index_base')
+  const ring = scene.getObjectByName('ring_base')
+  const mixer = new AnimationMixer(scene)
+  mixer.clipAction(clip).play()
+  mixer.setTime(0)
+  const initialLocation = hand.position.clone()
+  const initialIndex = index.quaternion.clone()
+  const initialRing = ring.quaternion.clone()
+  mixer.setTime(1.25)
+  if (fixture === 'tid-many') {
+    assert.ok(hand.position.distanceTo(initialLocation) < 0.1)
+    assert.ok(index.quaternion.angleTo(initialIndex) > 0.3)
+    assert.ok(ring.quaternion.angleTo(initialRing) > 0.3)
+  } else {
+    assert.ok(initialLocation.x < -0.4)
+    assert.ok(hand.position.x > 0.4)
+    assert.ok(index.quaternion.angleTo(initialIndex) < 0.01)
+    assert.ok(ring.quaternion.angleTo(initialRing) < 0.01)
+    assert.ok(index.quaternion.angleTo(ring.quaternion) > 0.7)
+  }
+  console.log(`PASS ${fixture} · ${clip.duration.toFixed(2)} s · reference feature checks`)
+}
