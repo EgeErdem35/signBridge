@@ -18,7 +18,8 @@ Name each branch using only the Jira issue type and exact Jira issue ID (for exa
 3. Describe the changes and how they were tested.
 4. Request at least one teammate review; the author should not approve their own PR.
 5. Address review feedback and ensure required checks pass before merging.
-6. Prefer squash merges to keep the main history readable, and delete merged branches.
+6. Prefer squash merges to keep the main history readable.
+7. Keep merged Jira issue branches in GitHub, including after squash merges, as evidence for SE4910 evaluation. Keep the repository's **Automatically delete head branches** setting disabled.
 
 ## Proposed GitHub protection settings for `main`
 
