@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>SignBridge · SB-40 avatar pilot</title>
+<style>
+  body { background: #132126; color: #eef9f8; font: 16px system-ui; max-width: 600px; margin: 40px auto; }
+  canvas { display: block; margin-top: 16px; max-width: 100%; }
+  label, button { margin-right: 10px; }
+  #status { min-height: 1.5em; }
+</style>
+<h1>SB-40 · Hand playback pilot</h1>
+<p>Select a synthetic fixture or a TİD reference approximation, then play or inspect its midpoint.</p>
+<label>Fixture
+  <select id="fixture">
+    <option value="index-curl">Index curl</option>
+    <option value="four-finger-curl">Four-finger curl</option>
+    <option value="tid-many">TİD · Çok (reference approximation)</option>
+    <option value="tid-maternal-aunt">TİD · Teyze (reference approximation)</option>
+  </select>
+</label>
+<button id="play" disabled>Play / pause</button>
+<button id="midpoint" disabled>Midpoint</button>
+<p id="status" role="status">Loading…</p>
+<div id="viewport"></div>
+<script type="importmap">
+{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}
+</script>
+<script type="module" src="./viewer.js"></script>
+</html>
