@@ -18,8 +18,8 @@ This Action **does not merge PRs**. Merge is still a separate authorized action,
 
 ## Criteria validated
 
-1. PR base is `main`; source branch exactly `story/SB-123`, `task/SB-123`, or `bug/SB-123`, without suffix.
-2. Jira issue exists and its **actual issue type** matches the branch prefix. Turkish and English type names are supported.
+1. The PR targets `main` and its source branch is the exact Jira key, such as `SB-46`. The already-open `task/SB-44` and migration branch `task/SB-45` are the only exceptions.
+2. The Jira issue exists. For the two legacy branches, Jira must report a task (`Task` or `Görev`).
 3. PR title contains the correct SB key, and PR body includes its Jira issue URL.
 4. At least one **independent reviewer approval on the latest head commit**; the latest review per reviewer must not be `CHANGES_REQUESTED`.
 5. No unresolved inline review discussion threads.
@@ -67,7 +67,7 @@ The `gate` status check was configured as required in the `main-branch-protectio
 3. Confirm that missing approval produces an **advisory `review pending` comment while the structural `gate` passes**. GitHub's independent-review branch rule must still block merge, and Jira must not change.
 4. Obtain fresh independent approval; resolve review threads; confirm any required tests pass.
 5. Merge the PR to `main`. Check that a new Action run transitions the correct test Jira issue to Done and leaves other issues untouched.
-6. Open a PR with a wrong prefix/issue type or a failing required check; confirm **no Done transition**, appropriate feedback and no permitted merge when branch rules are enabled.
+6. Open a PR with an invalid branch name or a mismatched issue type on a legacy branch or a failing required check; confirm **no Done transition**, appropriate feedback and no permitted merge when branch rules are enabled.
 7. Test idempotence by re-running the workflow on an already completed issue; it must not perform a second transition.
 
 **Verification caveat:** SB-28 is Done following merged PR #19 and a bot success comment was reported; nevertheless the required-check ruleset must be tested on a new PR, and both positive and negative gate cases recorded. Passing a single merged PR is not proof of every rejection scenario.
