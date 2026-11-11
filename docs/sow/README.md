@@ -19,7 +19,7 @@ This folder holds the repository part of the SignBridge-TR Statement of Work. Th
 | 9 | Use-case Point Complexity (T1–T13) | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Source: Project Proposal v1.1 (Table 7, p. 9); at least 2 factors marked "Yes", justified |
 | 10 | Applicable standards | Sprint 3 | |
 | 11 | Acceptance criteria | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Measurable: frame rate, response time, WCAG 2.2 AA, screen sizes; SB-38 adds the verification mapping in §4.6 of `SB-24.md` |
-| 12 | Special requirements | Sprint 3 | Derived from the acceptance criteria |
+| 12 | Special requirements | [SB-41](https://el-dili.atlassian.net/browse/SB-41) | [Technical requirements and dependencies](SB-41.md), based on the SB-38 verification mapping and SB-40 pilot |
 | 13 | Economic effects | Sprint 3 | |
 | 14 | Manufacturability, Productivity and Sustainability | Sprint 3 | |
 | 15 | Ethical, Health and Safety Issues | Sprint 3 | Source material: SB-9 (`docs/ETHICS.md`, consent forms), SB-19 |
@@ -32,4 +32,5 @@ Dependencies: SB-22 (this skeleton) must be completed before SB-23 and SB-24. SB
 
 - `happy-paths.md` and `happy-paths/`: SB-23 (Happy Paths of the User Personas).
 - `SB-24.md`: SB-24 (Scope of Work, use cases, complexity and acceptance criteria), extended by SB-38 with acceptance verification mapping.
+- `SB-41.md`: SB-41 (Special requirements and technical dependencies).
 - Further files are added by the responsible issues as they are completed.
