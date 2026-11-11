@@ -15,8 +15,8 @@
 >
 > The guidance was given verbally and has not been confirmed in writing.
 > It has not yet been shared with the advisor. Until the advisor has
-> reviewed it, the conditions in [ETHICS.md](ETHICS.md) remain the project's
-> working position.
+> reviewed it, [ETHICS.md](ETHICS.md) remains the project's working policy.
+> Nothing in this record removes or relaxes an ETHICS.md requirement.
 
 ## 2. Scope of Questions
 
@@ -44,22 +44,24 @@ Both contacts were in person. No written response was received.
 All points below are verbal guidance from the Head of the Software
 Engineering Department. They are recorded as understood by the attendee and
 are conditional on the project remaining academic and non-commercial.
+They are not current project policy; the requirements in ETHICS.md continue
+to apply until the advisor has reviewed this guidance.
 
 ### A. Existing dataset use
 
 - For an academic, non-commercial project, no ethics committee application
   was indicated as necessary for using AUTSL.
 - Showing sample frames publicly was not specifically addressed. The AUTSL
-  licence terms still apply (see open item 6).
+  licence terms still apply (see open item 7).
 
 ### B. Participant evaluation
 
 - If volunteers (including Deaf users) only use the application, with no
   experiment and no personal data collection, no ethics committee
   application was indicated as necessary.
-- Participants must sign an information form and a KVKK notice stating that
-  camera image and audio are used during the session but are not stored by
-  the project's system.
+- The guidance stated that participants must sign an information form and a
+  KVKK notice stating that camera image and audio are used during the
+  session but are not stored by the project's system.
 
 ### C. Supplementary collection
 
@@ -75,26 +77,27 @@ are conditional on the project remaining academic and non-commercial.
 
 | Topic | Classification | Reason / condition |
 |---|---|---|
-| AUTSL for training and internal experiments | Can proceed now | Consistent with the verbal guidance and with existing SB-16 access. Licence terms continue to apply. |
-| AUTSL sample frames in public reports or demos | Needs confirmation before acting | Licence terms must be checked first (open item 6). |
-| Usability testing with volunteers | Needs confirmation before acting | Requires the information + KVKK notice form (open item 3), the anonymous feedback design (open item 2) and advisor review of this guidance (open item 1). ETHICS.md currently requires ethics approval before participant tests (open item 8). |
-| "Not stored" claim in participant information | Needs confirmation before acting | Holds only if speech-to-text runs on the device or the external provider also does not store data (open item 4). |
+| AUTSL for training and internal experiments | Can proceed under current ETHICS.md conditions | Uses existing SB-16 access. The ETHICS.md conditions for existing datasets still apply: check licence terms, permitted processing and citation requirements; confirm any institutional requirements for secondary use with the advisor; check the applicable terms before processing or sharing dataset materials, derived landmarks or animations. Access does not by itself permit redistribution of source recordings, derived landmarks or animations. The verbal guidance does not remove any of these conditions. |
+| AUTSL sample frames in public reports or demos | Needs confirmation before acting | Licence terms must be checked first (open item 7). |
+| Usability testing with volunteers | Needs confirmation before acting | Requires the information + KVKK notice form (open item 4), the agreed privacy constraint (open item 2), the final evaluation protocol, which is still pending (open item 3), and advisor review of this guidance (open item 1). Under ETHICS.md, no participant test begins before applicable ethics approval and informed consent (open item 9). |
+| "Not stored" claim in participant information | Needs confirmation before acting | Holds only if speech-to-text runs on the device or the external provider also does not store data (open item 5). |
 | External services (audio, text, landmarks) | Needs confirmation before acting | Question not answered. To be resolved under SB-37 and with the advisor. |
-| Supplementary recordings (including team members) | Referred unit: Head of the Software Engineering Department | Must be consulted before any recording (open item 5). |
-| Any change to the academic/non-commercial status | Referred unit: Head of the Software Engineering Department | All guidance above depends on this status (open item 7). |
+| Supplementary recordings (including team members) | Referred unit: Head of the Software Engineering Department | Must be consulted before any recording (open item 6). Consultation is not the only prerequisite: any supplementary recording also remains subject to the ETHICS.md protocol requirements of advisor agreement, applicable ethics approval, informed consent and data-use arrangements. |
+| Any change to the academic/non-commercial status | Referred unit: Head of the Software Engineering Department | All guidance above depends on this status (open item 8). |
 
 ## 6. Open Items
 
 | # | Item | Owner | Status |
 |---|---|---|---|
 | 1 | Share the consultation outcome with the advisor at the next meeting. | Emir Ersan | Pending |
-| 2 | Limit usability feedback to anonymous, non-identifying data: task completion, difficulty, 1–5 satisfaction and a free comment. No names, no stored video/audio, no disability status linked to a person and no combinable demographics. | Team | Decided |
-| 3 | Adapt the SB-9 consent drafts into an information + KVKK notice form (TR/EN). To be tracked as a follow-up issue before the Spring 2027 usability test. | Emir Ersan | Pending (follow-up issue) |
-| 4 | Decide on on-device or external speech-to-text. If external, the "not stored" claim must also hold for the third party. Linked to the SB-37 data-flow policy. | Team | Pending |
-| 5 | Consult the Department Head before any supplementary recording, including recordings of team members. | Team | Conditional (only if recordings are needed) |
-| 6 | Check the AUTSL licence terms before showing sample frames publicly. | Team | Pending |
-| 7 | Re-consult if the project stops being academic and non-commercial. | Team | Noted |
-| 8 | ETHICS.md requires ethics approval before participant tests; reconcile with the Department Head's verbal guidance after the advisor's view. | Emir Ersan | Pending |
+| 2 | Privacy constraint for usability feedback: anonymous and non-identifying; no names, no stored video/audio, no disability status linked to a person and no combinable demographics. Free-text responses: participants are told not to include names or identifying details; any identifying detail that appears is removed before the response is stored; free text is never linked to a person. | Team | Agreed (privacy constraint only) |
+| 3 | Final evaluation protocol and metrics. Task completion, difficulty, 1–5 satisfaction and a free comment are proposed only; ETHICS.md also lists SUS questionnaires and interviews as possible measures. | Team | Pending (to be finalised with the advisor under ETHICS.md) |
+| 4 | Adapt the SB-9 consent drafts into an information + KVKK notice form (TR/EN). To be tracked as a follow-up issue before the Spring 2027 usability test. | Emir Ersan | Pending (follow-up issue) |
+| 5 | Decide on on-device or external speech-to-text. If external, the "not stored" claim must also hold for the third party. Linked to the SB-37 data-flow policy. | Team | Pending |
+| 6 | Consult the Department Head before any supplementary recording, including recordings of team members. Consultation is not the only prerequisite: any supplementary recording also remains subject to the ETHICS.md protocol requirements of advisor agreement, applicable ethics approval, informed consent and data-use arrangements. | Team | Conditional (only if recordings are needed) |
+| 7 | Check the AUTSL licence terms before showing sample frames publicly. | Team | Pending |
+| 8 | Re-consult if the project stops being academic and non-commercial. | Team | Noted |
+| 9 | ETHICS.md requires ethics approval before participant tests; reconcile with the Department Head's verbal guidance after the advisor's view. | Emir Ersan | Pending |
 
 Pending responses:
 
