@@ -18,7 +18,7 @@ This folder holds the repository part of the SignBridge-TR Statement of Work. Th
 | 8 | Low Level Functionalities | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Use cases and Use Case diagrams |
 | 9 | Use-case Point Complexity (T1–T13) | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Source: Project Proposal v1.1 (Table 7, p. 9); at least 2 factors marked "Yes", justified |
 | 10 | Applicable standards | Sprint 3 | |
-| 11 | Acceptance criteria | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Measurable: frame rate, response time, WCAG 2.2 AA, screen sizes |
+| 11 | Acceptance criteria | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Measurable: frame rate, response time, WCAG 2.2 AA, screen sizes; SB-38 adds the verification mapping in §4.6 of `SB-24.md` |
 | 12 | Special requirements | Sprint 3 | Derived from the acceptance criteria |
 | 13 | Economic effects | Sprint 3 | |
 | 14 | Manufacturability, Productivity and Sustainability | Sprint 3 | |
@@ -26,10 +26,10 @@ This folder holds the repository part of the SignBridge-TR Statement of Work. Th
 | 16 | Social, Legal and Political Effects | Sprint 3 | |
 | 17 | References | Sprint 3 | Collected from all sections; literature review references in `docs/literature-review/references.bib` |
 
-Dependencies: SB-22 (this skeleton) must be completed before SB-23 and SB-24. SB-24 builds on the function IDs (MF1–MF12 and the proposed PX1–PX3) of the happy paths.
+Dependencies: SB-22 (this skeleton) must be completed before SB-23 and SB-24. SB-24 builds on the function IDs (MF1–MF12 and the proposed PX1–PX3) of the happy paths. SB-38 extends the SB-24 acceptance criteria with a verification mapping; see §4.6 in `SB-24.md`.
 
 ## Files
 
 - `happy-paths.md` and `happy-paths/`: SB-23 (Happy Paths of the User Personas).
-- `SB-24.md`: SB-24 (Scope of Work, use cases, complexity and acceptance criteria).
+- `SB-24.md`: SB-24 (Scope of Work, use cases, complexity and acceptance criteria), extended by SB-38 with acceptance verification mapping.
 - Further files are added by the responsible issues as they are completed.
