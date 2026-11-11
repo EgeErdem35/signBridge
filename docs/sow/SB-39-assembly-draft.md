@@ -4,7 +4,7 @@
 
 **Working version:** SB-39 assembly draft · 11 November 2026
 
-**Status:** Working draft assembled from merged SoW section sources. Whole-team review, final PDF verification, Confluence publication and submission evidence are intentionally outside this draft.
+**Status:** Working draft assembled from merged SoW section sources. No rendered PDF is attached. Whole-team review, final PDF verification, Confluence publication and submission evidence are intentionally outside this draft.
 
 
 
@@ -28,13 +28,13 @@ The baseline uses on-device camera processing and a prepared animation library r
 
 ## 2. Literature Review
 
-### 1.1 Scope and basis
+### Scope and basis
 
 This section summarises the literature that supports the choice of method for SignBridge-TR: how recognition models for Turkish Sign Language (TİD) compare, what their evidence does and does not show, and what follows for the project. It is a synthesis of the full review SB-13 v2.1 [2], which is on `main` under `docs/literature-review/`. SB-13 is a targeted narrative review, not a systematic review, and its source audit was carried out on 15 October 2026. SB-42 does not repeat the search: source details are taken from SB-13 and were not re-retrieved for this section. No new training, benchmark or user study is reported; every figure below is a number reported by a source or a target set by the proposal.
 
 The scope is the one fixed in the proposal [1]: a pause-separated, vocabulary-bounded recognition of isolated signs, with a constrained conversion between glosses and Turkish sentences. Unrestricted continuous TİD translation is outside the scope and is discussed here only to explain limits.
 
-### 1.2 Approaches compared
+### Approaches compared
 
 Recognition, translation and segmentation are different tasks. Isolated recognition predicts a gloss from a bounded sign clip; continuous recognition predicts a gloss sequence from an unsegmented stream; translation produces a spoken-language sentence [3], [4]. A recognition score therefore says nothing about translation quality.
 
@@ -62,7 +62,7 @@ Recognition, translation and segmentation are different tasks. Isolated recognit
 
 These numbers favour graph models in that experiment. They are not SignBridge measurements and do not establish a universal ranking. Classifier timing in the same study was measured on a different dataset (INCLUDE) and a server CPU, and it is not browser or end-to-end latency, so accuracy and timing must not be combined into one comparison [2].
 
-### 1.3 Implications for the selected method
+### Implications for the selected method
 
 1. **Scope stays isolated and pause-separated.** The literature shows that segmentation of natural signing and sentence-level TİD translation are open problems [16], [14]. The MVP therefore keeps its pauses and its vocabulary bound, as the proposal states [1].
 2. **The model is chosen by measurement, not by citation.** The evidence supports comparing a recurrent baseline, a lightweight Transformer and a graph network on identical landmarks, vocabulary and signer-independent splits. It does not justify fixing a winner in advance. The proposal plans exactly this comparison, uses validation data for selection and uses the test split once; H1 names the Transformer but states that the final model is chosen by comparison with baselines and a graph network [1].
@@ -72,7 +72,7 @@ These numbers favour graph models in that experiment. They are not SignBridge me
 6. **Direction B has limited literature support.** Turkish → TİD evidence is limited to rule-based or hybrid work [18] and linguistic descriptions [17]; the rule layer needs review by TİD references or experts, and the avatar clip library is a separate asset from the recognition vocabulary [1].
 7. **Targets are not literature results.** The ≥85% top-1, ≥15 fps and latency targets belong to the proposal [1]; the literature gives context for them but no guarantee.
 
-### 1.4 Currency check of SB-13 against Proposal v1.1 R6
+### Currency check of SB-13 against Proposal v1.1 R6
 
 SB-13 compared its recommendations with the nine-page proposal v1.0 (SB-13 §11). The table checks each row against the current v1.1 R6 [1], [23].
 
@@ -112,7 +112,7 @@ The last row is recorded as inconsistency C-1 in section 4. The SoW text in this
 
 These are targets set in the proposal, not results. The pending team/advisor scope decision on blind-specific features may affect O6 and O7, so blind-specific flows and the criteria that depend on them remain open until it is made. Simulated pre-test results alone do not verify usability for target users. The avatar-library target is separate from the number of AUTSL recognition classes. [1]
 
-The intended social contribution aligns most directly with **SDG 10, Reduced Inequalities**, particularly target 10.2 on inclusion irrespective of disability: the project seeks to reduce a communication barrier in short service and everyday exchanges. It also aligns indirectly with **SDG 4, Quality Education**, target 4.5, through more accessible exchanges between classmates and educators; **SDG 8, Decent Work and Economic Growth**, target 8.5, through communication that may support workplace participation; and **SDG 3, Good Health and Well-being**, target 3.8, through communication at healthcare service interfaces. These are intended contributions, not measured improvements in education, employment or health. Healthcare examples do not establish clinical safety or replace professional interpretation where required. [25]–[28]
+The intended social contribution aligns most directly with **SDG 10, Reduced Inequalities**, particularly target 10.2 on inclusion irrespective of disability: the project seeks to reduce a communication barrier in short service and everyday exchanges [25]. It also aligns indirectly with **SDG 4, Quality Education**, target 4.5, through more accessible exchanges between classmates and educators [26]; **SDG 8, Decent Work and Economic Growth**, target 8.5, through communication that may support workplace participation [27]; and **SDG 3, Good Health and Well-being**, target 3.8, through communication at healthcare service interfaces [28]. These are intended contributions, not measured improvements in education, employment or health. Healthcare examples do not establish clinical safety or replace professional interpretation where required.
 
 ---
 
@@ -120,11 +120,11 @@ The intended social contribution aligns most directly with **SDG 10, Reduced Ine
 
 ## 4. User Personas of the Product
 
-### 2.1 Target audience
+### Target audience
 
 The proposal expects three main user groups: Deaf and hard-of-hearing people who use TİD; speech-impaired people who hear but communicate in TİD; and blind or low-vision people who need to talk to a TİD user. Hearing people who do not know TİD (hospital and municipal staff, pharmacists, teachers, classmates, family) are users on the other side of the conversation. Users differ in age and comfort with technology, so the interface has to work without training. The four personas below are taken from Table 3 of the proposal [1] and are fictional.
 
-### 2.2 Personas
+### Personas
 
 | Persona | Profile | Situation and challenges | What the persona needs to do | Scope status |
 |---|---|---|---|---|
@@ -133,7 +133,7 @@ The proposal expects three main user groups: Deaf and hard-of-hearing people who
 | **Zeynep Arslan** (blind student) | 21, female, Ankara. Third-year psychology student. Totally blind since childhood; very good with VoiceOver; hearing | In the same project group as her Deaf classmate Emre; they can text to plan, but face to face they can only talk through a friend who knows a little TİD. Camera apps assume the camera is aimed correctly, many apps work poorly with screen readers, and she cannot tell whether Emre is in frame or whether her message got through | Use the whole app by voice or with a screen reader; get spoken framing guidance; hear what Emre signs; know that her spoken reply was shown to Emre | **HP-3 (mediated; Emre operates the device) is in MVP scope.** Only the independent flow (HP-3P; PX1 to PX3) is **proposed, scope pending (D-23)** |
 | **Can Demir** (speech-impaired, uses TİD) | 28, male, Bursa. Warehouse technician. Hears well but cannot speak because of a congenital speech disorder; learned TİD at a special-education school | At a café, shop or bus terminal he types what he wants and shows it; in a busy queue this is too slow and people answer before he finishes. Typing takes time, people do not read notes, text-to-speech apps want typed text | Have what he signs read out at once, in a voice he chose, after checking the sentence before it is spoken; save frequent sentences and reuse them with one tap | In MVP scope (HP-4); the vocabulary of the example is illustrative (see 2.3) |
 
-### 2.3 Unresolved decisions that the personas preserve
+### Unresolved decisions that the personas preserve
 
 - **D-23, blind-user scope.** Whether the independent blind-user features (in-app voice commands, spoken framing guidance, spoken delivery confirmation; PX1 to PX3) are part of the MVP is not decided. Only the independent flow HP-3P and PX1 to PX3 are marked as proposed; the mediated classroom flow HP-3 is an MVP scenario, as in the merged SB-38 verification mapping (SB-24 section 4.6, criteria 11, 16 and 17). If D-23 narrows the scope, HP-3P is dropped and HP-3 remains unchanged [29], [30]. General accessibility (keyboard, readable text, captions, screen-reader support) stays in scope for everyone.
 - **Vocabulary and coverage audit.** The glosses used in the happy paths are illustrative. A class-name match with the 226 AUTSL classes shows that HASTANE, DOKTOR, YARDIM, İLAÇ, YARIN, OKUL and ÇAY exist and that BİR, SİMİT, LÜTFEN, BULUŞMAK and Mİ do not; a name match does not prove that the intended TİD sign is covered [29]. Scenario sentences are fixed only after the coverage audit, which the proposal schedules before 13 November 2026 [1]. The instructor feedback and team review matrix lists the audit as not yet run (item F-3) [31], and I found no audit result in the other repository documents reviewed for this issue.
@@ -150,7 +150,7 @@ This section turns the four persona scenarios of the proposal into happy paths: 
 
 The high-level functionalities that these paths require, their use cases and their measurable acceptance criteria are defined in the next SoW sections ([SB-24](https://el-dili.atlassian.net/browse/SB-24)). This document therefore refers to MVP functions by short IDs (MF1–MF12) so that SB-24 can build on them.
 
-### 2. Ground rules
+### Ground rules
 
 1. **Only the successful scenario is shown.** Failures (a sign is not recognised, speech is misheard, no network, a word is missing from the avatar library) are handled in the use cases of SB-24, not here.
 2. **Only MVP functions are used**, as SB-23 requires (the point was raised in the Sprint 2 Technical Meeting). The functions are listed in the table below, with their source in the proposal. Blind-specific features are not an agreed MVP commitment (open decision D-23). Therefore the primary path of the blind persona (HP-3) uses only MVP functions, and the independent blind-user flow is kept apart as the **proposal HP-3P**, whose steps use the proposed features PX1–PX3.
@@ -203,7 +203,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ---
 
-### 3. HP-1 · Ayşe Yılmaz – registration at a hospital desk
+### HP-1 · Ayşe Yılmaz – registration at a hospital desk
 
 **Persona:** Ayşe Yılmaz, 34, graphic designer, Deaf from birth; TİD is her first language and she reads Turkish at a basic level ([Table 3](../SignBridge-TR_Project_Proposal.pdf)).
 **Goal:** Register for her appointment at the hospital desk without waiting for an interpreter.
@@ -236,7 +236,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ---
 
-### 4. HP-2 · Mehmet Kaya – explaining a dosage at a pharmacy counter
+### HP-2 · Mehmet Kaya – explaining a dosage at a pharmacy counter
 
 **Persona:** Mehmet Kaya, 52, pharmacist with his own neighbourhood pharmacy in Konya; hearing, does not know TİD, moderate technology skills.
 **Goal:** Explain to a Deaf customer how a medicine is taken, without written notes.
@@ -269,7 +269,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ---
 
-### 5. HP-3 · Zeynep Arslan – planning a group assignment with a Deaf classmate
+### HP-3 · Zeynep Arslan – planning a group assignment with a Deaf classmate
 
 **Persona:** Zeynep Arslan, 21, third-year psychology student, totally blind since childhood, very good with VoiceOver, hearing. Her Deaf classmate Emre is in the same project group.
 **Goal:** Agree with Emre on a time and place for the group assignment, without a third person.
@@ -299,7 +299,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ![HP-3 Zeynep – storyboard](happy-paths/hp3-zeynep.png)
 
-#### 5.1 HP-3P · Independent blind-user flow (PROPOSED)
+#### HP-3P · Independent blind-user flow (PROPOSED)
 
 > **PROPOSAL, NOT PART OF THE MVP.** Blind-specific features (PX1–PX3) are not an agreed MVP commitment; the team preference and the advisor decision are open (D-23). This flow is kept so that the decision can be made with a concrete example: it shows Zeynep using the application on her own phone. Steps that depend on a proposed feature are marked **PROPOSED**. If D-23 narrows the scope, HP-3P is dropped and HP-3 remains unchanged.
 
@@ -330,7 +330,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ---
 
-### 6. HP-4 · Can Demir – ordering at a busy café
+### HP-4 · Can Demir – ordering at a busy café
 
 **Persona:** Can Demir, 28, warehouse technician in Bursa; hears well but cannot speak because of a congenital speech disorder; learned TİD at a special-education school.
 **Goal:** Order for himself at a busy counter and be understood the first time.
@@ -364,7 +364,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 ---
 
-### 7. Coverage of MVP functions
+### Coverage of MVP functions
 
 | Function | HP-1 Ayşe | HP-2 Mehmet | HP-3 Zeynep | HP-3P Zeynep (proposal) | HP-4 Can |
 |---|:---:|:---:|:---:|:---:|:---:|
@@ -384,7 +384,7 @@ No new targets are set here. The measures below are the existing objectives, and
 
 Not shown on any path: the fingerspelling fallback for words that are not in the avatar library (functional requirement 5), and the stand-alone **Voice → Sign** mode, which shares MF7–MF9 with the voice half of the two-way mode (HP-1, HP-2). Both are exceptional or alternative flows for the use cases of SB-24.
 
-### 8. Open points for team review
+### Open points for team review
 
 | # | Point | What this document assumes | Decision needed from |
 |---|---|---|---|
@@ -396,7 +396,7 @@ Not shown on any path: the fingerspelling fallback for words that are not in the
 | 6 | **Figure 2 (d) items not carried over** | The persona need "a voice he chose" has no matching functional requirement, so a default voice is used. Confirming the sentence by signing TAMAM is not used; confirmation is by tap only. | Team |
 | 7 | **VoiceOver on a shared phone (HP-3P)** | In the proposal, the signer uses the controls of the blind user's phone with VoiceOver on (tap, then double-tap). If this proves impractical, the signer's side needs a view without VoiceOver gestures, or HP-3P is dropped. | Team, together with D-23 |
 
-### 9. Traceability
+### Traceability
 
 | Item | Where |
 |---|---|
@@ -414,7 +414,7 @@ Not shown on any path: the fingerspelling fallback for words that are not in the
 
 The Scope of Work for SignBridge-TR is built directly from the project proposal and the happy-path functions described in SB-23. The MVP focuses on a browser-based PWA that supports short, practical communication between Turkish Sign Language (TİD) users and Turkish speakers, using constrained vocabulary and defined use scenarios.
 
-### 1.1 Core deliverables
+### Core deliverables
 
 1. Application launch and mode selection
    - The application is installed as a PWA and can be launched from the home-screen icon.
@@ -457,7 +457,7 @@ The Scope of Work for SignBridge-TR is built directly from the project proposal 
    - The user can save a frequent sentence and reuse it with a single action.
    - Quick phrases support efficiency in repeated scenarios such as café ordering or common task requests.
 
-### 1.2 Out-of-scope / not part of agreed MVP
+### Out-of-scope / not part of agreed MVP
 
 The following items are excluded from the current MVP unless explicitly approved:
 
@@ -589,7 +589,7 @@ This schedule lists what SignBridge-TR will deliver and when. It follows the cou
 
 The low-level functionality is derived from the happy paths and the function IDs MF1–MF12, plus the optional PX1–PX3 items for the blind-user proposal path.
 
-### 2.1 MVP functions
+### MVP functions
 
 | ID | Function | Source / basis |
 |---|---|---|
@@ -609,7 +609,7 @@ The low-level functionality is derived from the happy paths and the function IDs
 | PX2 | Proposed spoken framing guidance (proposed path) | Proposed accessibility extension |
 | PX3 | Proposed spoken delivery confirmation / haptic support (proposed path) | Proposed accessibility extension |
 
-### 2.2 Use cases
+### Use cases
 
 | Use case ID | Use case | Trigger | Related functions |
 |---|---|---|---|
@@ -641,7 +641,7 @@ Each use case shall specify: preconditions, normal flow, success result, and err
 - UC-11 (Use the system with keyboard and screen reader): Precondition: the user has entered the interface with keyboard or assistive technology. Normal flow: all controls are focused, announced, and executable via keyboard or screen-reader commands. Success: the user can complete main flows without pointer-only interaction. Error flow: if a control is inaccessible or a screen-reader announcement is missing, the app provides a visible status update and the user can continue using keyboard navigation.
 - UC-12 (Proposed blind-user flow): Precondition: the proposed blind-user path (see D-23 note above) is approved. Normal flow: screen-reader, voice command, and confirmation cues guide the user. Success: the blind user can complete the flow without requiring a sighted operator. Error flow: if voice actions or screen-reader output are unavailable, the system falls back to keyboard or touch alternatives and informs the user.
 
-### 2.3 Use case diagram
+### Use case diagram
 
 ```mermaid
 flowchart LR
@@ -683,7 +683,7 @@ flowchart LR
 
 This is a use-case view rather than a process flow: actors interact with the SignBridge-TR system, while the use cases represent the functional behaviour required by the proposal. The blind-user path remains proposed until the scope decision is formally confirmed.
 
-### 2.4 Exception and failure-handling use cases
+### Exception and failure-handling use cases
 
 The proposal, happy paths and review notes define the following failure cases to be handled by the SoW and eventual product design:
 
@@ -773,7 +773,7 @@ Full citations for GDPR, WAI-ARIA and the ISO/ISO/IEC standards remain to be ver
 
 The acceptance criteria below are derived from the proposal objectives O1–O8, and they must be measurable in the final evaluation plan. Each criterion is tied to a requirement or objective in the proposal and must be traceable to the relevant system function.
 
-### 4.1 Recognition and quality targets
+### Recognition and quality targets
 
 1. Recognition quality (O1)
    - The MVP vocabulary shall be evaluated on a signer-independent split.
@@ -796,7 +796,7 @@ The acceptance criteria below are derived from the proposal objectives O1–O8, 
    - The 300-sign target remains a feasibility target for the avatar workstream; its final viability is not yet validated and is therefore not treated as a passed requirement until the pilot and advisor review in the relevant avatar work item (SB-25).
    - If suitable TİD participants cannot be reached, the O4 result is reported as not measured / not verified and is not treated as a passed criterion.
 
-### 4.2 Performance and timing
+### Performance and timing
 
 5. Sign-to-speech latency
    - The median time from the end of the last sign to the start of spoken output shall be ≤ 2.0 s.
@@ -815,7 +815,7 @@ The acceptance criteria below are derived from the proposal objectives O1–O8, 
    - The PWA shall work without clipped or inaccessible controls at 360 px, 768 px and 1280 px widths.
    - Supported devices are determined by the device benchmark described in Technical Notes §3.
 
-### 4.3 Privacy, accessibility and interaction
+### Privacy, accessibility and interaction
 
 9. Raw-video privacy
    - Raw camera video shall never leave the device.
@@ -841,7 +841,7 @@ The acceptance criteria below are derived from the proposal objectives O1–O8, 
    - If the correct item cannot be produced in the current library or the fallback cannot be shown, the system shall display a clear user-facing message stating that the current library cannot produce that item and the user can continue with a manual correction or retry path.
    - This fallback shall be documented as part of the alternative flow for the Turkish → TİD direction and is not replaced by a failure message alone.
 
-### 4.4 Usability and evaluation measures
+### Usability and evaluation measures
 
 14. Task completion rate
    - The system shall achieve at least 80% task completion in the evaluated scenario set.
@@ -856,7 +856,7 @@ The acceptance criteria below are derived from the proposal objectives O1–O8, 
    - The flow shall be evaluated under the defined service scenarios and reported separately if simulated conditions are used.
    - The two-stage usability evaluation requires a pre-test phase under simulated conditions and, where suitable participants can be reached, a second target-user evaluation. If target users are not available, the stage is reported as not measured / not verified.
 
-### 4.5 Proposed blind-user path
+### Proposed blind-user path
 
 17. Proposed extension condition
    - The independent blind-user flow with PX1–PX3 is a proposed extension, not part of the approved MVP, unless the proposed blind-user path is formally approved (see D-23 note above).
@@ -864,7 +864,7 @@ The acceptance criteria below are derived from the proposal objectives O1–O8, 
    - If not approved, the flow is excluded from the core acceptance criteria and from the mandatory MVP deliverables.
    - The scope of the proposed blind-user path is limited to the blind-specific independent-user features and does not cover continuous TİD translation or fully generative avatar output.
 
-### 4.6 Acceptance verification mapping
+### Acceptance verification mapping
 
 The mapping below defines how each criterion is checked without changing its proposal target. Record the test date, build/model or service version, device and browser, sample count, result, and evidence location with each run where applicable. These are planned verification procedures, not test results. A target with no evidence remains **not measured / not verified**; it must not be reported as passed. Where the proposal leaves a test source, participant availability, or scope decision open, report that limitation rather than substituting an unapproved condition.
 
@@ -1185,4 +1185,6 @@ Numbers follow **order of first citation** in the SoW section order of `docs/sow
 [50] C. Bilgenoğlu, "SB-33: SoW introduction and project aim," SignBridge-TR repository, `docs/sow/SB-33.md`, Nov. 2026. Internal project document.
 [51] SignBridge Team, "SB-15: MediaPipe Holistic feasibility and data structure evaluation," SignBridge-TR repository, `docs/MEDIAPIPE_EVAL.md`. Internal project document.
 [52] SignBridge Team, "SB-14: TİD gloss and lexicon schema design," §9 open decisions, SignBridge-TR repository, `docs/SB-14_TID_Gloss_and_Lexicon_Schema_Design.pdf`. Internal project document.
-[53] Y. Malgir, "SB-35: SoW economic effects and manufacturability, productivity and sustainability," SignBridge-TR repository, `docs/sow/SB-35.md`, Nov. 2026. Internal project document. are the SB-43 first pass; [47]–[40] add sources identified by SB-35 and SB-37. This is a working combined list, not a final citation-order audit. The original standards list does not supply complete editions/citations for GDPR, WAI-ARIA and the ISO/ISO/IEC standards; those entries remain to be verified. Incomplete publication details for [4], [6], [8], [11], [15], [20], [22], [24], [31], [32] and [43] are not guessed.
+[53] Y. Malgir, "SB-35: SoW economic effects and manufacturability, productivity and sustainability," SignBridge-TR repository, `docs/sow/SB-35.md`, Nov. 2026. Internal project document.
+
+**Reference status:** Entries [1]–[31] come from the SB-43 first pass; entries [32]–[53] add sources identified by SB-35 and SB-37. The combined list follows first citation in the assembled SoW, but remains a working consolidation. Complete standards citations for GDPR, WAI-ARIA and the ISO/ISO/IEC standards are still to be verified. Incomplete publication details for [4], [6], [8], [11], [15], [20], [22], [24], [31], [32] and [43] are not guessed.
