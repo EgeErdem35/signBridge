@@ -20,8 +20,8 @@ This folder holds the repository part of the SignBridge-TR Statement of Work. Th
 | 10 | Applicable standards | Sprint 3 | |
 | 11 | Acceptance criteria | [SB-24](https://el-dili.atlassian.net/browse/SB-24) | Measurable: frame rate, response time, WCAG 2.2 AA, screen sizes; SB-38 adds the verification mapping in §4.6 of `SB-24.md` |
 | 12 | Special requirements | [SB-41](https://el-dili.atlassian.net/browse/SB-41) | [Technical requirements and dependencies](SB-41.md), based on the SB-38 verification mapping and SB-40 pilot |
-| 13 | Economic effects | Sprint 3 | |
-| 14 | Manufacturability, Productivity and Sustainability | Sprint 3 | |
+| 13 | Economic effects | [SB-35](https://el-dili.atlassian.net/browse/SB-35) | [Economic effects](SB-35.md#economic-effects) |
+| 14 | Manufacturability, Productivity and Sustainability | [SB-35](https://el-dili.atlassian.net/browse/SB-35) | [Manufacturability, Productivity and Sustainability](SB-35.md#manufacturability-productivity-and-sustainability) |
 | 15 | Ethical, Health and Safety Issues | Sprint 3 | Source material: SB-9 (`docs/ETHICS.md`, consent forms), SB-19 |
 | 16 | Social, Legal and Political Effects | Sprint 3 | |
 | 17 | References | Sprint 3 | Collected from all sections; literature review references in `docs/literature-review/references.bib` |
