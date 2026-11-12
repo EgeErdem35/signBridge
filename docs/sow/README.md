@@ -34,4 +34,5 @@ Dependencies: SB-22 (this skeleton) must be completed before SB-23 and SB-24. SB
 - `SB-24.md`: SB-24 (Scope of Work, use cases, complexity and acceptance criteria), extended by SB-38 with acceptance verification mapping.
 - `SB-41.md`: SB-41 (Special requirements and technical dependencies).
 - `SB-34.md`, `SB-34-gantt.svg`, `SB-34-gantt.png` and `SB-34-gantt.py`: SB-34 (Schedule of Deliverables and sprint-aligned Gantt chart; the script generates the tables and the chart from one date list).
+- `SB-39-assembly-draft.md`: SB-39 working assembly of the 17 SoW sections from the section-owner documents; references remain provisional pending the full SB-43 audit.
 - Further files are added by the responsible issues as they are completed.
